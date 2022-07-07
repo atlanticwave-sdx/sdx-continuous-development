@@ -1,0 +1,141 @@
+name: Build container images
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build-images:
+
+    runs-on:
+      - ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        python-version:
+          - "3.9"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # See https://github.com/marketplace/actions/setup-python
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # See https://github.com/marketplace/actions/cache
+      - name: Get pip cache dir
+        id: pip-cache
+        run: |
+          echo "::set-output name=dir::$(pip cache dir)"
+
+      - name: Set up pip cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.cfg') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install podman [Ubuntu]
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt install podman
+
+      - name: Install podman [macOS]
+        if: matrix.os == 'macos-latest'
+        run: brew install podman
+
+      - name: Install podman-compose
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install podman-compose
+
+      - name: Print podman system connection
+        run: podman system connection list
+
+      - name: Set up podman virtual machine [macOS]
+        if: matrix.os == 'macos-latest'
+        run: |
+          echo "====== Running: podman machine init ======"
+          podman machine init
+
+          echo "====== Running: podman machine start ======"
+          podman machine start
+
+          echo "====== Running: podman machine list ======"
+          podman machine list
+
+          echo "====== Running: podman system connection list ======"
+          podman system connection list
+
+      - name: Print podman info
+        run: podman info --debug
+
+      - name: Print versions
+        run: |
+          echo "====== Running: podman version ======"
+          podman version
+
+      - name: Build Debian base image
+        run: |
+          echo "Running: podman build -f ./os_base/debian_base/Dockerfile -t debian_base ."
+          podman build -f ./os_base/debian_base/Dockerfile -t debian_base .
+
+      - name: Build Ubuntu base image
+        run: |
+          echo "Running: podman build -f ./os_base/ubuntu_base/Dockerfile -t ubuntu_base ."
+          podman build -f ./os_base/ubuntu_base/Dockerfile -t ubuntu_base .
+
+      - name: Build mininet image
+        run: |
+          echo "Running: podman build -f ./container-mininet/Dockerfile -t mininet ."
+          podman build -f ./container-mininet/Dockerfile -t mininet .
+
+      - name: Build amlight image
+        run: |
+          echo "Running: podman build -f ./container-amlight/Dockerfile -t amlight ."
+          podman build -f ./container-amlight/Dockerfile -t amlight .
+
+      - name: Build sax image
+        run: |
+          echo "Running: podman build -f ./container-sax/Dockerfile -t sax ."
+          podman build -f ./container-sax/Dockerfile -t sax .
+
+      - name: Build tenet image
+        run: |
+          echo "Running: podman build -f ./container-tenet/Dockerfile -t tenet ."
+          podman build -f ./container-tenet/Dockerfile -t tenet .
+
+      - name: Build MongoDB image
+        run: |
+          echo "Running: podman build -f ./container-mongo/Dockerfile -t mongo_db ."
+          podman build -f ./container-mongo/Dockerfile -t mongo_db .
+
+      # - name: Build sdx_lc image
+      #   run: |
+      #     # podman build -f ./container-sdx-lc/Dockerfile -t sdx_lc .
+
+      - name: Build sdx_api image
+        run: |
+          echo "Running: podman build -f ./container-app/Dockerfile -t sdx_api ."
+          podman build -f ./container-app/Dockerfile -t sdx_api .
+
+      - name: List images
+        run: podman images
+
+      # Make sure that we can run "podman-compose up" without errors.
+      - name: Run podman-compose up
+        run: podman-compose up --detach
+
+      # Make sure that we can run "podman-compose down" without errors.        
+      - name: Run podman-compose down
+        run: podman-compose down
