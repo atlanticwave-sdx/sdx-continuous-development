@@ -104,7 +104,8 @@ class Topology(Resource):
                     "location": {
                         "address": "Miami",
                         "latitude": 25.75633040531146,
-                        "longitude": -80.37676058477908
+                        "longitude": -80.37676058477908,
+                        "ISO3166-2-lvl4": "US-FL"
                     },
                     "name": "amlight_Novi01",
                     "ports": [
@@ -139,7 +140,8 @@ class Topology(Resource):
                     "location": {
                         "address": "BocaRaton",
                         "latitude": 26.381437356374075,
-                        "longitude": -80.10225977485742
+                        "longitude": -80.10225977485742,
+                        "ISO3166-2-lvl4": "US-FL"
                     },
                     "name": "amlight_Novi02",
                     "ports": [
@@ -174,7 +176,8 @@ class Topology(Resource):
                     "location": {
                         "address": "redclara",
                         "latitude": 30.34943181039702,
-                        "longitude": -81.66666016473143
+                        "longitude": -81.66666016473143,
+                        "ISO3166-2-lvl4": "US-FL"
                     },
                     "name": "amlight_Novi100",
                     "ports": [
