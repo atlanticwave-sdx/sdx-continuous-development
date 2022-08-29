@@ -199,6 +199,62 @@ class Topology(Resource):
                         }
                     ],
                 }
+                {
+                    "id": "urn:sax:node:ampath.net:B1",
+                    "location": {
+                        "address": "Sao Paulo, Brazil",
+                        "latitude": -23.549421623110316,
+                        "longitude": -46.63699698680052,
+                        "ISO3166-2-lvl4": "BR-SP"
+                    },
+                    "name": "sax_sw1",
+                    "ports": [
+                        {
+                            "id": "urn:sax:port:ampath.net:B1:1",
+                            "name": "Saxsw1_1",
+                            "node": "urn:sax:node:ampath.net:B1",
+                            "type": "10GE",
+                            "status": "up",
+                            "state": "enabled"
+                        },
+                        {
+                            "id": "urn:sax:port:ampath.net:B1:2",
+                            "name": "Saxsw1_2",
+                            "node": "urn:sax:node:ampath.net:B1",
+                            "type": "10GE",
+                            "status": "up",
+                            "state": "enabled"
+                        }
+                    ],
+                }
+                {
+                    "id": "urn:tenet:node:tenet.ac.za:B1",
+                    "location": {
+                        "address": "Cape Town, Western Cape",
+                        "latitude": -34.00315245,
+                        "longitude": 18.467604352310875,
+                        "ISO3166-2-lvl4": "ZA-WC"
+                    },
+                    "name": "tenet_sw1",
+                    "ports": [
+                        {
+                            "id": "urn:tenet:port:tenet.ac.za:B1:1",
+                            "name": "Tenetsw1_1",
+                            "node": "urn:tenet:node:tenet.ac.za:B1",
+                            "type": "10GE",
+                            "status": "up",
+                            "state": "enabled"
+                        },
+                        {
+                            "id": "urn:tenet:port:tenet.ac.za:B1:2",
+                            "name": "Tenetsw1_2",
+                            "node": "urn:tenet:node:tenet.ac.za:B1",
+                            "type": "10GE",
+                            "status": "up",
+                            "state": "enabled"
+                        }
+                    ],
+                }
             ],
         }
 
