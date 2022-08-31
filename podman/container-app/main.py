@@ -8,6 +8,7 @@ api = Api(app)
 
 class Topology(Resource):
     """ topology mock """
+    # pylint: disable=R0201
     def get(self):
         """ return json data """
         return {
@@ -198,7 +199,7 @@ class Topology(Resource):
                             "state": "enabled"
                         }
                     ],
-                }
+                },
                 {
                     "id": "urn:sax:node:ampath.net:B1",
                     "location": {
@@ -226,7 +227,7 @@ class Topology(Resource):
                             "state": "enabled"
                         }
                     ],
-                }
+                },
                 {
                     "id": "urn:tenet:node:tenet.ac.za:B1",
                     "location": {
