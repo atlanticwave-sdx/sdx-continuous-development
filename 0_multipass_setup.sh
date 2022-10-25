@@ -8,7 +8,7 @@ multipass exec sdx -- bash -c "sudo apt-get update --assume-yes"
 multipass exec sdx sudo apt-get -y upgrade
 echo "### dependencies install ###"
 multipass exec sdx -- bash -c "sudo apt-get install --assume-yes --no-install-recommends \
-                build-essential ca-certificates curl dirmngr dpkg-dev docker gcc \
+                apt-transport-https build-essential ca-certificates curl dirmngr dpkg-dev docker gcc \
 	        git gnupg2 gunicorn iputils-ping libbz2-dev libc6-dev libexpat1-dev libffi-dev \
 		liblzma-dev libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev \
 		libsqlite3-dev libssl-dev lsb-release lsof make mininet net-tools netbase netcat \
@@ -28,6 +28,9 @@ multipass exec sdx -- bash -c "sudo apt install python3-apt"
 multipass exec sdx sudo apt-get update
 multipass exec sdx -- bash -c "sudo apt install docker-ce docker-ce-cli containerd.io -y"
 multipass exec sdx -- bash -c "sudo usermod -aG docker ubuntu"
+multipass exec sdx -- bash -c "mkdir -p ~/.docker/cli-plugins/"
+multipass exec sdx -- bash -c "curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose"
+multipass exec sdx -- bash -c "chmod +x ~/.docker/cli-plugins/docker-compose"
 #multipass exec sdx -- bash -c "sudo newgrp docker"
 echo "### set mininet ###"
 multipass exec sdx -- bash -c "sudo mn --version"
