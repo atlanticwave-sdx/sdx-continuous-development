@@ -8,10 +8,10 @@ multipass exec sdx -- bash -c "sudo apt-get update --assume-yes"
 multipass exec sdx sudo apt-get -y upgrade
 echo "### dependencies install ###"
 multipass exec sdx -- bash -c "sudo apt-get install --assume-yes --no-install-recommends \
-                build-essential ca-certificates curl dirmngr dpkg-dev gcc git gnupg2 \
-                gunicorn iputils-ping libbz2-dev libc6-dev libexpat1-dev libffi-dev \
+                build-essential ca-certificates curl dirmngr dpkg-dev docker gcc \
+	        git gnupg2 gunicorn iputils-ping libbz2-dev libc6-dev libexpat1-dev libffi-dev \
 		liblzma-dev libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev \
-		libsqlite3-dev libssl-dev lsof make mininet net-tools netbase netcat \
+		libsqlite3-dev libssl-dev lsb-release lsof make mininet net-tools netbase netcat \
 		openvswitch-switch-dpdk podman software-properties-common uuid-dev wget \
 		xz-utils zlib1g-dev"
 echo "### install python 3.9 ###"
@@ -20,11 +20,20 @@ multipass exec sdx -- bash -c "sudo apt-get install --assume-yes python3.9"
 multipass exec sdx -- bash -c "sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1"
 multipass exec sdx -- bash -c "sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2"
 multipass exec sdx -- bash -c "sudo apt-get install --assume-yes --reinstall python3.9-distutils"
+echo "### docker install ###"
+multipass exec sdx -- bash -c "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg"
+multipass exec sdx -- bash -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+multipass exec sdx -- bash -c "sudo apt remove -y python3-apt"
+multipass exec sdx -- bash -c "sudo apt install python3-apt"
+multipass exec sdx sudo apt-get update
+multipass exec sdx -- bash -c "sudo apt install docker-ce docker-ce-cli containerd.io -y"
+multipass exec sdx -- bash -c "sudo usermod -aG docker ubuntu"
+#multipass exec sdx -- bash -c "sudo newgrp docker"
 echo "### set mininet ###"
 multipass exec sdx -- bash -c "sudo mn --version"
 multipass exec sdx -- bash -c "sudo mn --switch ovsbr --test pingall"
 multipass exec sdx -- bash -c "sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'"
-multipass mount ./podman sdx:/podman
+multipass mount . sdx:/sdx
 multipass exec sdx -- bash -c "sudo apt-get install python3-pip --assume-yes"
-#multipass exec sdx -- bash -c "sudo bash -c /podman/requirements/preinstall.sh" 
-#multipass exec sdx -- bash -c "pip3 install -r /podman/requirements/requirements.txt" 
+#multipass exec sdx -- bash -c "sudo bash -c /requirements/preinstall.sh" 
+#multipass exec sdx -- bash -c "pip3 install -r /requirements/requirements.txt" 

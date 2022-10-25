@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  flask-app:
+    container_name: flask-app
+    image: sdx_api
+    restart: always
+    ports:
+      - 8800:8800
+
