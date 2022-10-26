@@ -28,6 +28,7 @@ RUN apt install python3-pip --assume-yes
 
 RUN pip3 install redis==3.5.3
 RUN pip3 install flower==1.0.0
+RUN pip3 install flask-bcrypt==1.0.1
 RUN pip3 install flask-cors==3.0.8
 RUN pip3 install flask-socketio==4.2.1
 RUN pip3 install flask-restx==0.5.1
@@ -36,6 +37,7 @@ RUN pip3 install Flask-Migrate==3.1.0
 RUN pip3 install flask-mongoengine==1.0.0
 RUN pip3 install Flask-SQLAlchemy==2.5.1
 RUN pip3 install Flask-WTF==1.0.1 
+RUN pip3 install flask-jwt-extended==4.4.4 
 RUN pip3 install gunicorn==20.1.0 
 RUN pip3 install idna==3.4
 RUN pip3 install itsdangerous==2.1.2
