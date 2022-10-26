@@ -6,6 +6,7 @@ from .db import db
 
 class Topology(db.Document):
     ''' Topology class '''
+    reference = db.StringField(required=True, unique=True)
     name = db.StringField(required=True, unique=True)
     version = db.IntField()
     model_version = db.StringField(required=True)

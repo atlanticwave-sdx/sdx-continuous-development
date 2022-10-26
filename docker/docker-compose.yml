@@ -10,8 +10,13 @@ services:
         ipv4_address: 192.168.0.10
     ports:
       - 27017:27017
+    hostname: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: usr_mongodb
+      MONGO_INITDB_ROOT_PASSWORD: pwd_mongodb
+      MONGO_INITDB_DATABASE: sdx
     volumes:
-      - /data/db:/data/db
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
 
   sdx_api:
     container_name: flask_app
@@ -22,8 +27,13 @@ services:
         ipv4_address: 192.168.0.4
     ports:
       - 8800:8800
-    depends_on:
+    links:
       - mongo
+    environment:
+      MONGODB_DATABASE: sdx
+      MONGODB_USERNAME: mongodb
+      MONGODB_PASSWORD: mongodb
+      MONGODB_HOSTNAME: mongodb
 
 networks:
   kytos_network:
