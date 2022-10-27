@@ -114,10 +114,7 @@ def custom_topo(amlight_ctlr, sax_ctlr, tenet_ctlr):
 if __name__ == '__main__':
     setLogLevel('info')  # for CLI output
     amlight_ctlr = sys.argv[1] if len(sys.argv) > 1 else '0.0.0.0'
-    #amlight_ctlr = sys.argv[1] if len(sys.argv) > 1 else '192.168.0.2'
     sax_ctlr = sys.argv[2] if len(sys.argv) > 2 else '0.0.0.0'
-    #sax_ctlr = sys.argv[2] if len(sys.argv) > 2 else '192.168.0.3'
     tenet_ctlr = sys.argv[3] if len(sys.argv) > 3 else '0.0.0.0'
-    #tenet_ctlr = sys.argv[3] if len(sys.argv) > 3 else '192.168.0.4'
     custom_topo(amlight_ctlr, sax_ctlr, tenet_ctlr)
     Cleanup.cleanup()
