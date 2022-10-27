@@ -1,86 +1,65 @@
-version: '3.8'
-
+version: '2.1'
 services:
   amlight:
     container_name: amlight
     image: amlight
-    restart: always
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.2
+    privileged: true
     ports:
       - 6653:6653
       - 8181:8181
-  sax:
-    container_name: sax
-    image: sax
-    restart: always
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.3
-    ports:
-      - 6654:6653
-      - 8282:8181
-  tenet:
-    container_name: tenet
-    image: tenet
-    restart: always
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.4
-    ports:
-      - 6655:6653
-      - 8383:8181
-
-  mininet:
-    container_name: mininet
-    image: mininet
-    privileged: true
-    network_mode: "host"
     volumes:
-      - /lib/modules:/lib/modules
+      - "./kytos-init.sh:/kytos-init.sh"
+      - "./tests:/tests"
+      - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
+    command:
+      - /kytos-init.sh
+    environment:
+      MONGO_USERNAME: napp_user
+      MONGO_PASSWORD: napp_pw
+      MONGO_DBNAME: napps
+      MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
-      - amlight
-      - sax
-      - tenet 
-
-  mongo:
-    container_name: sdx_mongo
-    image: sdx_mongo
-    restart: always
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.10
-    ports:
-      - 27017:27017
-    hostname: mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: usr_mongodb
-      MONGO_INITDB_ROOT_PASSWORD: pwd_mongodb
-      MONGO_INITDB_DATABASE: sdx
+      - mongo-setup
+  mongo-setup:
+    container_name: mongo-test-rs-init
+    image: mongo:5.0
+    restart: on-failure
     volumes:
-      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
-
-  sdx_api:
-    container_name: flask_app
-    image: sdx_api
-    restart: always
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.6
-    ports:
-      - 8800:8800
-    links:
-      - mongo
-    env_file:
-      - ./.env
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/rs-init.sh"]
     environment:
-      MONGODB_DATABASE: sdx
-      MONGODB_USERNAME: mongodb
-      MONGODB_PASSWORD: mongodb
-      MONGODB_HOSTNAME: mongodb
+      MONGO_INITDB_ROOT_USERNAME: root_user
+      MONGO_INITDB_ROOT_PASSWORD: root_pw
+      MONGO_USERNAME: napp_user
+      MONGO_PASSWORD: napp_pw
+      MONGO_DBNAME: napps
+    depends_on:
+      - mongo1t
+      - mongo2t
+      - mongo3t
+  mongo1t:
+    container_name: mongo1t
+    image: mongo:5.0
+    ports:
+      - 27027:27027
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27027" ]
+    depends_on:
+      - mongo2t
+      - mongo3t
+  mongo2t:
+    container_name: mongo2t
+    image: mongo:5.0
+    ports:
+      - 27028:27028
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27028" ]
+  mongo3t:
+    container_name: mongo3t
+    image: mongo:5.0
+    ports:
+      - 27029:27029
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27029" ]
 
 
-networks:
-  kytos_network:
-    external: true

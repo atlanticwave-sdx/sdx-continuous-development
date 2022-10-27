@@ -9,15 +9,15 @@ usage() {
 }
 
 
-#if [ "$1" == "-h" -o "$1" == "--help" ]; then
-#  usage
-#  exit 0
-#fi
+if [ "$1" == "-h" -o "$1" == "--help" ]; then
+  usage
+  exit 0
+fi
 
 # Start the dependency services
-#test -x /usr/sbin/rsyslogd	&& service rsyslog start
-#test -x /usr/sbin/ovs-vswitchd	&& service openvswitch-switch start
-#test -x /usr/sbin/nginx 	&& service nginx start
+test -x /usr/sbin/rsyslogd	&& service rsyslog start
+test -x /usr/sbin/ovs-vswitchd	&& service openvswitch-switch start
+test -x /usr/sbin/nginx 	&& service nginx start
 
 # If first argument looks like an argument then execute mininet with all the
 # arguments

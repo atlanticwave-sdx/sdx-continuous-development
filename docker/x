@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  amlight:
+    container_name: amlight
+    image: amlight
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.2
+    ports:
+      - 6653:6653
+      - 8181:8181
+  sax:
+    container_name: sax
+    image: sax
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.3
+    ports:
+      - 6654:6653
+      - 8282:8181
+  tenet:
+    container_name: tenet
+    image: tenet
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.4
+    ports:
+      - 6655:6653
+      - 8383:8181
+
+  mininet:
+    container_name: mininet
+    image: mininet
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - /lib/modules:/lib/modules
+    depends_on:
+      - amlight
+      - sax
+      - tenet 
+
+  mongo:
+    container_name: sdx_mongo
+    image: sdx_mongo
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.10
+    ports:
+      - 27017:27017
+    hostname: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: usr_mongodb
+      MONGO_INITDB_ROOT_PASSWORD: pwd_mongodb
+      MONGO_INITDB_DATABASE: sdx
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+
+  sdx_api:
+    container_name: flask_app
+    image: sdx_api
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.6
+    ports:
+      - 8800:8800
+    links:
+      - mongo
+    env_file:
+      - ./.env
+    environment:
+      MONGODB_DATABASE: sdx
+      MONGODB_USERNAME: mongodb
+      MONGODB_PASSWORD: mongodb
+      MONGODB_HOSTNAME: mongodb
+
+
+networks:
+  kytos_network:
+    external: true
