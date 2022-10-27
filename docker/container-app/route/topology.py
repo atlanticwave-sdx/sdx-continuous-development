@@ -13,24 +13,24 @@ class TopologiesApi(Resource):
         topologies = Topology.objects().to_json()
         return Response(topologies, mimetype="application/json", status=200)
 
-
-    @jwt_required
+    # @jwt_required
     def post(self):
         ''' topology create '''
-        user_id = get_jwt_identity()
+        # user_id = get_jwt_identity()
         body = request.get_json()
-        user = User.objects.get(id=user_id)
-        topology = Topology(**body, added_by=user)
+        # user = User.objects.get(id=user_id)
+        # topology = Topology(**body, added_by=user)
+        topology = Topology(**body)
         topology.save()
-        user.update(push__topology=topology)
-        user.save()
+        # user.update(push__topology=topology)
+        # user.save()
         topology_id = topology.id
         return {'id': str(topology_id)}, 200
 
 
 class TopologyApi(Resource):
     ''' topology '''
-    @jwt_required
+    # @jwt_required
     def put(self, topology_id):
         ''' topology update '''
         user_id = get_jwt_identity()
@@ -39,7 +39,7 @@ class TopologyApi(Resource):
         Topology.objects.get(id=topology_id).update(**body)
         return topology, 200
 
-    @jwt_required
+    # @jwt_required
     def delete(self, topology_id):
         ''' topology delete '''
         user_id = get_jwt_identity()

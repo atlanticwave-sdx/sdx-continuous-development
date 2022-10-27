@@ -29,11 +29,14 @@ services:
       - 8800:8800
     links:
       - mongo
+    env_file:
+      - ./.env
     environment:
       MONGODB_DATABASE: sdx
       MONGODB_USERNAME: mongodb
       MONGODB_PASSWORD: mongodb
       MONGODB_HOSTNAME: mongodb
+
 
 networks:
   kytos_network:

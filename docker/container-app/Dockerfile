@@ -5,6 +5,7 @@
 
 # Base Image
 FROM flask
+ENV ENV_FILE_LOCATION=./.env
 
 # set work directory
 RUN mkdir -p /app

@@ -9,6 +9,7 @@ from route.routes import initialize_routes
 
 app = Flask(__name__)
 app.config.from_envvar('ENV_FILE_LOCATION')
+
 api = Api(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)

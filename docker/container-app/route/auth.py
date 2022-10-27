@@ -1,6 +1,6 @@
 ''' auth route '''
 import datetime
-from flask import request
+from flask import Response, request
 from flask_jwt_extended import create_access_token
 from flask_restful import Resource
 from database.models import User
@@ -14,12 +14,17 @@ class SignupApi(Resource):
         user = User(**body)
         user.hash_password()
         user.save()
-        id = user.id
-        return {'id': str(id)}, 200
+        user_id = user.id
+        return {'id': str(user_id)}, 200
 
 
 class LoginApi(Resource):
     ''' login '''
+    def get(self):
+        ''' login list '''
+        users = User.objects().to_json()
+        return Response(users, mimetype="application/json", status=200)
+
     def post(self):
         ''' login method '''
         body = request.get_json()
