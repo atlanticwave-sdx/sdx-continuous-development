@@ -14,9 +14,49 @@ services:
     command:
       - /kytos-init.sh
     environment:
-      MONGO_USERNAME: napp_user
-      MONGO_PASSWORD: napp_pw
-      MONGO_DBNAME: napps
+      MONGO_USERNAME: amlight_user 
+      MONGO_PASSWORD: amlight_pw
+      MONGO_DBNAME: amlight
+      MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
+    depends_on:
+      - mongo-setup
+  sax:
+    container_name: sax
+    image: sax
+    privileged: true
+    ports:
+      - 6653:6654
+      - 8181:8182
+    volumes:
+      - "./kytos-init.sh:/kytos-init.sh"
+      - "./tests:/tests"
+      - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
+    command:
+      - /kytos-init.sh
+    environment:
+      MONGO_USERNAME: sax_user 
+      MONGO_PASSWORD: sax_pw
+      MONGO_DBNAME: sax
+      MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
+    depends_on:
+      - mongo-setup
+  tenet:
+    container_name: tenet
+    image: tenet
+    privileged: true
+    ports:
+      - 6653:6655
+      - 8181:8183
+    volumes:
+      - "./kytos-init.sh:/kytos-init.sh"
+      - "./tests:/tests"
+      - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
+    command:
+      - /kytos-init.sh
+    environment:
+      MONGO_USERNAME: tenet_user 
+      MONGO_PASSWORD: tenet_pw
+      MONGO_DBNAME: tenet
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
       - mongo-setup
@@ -30,13 +70,14 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root_user
       MONGO_INITDB_ROOT_PASSWORD: root_pw
-      MONGO_USERNAME: napp_user
-      MONGO_PASSWORD: napp_pw
-      MONGO_DBNAME: napps
+      MONGO_USERNAME: root_user
+      MONGO_PASSWORD: root_pw
+      MONGO_DBNAME: admin
     depends_on:
       - mongo1t
       - mongo2t
       - mongo3t
+
   mongo1t:
     container_name: mongo1t
     image: mongo:5.0
@@ -47,6 +88,7 @@ services:
     depends_on:
       - mongo2t
       - mongo3t
+
   mongo2t:
     container_name: mongo2t
     image: mongo:5.0
@@ -54,6 +96,7 @@ services:
       - 27028:27028
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27028" ]
+
   mongo3t:
     container_name: mongo3t
     image: mongo:5.0
@@ -61,5 +104,4 @@ services:
       - 27029:27029
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27029" ]
-
 

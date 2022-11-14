@@ -59,6 +59,7 @@ admin.createUser(
     roles: [ { role: "root", db: "admin" } ]
   }
 );
+
 napps = db.getSiblingDB("napps");
 napps.createUser(
   {
@@ -67,5 +68,53 @@ napps.createUser(
     roles: [ { role: "dbAdmin", db: "napps" } ]
   }
 );
+
+
+amlight = db.getSiblingDB('amlight')
+
+amlight.createUser(
+  {
+    user: "amlight_user",
+    pwd: "amlight_pwd",
+    roles: [
+        {
+          role: "readWrite",
+          db: "amlight"
+        }
+    ]
+  }
+);
+
+sax = db.getSiblingDB('sax')
+
+sax.createUser(
+  {
+    user: "sax_user",
+    pwd: "sax_pwd",
+    roles: [
+        {
+          role: "readWrite",
+          db: "sax"
+        }
+    ]
+  }
+);
+
+tenet = db.getSiblingDB('tenet')
+
+tenet.createUser(
+  {
+    user: "tenet_user",
+    pwd: "tenet_pwd",
+    roles: [
+        {
+          role: "readWrite",
+          db: "tenet"
+        }
+    ]
+  }
+);
+
+
 print("done all users have been created.");
 EOF
