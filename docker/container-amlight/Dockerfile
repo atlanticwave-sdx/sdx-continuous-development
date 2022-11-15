@@ -10,12 +10,8 @@ RUN git clone https://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@github.com/atlant
 RUN for repo in sdx_topology/app; do cd ${repo}; python3 setup.py develop; cd ..; done
 
 # add app
-COPY ./container-amlight/kytos-entrypoint.sh .
-COPY ./amlight_kytos.sh .
-COPY ./add-etc-hosts.sh .
-COPY ./patches /tmp/patches
-RUN chmod -R 755 /tmp
-RUN chmod 755 kytos-entrypoint.sh
-#ENTRYPOINT ["./kytos-entrypoint.sh"]
+COPY ./container-amlight/amlight_kytos.sh .
+#COPY ./patches /tmp/patches
+#RUN chmod -R 755 /tmp
+RUN chmod 755 amlight_kytos.sh
 ENTRYPOINT ["./amlight_kytos.sh"]
-#ENTRYPOINT ["./add-etc-hosts.sh"]
