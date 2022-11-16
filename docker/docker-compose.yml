@@ -5,6 +5,7 @@ services:
     container_name: amlight
     image: amlight
     privileged: true
+    restart: always
     networks:
       kytos_network:
         ipv4_address: 192.168.0.2
@@ -15,11 +16,9 @@ services:
       - "./kytos-init.sh:/kytos-init.sh"
       - "./tests:/tests"
       - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
-    command:
-      - kytosd -l 192.168.0.2 -f
     environment:
       MONGO_USERNAME: amlight_user
-      MONGO_PASSWORD: amlight_pw
+      MONGO_PASSWORD: amlight_pwd
       MONGO_DBNAME: amlight
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
@@ -28,6 +27,7 @@ services:
     container_name: sax
     image: sax
     privileged: true
+    restart: always
     networks:
       kytos_network:
         ipv4_address: 192.168.0.3
@@ -38,11 +38,9 @@ services:
       - "./kytos-init.sh:/kytos-init.sh"
       - "./tests:/tests"
       - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
-    command:
-      - kytosd -l 192.168.0.3 -f
     environment:
       MONGO_USERNAME: sax_user
-      MONGO_PASSWORD: sax_pw
+      MONGO_PASSWORD: sax_pwd
       MONGO_DBNAME: sax
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
@@ -50,6 +48,8 @@ services:
   tenet:
     container_name: tenet
     image: tenet
+    privileged: true
+    restart: always
     tty: true
     networks:
       kytos_network:
@@ -61,11 +61,9 @@ services:
       - "./kytos-init.sh:/kytos-init.sh"
       - "./tests:/tests"
       - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
-    command:
-      - kytosd -l 192.168.0.4 -f
     environment:
       MONGO_USERNAME: tenet_user
-      MONGO_PASSWORD: tenet_pw
+      MONGO_PASSWORD: tenet_pwd
       MONGO_DBNAME: tenet
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
@@ -83,9 +81,9 @@ services:
     entrypoint: ["/scripts/rs-init.sh"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: root_user
-      MONGO_INITDB_ROOT_PASSWORD: root_pw
+      MONGO_INITDB_ROOT_PASSWORD: root_pwd
       MONGO_USERNAME: root_user
-      MONGO_PASSWORD: root_pw
+      MONGO_PASSWORD: root_pwd
       MONGO_DBNAME: admin
     depends_on:
       - mongo1t

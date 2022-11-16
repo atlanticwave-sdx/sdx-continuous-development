@@ -17,4 +17,4 @@ if [ $COUNT -eq 0 ]; then
   echo "$HOSTS_ENTRY" >> /etc/hosts
 fi
 
-# exec kytosd -l 192.168.0.2 -f
+exec kytosd -l 192.168.0.2 -f
