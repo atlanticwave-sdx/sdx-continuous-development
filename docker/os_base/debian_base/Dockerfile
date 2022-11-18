@@ -80,7 +80,7 @@ RUN pip3 install networkx==2.5.1
 RUN pip3 install eventlet==0.33.0
 RUN pip3 install black==20.8b0
 RUN python3 -m pip install setuptools==60.2.0
-RUN python3 -m pip install pip==21.3.1
+RUN python3 -m pip install pip==22.3.1
 RUN python3 -m pip install wheel==0.37.1
 
 RUN python3 -m pip install https://github.com/kytos-ng/python-openflow/archive/${branch_python_openflow}.zip \
@@ -107,9 +107,9 @@ RUN python3 -m pip install pytest-timeout==2.0.2 \
  && python3 -m pip install pymongo \
  && python3 -m pip install requests
 
-COPY ./apply-patches.sh  /tmp/
-COPY ./patches /tmp/patches
+#COPY ./apply-patches.sh  /tmp/
+#COPY ./patches /tmp/patches
 
-RUN cd /tmp && ./apply-patches.sh && rm -rf /tmp/*
+#RUN cd /tmp && ./apply-patches.sh && rm -rf /tmp/*
 
 

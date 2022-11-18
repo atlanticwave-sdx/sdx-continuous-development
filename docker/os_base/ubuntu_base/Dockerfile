@@ -6,10 +6,12 @@ WORKDIR /root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     dnsutils \
+    gnupg \
     iproute2 \
     iputils-ping \
     lsof \
     mininet \
     netcat \
     openvswitch-switch \
- && rm -rf /var/lib/apt/lists/* \
+    wget \
+ && rm -rf /var/lib/apt/lists/*
