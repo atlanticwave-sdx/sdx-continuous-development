@@ -10,8 +10,8 @@ RUN git clone https://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@github.com/atlant
 RUN for repo in sdx_topology/app; do cd ${repo}; python3 setup.py develop; cd ..; done
 
 # add app
-COPY ./container-tenet/tenet_kytos.sh .
+COPY ./sdx_containers/sax/sax_kytos.sh .
 #COPY ./patches /tmp/patches
 #RUN chmod -R 755 /tmp
-RUN chmod 755 tenet_kytos.sh
-ENTRYPOINT ["./tenet_kytos.sh"]
+RUN chmod 755 sax_kytos.sh
+ENTRYPOINT ["./sax_kytos.sh"]

@@ -10,7 +10,7 @@ RUN git clone https://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@github.com/atlant
 RUN for repo in sdx_topology/app; do cd ${repo}; python3 setup.py develop; cd ..; done
 
 # add app
-COPY ./container-amlight/amlight_kytos.sh .
+COPY ./sdx_containers/amlight/amlight_kytos.sh .
 #COPY ./patches /tmp/patches
 #RUN chmod -R 755 /tmp
 RUN chmod 755 amlight_kytos.sh

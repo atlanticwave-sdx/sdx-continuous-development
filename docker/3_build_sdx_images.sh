@@ -1,4 +1,4 @@
 #!/bin/sh
-docker build -f ./container-amlight/Dockerfile -t amlight .
-docker build -f ./container-sax/Dockerfile -t sax .
-docker build -f ./container-tenet/Dockerfile -t tenet .
+docker build -f ./sdx_containers/amlight/Dockerfile -t amlight .
+docker build -f ./sdx_containers/sax/Dockerfile -t sax .
+docker build -f ./sdx_containers/tenet/Dockerfile -t tenet .

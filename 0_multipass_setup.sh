@@ -39,5 +39,5 @@ multipass exec sdx -- bash -c "sudo mn --switch ovsbr --test pingall"
 multipass exec sdx -- bash -c "sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'"
 multipass mount . sdx:/sdx
 multipass exec sdx -- bash -c "sudo apt-get install python3-pip --assume-yes"
-#multipass exec sdx -- bash -c "sudo bash -c /requirements/preinstall.sh" 
-#multipass exec sdx -- bash -c "pip3 install -r /requirements/requirements.txt" 
+multipass exec sdx -- bash -c "sudo openssl rand --base64 741 > /sdx/docker/os_base/mongo_base/m103-keyfile"
+multipass exec sdx -- bash -c "sudo chmod 400 /sdx/docker/os_base/mongo_base/m103-keyfile"
