@@ -33,6 +33,8 @@ multipass exec sdx -- bash -c "curl -SL https://github.com/docker/compose/releas
 multipass exec sdx -- bash -c "chmod +x ~/.docker/cli-plugins/docker-compose"
 #multipass exec sdx -- bash -c "sudo newgrp docker"
 multipass exec sdx -- bash -c "sudo pip install docker-compose"
+multipass exec sdx -- bash -c "sudo apt-get update"
+multipass exec sdx -- bash -c "sudo apt-get install docker-compose"
 echo "### set mininet ###"
 multipass exec sdx -- bash -c "sudo mn --version"
 multipass exec sdx -- bash -c "sudo mn --switch ovsbr --test pingall"
