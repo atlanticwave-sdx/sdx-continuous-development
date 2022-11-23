@@ -5,7 +5,7 @@ WORKDIR /root
 
 COPY ./container-mininet/start_mininet.sh /
 COPY ./container-mininet/link-hosts.py /
-COPY ./curl/ /curl
+COPY ./scripts/curl/ /curl
 RUN chmod +x /start_mininet.sh
 RUN chmod 775 /link-hosts.py
 

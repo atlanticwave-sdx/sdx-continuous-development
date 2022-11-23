@@ -13,65 +13,30 @@ done
 echo "All mongo nodes are up"
 
 echo "Applying replicaSet rs0 config on ${MONGO_NODES[0]} at `date +"%T" `..."
-mongosh --host ${MONGO_NODES[0]} <<EOF
-var config = {
-    "_id": "rs0",
-    "protocolVersion": 1,
-    "version": 1,
-    "members": [
-        {
-            "_id": 1,
-            "host": "${MONGO_NODES[0]}",
-            "priority": 30
-        },
-        {
-            "_id": 2,
-            "host": "${MONGO_NODES[1]}",
-            "priority": 20
-        },
-        {
-            "_id": 3,
-            "host": "${MONGO_NODES[2]}",
-            "priority": 10
-        }
-    ]
-};
-rs.initiate(config, { force: true });
-rs.status();
+mongosh --host 192.168.0.6 -u "admin_user" -p "admin_pwd" --authenticationDatabase "admin" <<EOF 
+rs.initiate()
 
-var curStatus = rs.status();
-while (curStatus.members[0].stateStr !== 'PRIMARY') {
-  print("Waiting for 1s while stateStr !== PRIMARY, current:", curStatus.members[0].stateStr);
-  sleep(1000);
-  curStatus = rs.status();
-}
-if (!curStatus) {
-  print("rs.status() failed, exiting, check the logs");
-  exit();
-}
-print("Primary node stateStr is PRIMARY.");
-
-admin = db.getSiblingDB("admin");
+admin = db.getSiblingDB("admin")
 admin.createUser(
   {
     user: process.env["MONGO_INITDB_ROOT_USERNAME"],
     pwd: process.env["MONGO_INITDB_ROOT_PASSWORD"],
     roles: [ { role: "root", db: "admin" } ]
   }
-);
+)
 
-napps = db.getSiblingDB("napps");
-napps.createUser(
+use napps
+db.createUser(
   {
     user: process.env["MONGO_USERNAME"],
     pwd: process.env["MONGO_PASSWORD"],
     roles: [ { role: "dbAdmin", db: "napps" } ]
   }
-);
+)
 
 
 amlight = db.getSiblingDB('amlight')
-
+use amlight
 amlight.createUser(
   {
     user: "amlight_user",
@@ -83,10 +48,10 @@ amlight.createUser(
         }
     ]
   }
-);
+)
 
 sax = db.getSiblingDB('sax')
-
+use sax
 sax.createUser(
   {
     user: "sax_user",
@@ -98,10 +63,10 @@ sax.createUser(
         }
     ]
   }
-);
+)
 
 tenet = db.getSiblingDB('tenet')
-
+use tenet
 tenet.createUser(
   {
     user: "tenet_user",
@@ -113,8 +78,9 @@ tenet.createUser(
         }
     ]
   }
-);
-
+)
 
 print("done all users have been created.");
+exit
 EOF
+

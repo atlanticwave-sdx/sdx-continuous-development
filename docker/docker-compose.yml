@@ -22,7 +22,8 @@ services:
       MONGO_DBNAME: amlight
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
-      - mongo-setup
+      - mongo-ready
+
   sax:
     container_name: sax
     image: sax
@@ -44,7 +45,8 @@ services:
       MONGO_DBNAME: sax
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
-      - mongo-setup
+      - mongo-ready
+
   tenet:
     container_name: tenet
     image: tenet
@@ -67,11 +69,30 @@ services:
       MONGO_DBNAME: tenet
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
+      - mongo-ready
+
+  mongo-ready:
+    container_name: mongo-ready
+    image: sdx_mongo
+    restart: on-failure
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.10
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/rs-add.sh"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin_user
+      MONGO_INITDB_ROOT_PASSWORD: admin_pw
+      MONGO_USERNAME: admin_user
+      MONGO_PASSWORD: admin_pw
+      MONGO_DBNAME: admin
+    depends_on:
       - mongo-setup
-  
+
   mongo-setup:
     container_name: mongo-test-rs-init
-    image: mongo:5.0
+    image: sdx_mongo
     restart: on-failure
     networks:
       kytos_network:
@@ -80,10 +101,10 @@ services:
       - ./scripts:/scripts
     entrypoint: ["/scripts/rs-init.sh"]
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root_user
-      MONGO_INITDB_ROOT_PASSWORD: root_pwd
-      MONGO_USERNAME: root_user
-      MONGO_PASSWORD: root_pwd
+      MONGO_INITDB_ROOT_USERNAME: admin_user
+      MONGO_INITDB_ROOT_PASSWORD: admin_pw
+      MONGO_USERNAME: admin_user
+      MONGO_PASSWORD: admin_pw
       MONGO_DBNAME: admin
     depends_on:
       - mongo1t
@@ -92,39 +113,39 @@ services:
 
   mongo1t:
     container_name: mongo1t
-    image: mongo:5.0
+    image: sdx_mongo
+    restart: always
     networks:
       kytos_network:
         ipv4_address: 192.168.0.6
     ports:
       - 27027:27027
-    restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27027" ]
-    depends_on:
-      - mongo2t
-      - mongo3t
+    volumes:
+      - ./os_base/mongo_base:/mongo_base
 
   mongo2t:
     container_name: mongo2t
-    image: mongo:5.0
+    image: sdx_mongo
+    restart: always
     networks:
       kytos_network:
         ipv4_address: 192.168.0.7
     ports:
       - 27028:27028
-    restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27028" ]
+    volumes:
+      - ./os_base/mongo_base:/mongo_base
 
   mongo3t:
     container_name: mongo3t
-    image: mongo:5.0
+    image: sdx_mongo
+    restart: always
     networks:
       kytos_network:
         ipv4_address: 192.168.0.8
     ports:
       - 27029:27029
-    restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27029" ]
+    volumes:
+      - ./os_base/mongo_base:/mongo_base
 
   mininet:
     container_name: mininet

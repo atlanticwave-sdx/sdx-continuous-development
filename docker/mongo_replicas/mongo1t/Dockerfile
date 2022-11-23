@@ -7,7 +7,4 @@ ENV MONGO_INITDB_ROOT_PASSWORD admin_pwd
 ENV MONGO_INITDB_DATABASE admin
 # set work directory
 WORKDIR /
-
-COPY ./os_base/mongo_base/mongo1t-init.js /docker-entrypoint-initdb.d/mongo-init.js
-COPY ./os_base/mongo_base/node1.conf .
-RUN chmod 755 node1.conf
+ENTRYPOINT [ "/usr/bin/mongod", "--config", "/mongo_base/node1.conf"]

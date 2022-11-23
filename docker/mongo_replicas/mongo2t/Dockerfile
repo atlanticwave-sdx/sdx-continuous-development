@@ -7,6 +7,4 @@ ENV MONGO_INITDB_ROOT_PASSWORD admin_pwd
 ENV MONGO_INITDB_DATABASE admin
 # set work directory
 WORKDIR /
-
-COPY ./os_base/mongo_base/node2.conf .
-RUN chmod 755 node2.conf
+ENTRYPOINT [ "/usr/bin/mongod", "--config", "/mongo_base/node2.conf"]
