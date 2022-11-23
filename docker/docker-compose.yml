@@ -20,7 +20,7 @@ services:
       MONGO_USERNAME: amlight_user
       MONGO_PASSWORD: amlight_pwd
       MONGO_DBNAME: amlight
-      MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
+      MONGO_HOST_SEEDS: "mongo1t:27017,mongo2t:27017,mongo3t:27017"
     depends_on:
       - mongo-ready
 
@@ -43,7 +43,7 @@ services:
       MONGO_USERNAME: sax_user
       MONGO_PASSWORD: sax_pwd
       MONGO_DBNAME: sax
-      MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
+      MONGO_HOST_SEEDS: "mongo1t:27017,mongo2t:27017,mongo3t:27017"
     depends_on:
       - mongo-ready
 
@@ -67,12 +67,12 @@ services:
       MONGO_USERNAME: tenet_user
       MONGO_PASSWORD: tenet_pwd
       MONGO_DBNAME: tenet
-      MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
+      MONGO_HOST_SEEDS: "mongo1t:27017,mongo2t:27017,mongo3t:27017"
     depends_on:
       - mongo-ready
 
   mongo-ready:
-    container_name: mongo-ready
+    container_name: mongo-test-ready
     image: sdx_mongo
     restart: on-failure
     networks:
@@ -91,7 +91,7 @@ services:
       - mongo-setup
 
   mongo-setup:
-    container_name: mongo-test-rs-init
+    container_name: mongo-rs-init
     image: sdx_mongo
     restart: on-failure
     networks:
@@ -118,8 +118,6 @@ services:
     networks:
       kytos_network:
         ipv4_address: 192.168.0.6
-    ports:
-      - 27027:27027
     volumes:
       - ./os_base/mongo_base:/mongo_base
 
@@ -130,8 +128,6 @@ services:
     networks:
       kytos_network:
         ipv4_address: 192.168.0.7
-    ports:
-      - 27028:27028
     volumes:
       - ./os_base/mongo_base:/mongo_base
 
@@ -142,8 +138,6 @@ services:
     networks:
       kytos_network:
         ipv4_address: 192.168.0.8
-    ports:
-      - 27029:27029
     volumes:
       - ./os_base/mongo_base:/mongo_base
 

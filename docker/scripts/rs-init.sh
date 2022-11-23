@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MONGO_NODES=(mongo1t:27027 mongo2t:27028 mongo3t:27029)
+MONGO_NODES=(mongo1t:27017 mongo2t:27017 mongo3t:27017)
 
 echo "Waiting for mongo nodes serverStatus..."
 for mongo_node in "${MONGO_NODES[@]}"
@@ -34,53 +34,7 @@ db.createUser(
   }
 )
 
-
-amlight = db.getSiblingDB('amlight')
-use amlight
-amlight.createUser(
-  {
-    user: "amlight_user",
-    pwd: "amlight_pwd",
-    roles: [
-        {
-          role: "readWrite",
-          db: "amlight"
-        }
-    ]
-  }
-)
-
-sax = db.getSiblingDB('sax')
-use sax
-sax.createUser(
-  {
-    user: "sax_user",
-    pwd: "sax_pwd",
-    roles: [
-        {
-          role: "readWrite",
-          db: "sax"
-        }
-    ]
-  }
-)
-
-tenet = db.getSiblingDB('tenet')
-use tenet
-tenet.createUser(
-  {
-    user: "tenet_user",
-    pwd: "tenet_pwd",
-    roles: [
-        {
-          role: "readWrite",
-          db: "tenet"
-        }
-    ]
-  }
-)
-
-print("done all users have been created.");
+print("done admin users have been created.");
 exit
 EOF
 
