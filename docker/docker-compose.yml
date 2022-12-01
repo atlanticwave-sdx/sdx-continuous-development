@@ -85,6 +85,7 @@ services:
     container_name: amlight
     image: amlight
     privileged: true
+    tty: true
     restart: always
     networks:
       kytos_network:
@@ -93,9 +94,8 @@ services:
       - 6653:6653
       - 8181:8181
     volumes:
-      - "./kytos-init.sh:/kytos-init.sh"
-      - "./tests:/tests"
-      - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
+      - ./tests:/tests
+      - ./scripts:/scripts
     environment:
       MONGO_USERNAME: amlight_user
       MONGO_PASSWORD: amlight_pwd
@@ -103,11 +103,13 @@ services:
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
       - mongo-ready
+    entrypoint: ["/scripts/amlight_kytos.sh"]
 
   sax:
     container_name: sax
     image: sax
     privileged: true
+    tty: true
     restart: always
     networks:
       kytos_network:
@@ -116,9 +118,8 @@ services:
       - 6654:6653
       - 8282:8181
     volumes:
-      - "./kytos-init.sh:/kytos-init.sh"
-      - "./tests:/tests"
-      - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
+      - ./tests:/tests
+      - ./scripts:/scripts
     environment:
       MONGO_USERNAME: sax_user
       MONGO_PASSWORD: sax_pwd
@@ -126,6 +127,7 @@ services:
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
       - mongo-ready
+    entrypoint: ["/scripts/sax_kytos.sh"]
 
   tenet:
     container_name: tenet
@@ -140,9 +142,8 @@ services:
       - 6655:6653
       - 8383:8181
     volumes:
-      - "./kytos-init.sh:/kytos-init.sh"
-      - "./tests:/tests"
-      - "./scripts/wait_for_mongo.py:/scripts/wait_for_mongo.py"
+      - ./tests:/tests
+      - ./scripts:/scripts
     environment:
       MONGO_USERNAME: tenet_user
       MONGO_PASSWORD: tenet_pwd
@@ -150,6 +151,7 @@ services:
       MONGO_HOST_SEEDS: "mongo1t:27027,mongo2t:27028,mongo3t:27029"
     depends_on:
       - mongo-ready
+    entrypoint: ["/scripts/tenet_kytos.sh"]
 
   mininet:
     container_name: mininet
