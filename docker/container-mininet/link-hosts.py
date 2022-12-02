@@ -27,7 +27,7 @@ def custom_topo(amlight_ctlr, sax_ctlr, tenet_ctlr):
     net = Mininet(topo=None, build=False, controller=RemoteController, switch=OVSSwitch)
 
     # ********************************************** TENET OXP - Start ************************************************
-    TenetController = net.addController('tenet_ctrl', controller=RemoteController, ip=tenet_ctlr, port=6655)
+    TenetController = net.addController('tenet_ctrl', controller=RemoteController, ip=tenet_ctlr, port=6653)
     TenetController.start()
 
     tenet_sw1 = net.addSwitch('Tenet01', listenPort=6701, dpid='cc00000000000006')
@@ -48,7 +48,7 @@ def custom_topo(amlight_ctlr, sax_ctlr, tenet_ctlr):
     # ************************************************ TENET OXP - End ************************************************
 
     # ************************************************ SAX OXP - Start ************************************************
-    SaxController = net.addController('sax_ctrl', controller=RemoteController, ip=sax_ctlr, port=6654)
+    SaxController = net.addController('sax_ctrl', controller=RemoteController, ip=sax_ctlr, port=6653)
     SaxController.start()
 
     sax_sw1 = net.addSwitch('Sax01', listenPort=6801, dpid='dd00000000000004')
