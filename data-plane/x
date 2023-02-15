@@ -181,6 +181,27 @@ services:
       - sax
       - tenet
 
+  sdxapi:
+    container_name: sdx_api
+    image: sdx_api
+    privileged: true
+    tty: true
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.16
+    volumes:
+      - ./container-app/:/app/
+    ports:
+      - 8800:8800
+    environment:
+      - FLASK_APP=app/__init__.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_ENV=development
+    depends_on:
+      - mongo-ready
+    entrypoint: ["/app/gunicorn wsgi:app --bind 0.0.0.0:8800"]
+
+
 networks:
   kytos_network:
     external: true 
