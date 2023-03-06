@@ -1,4 +1,7 @@
 #!/bin/sh
+echo "192.168.0.6 mongo1t" >> /etc/hosts
+echo "192.168.0.7 mongo2t" >> /etc/hosts
+echo "192.168.0.8 mongo3t" >> /etc/hosts
 
 sleep 60
 

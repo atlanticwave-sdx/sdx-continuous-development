@@ -9,7 +9,7 @@ RUN git clone https://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@github.com/atlant
 
 RUN for repo in sdx_topology/app; do cd ${repo}; python3 setup.py develop; cd ..; done
 
-RUN echo "192.168.0.6 mongo1t" >> /etc/hosts
-RUN echo "192.168.0.7 mongo2t" >> /etc/hosts
-RUN echo "192.168.0.8 mongo3t" >> /etc/hosts
+# RUN echo "192.168.0.6 mongo1t" >> /etc/hosts
+# RUN echo "192.168.0.7 mongo2t" >> /etc/hosts
+# RUN echo "192.168.0.8 mongo3t" >> /etc/hosts
 
