@@ -109,6 +109,7 @@ services:
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
+      - ./etc/kytos:/etc/kytos
     environment:
       MONGO_USERNAME: amlight_user
       MONGO_PASSWORD: amlight_pwd
@@ -133,6 +134,7 @@ services:
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
+      - ./etc/kytos:/etc/kytos
     environment:
       MONGO_USERNAME: sax_user
       MONGO_PASSWORD: sax_pwd
@@ -157,6 +159,7 @@ services:
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
+      - ./etc/kytos:/etc/kytos
     environment:
       MONGO_USERNAME: tenet_user
       MONGO_PASSWORD: tenet_pwd
