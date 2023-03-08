@@ -1,0 +1,7 @@
+flask==2.1.1
+flask-restx==0.5.1
+python_dateutil == 2.8.2
+setuptools == 21.0.0
+pika == 1.2.0
+dataset
+connexion[swagger-ui] == 2.14.1

@@ -17,4 +17,7 @@ while ! nc -z 192.168.0.8 27029; do
   sleep 1 # wait 1 second before check for mongo3t again
 done
 
-exec kytosd -l 192.168.0.3 -f --database mongodb
+tmux new-sess -d -s k1 kytosd -f --database mongodb
+
+touch /var/log/kytos.log
+tail -f /var/log/kytos.log
