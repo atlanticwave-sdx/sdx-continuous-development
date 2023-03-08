@@ -44,3 +44,4 @@ multipass mount . sdx:/sdx
 multipass exec sdx -- bash -c "sudo apt-get install python3-pip --assume-yes"
 multipass exec sdx -- bash -c "sudo openssl rand --base64 741 > /sdx/data-plane/os_base/mongo_base/m103-keyfile"
 multipass exec sdx -- bash -c "sudo chmod 400 /sdx/data-plane/os_base/mongo_base/m103-keyfile"
+multipass exec sdx -- bash -c "docker network create --gateway '192.168.0.1' --subnet '192.168.0.0/24' kytos_network"

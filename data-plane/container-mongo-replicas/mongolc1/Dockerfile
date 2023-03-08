@@ -6,4 +6,4 @@ ENV MONGO_INITDB_ROOT_USERNAME admin_user
 ENV MONGO_INITDB_ROOT_PASSWORD admin_pwd
 ENV MONGO_INITDB_DATABASE admin
 RUN mkdir -p /data/db
-COPY ./mongo_replicas/mongolc1/mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js
+COPY ./container-mongo-replicas/mongolc1/mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js

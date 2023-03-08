@@ -1,4 +1,4 @@
-FROM ubuntu_base
+FROM italovalcy/mininet:2.3.0d6
 
 USER root
 WORKDIR /root
