@@ -1,5 +1,5 @@
 # pull os base image
-FROM debian_base
+FROM amlight_kytos
 
 # set work directory
 

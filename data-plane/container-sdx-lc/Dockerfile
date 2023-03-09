@@ -1,11 +1,11 @@
 # pull os base image
-FROM debian_base
+FROM flask_base
 
 # set work directory
 RUN mkdir -p /app
 WORKDIR /app
 
 # add app
-COPY ./app /app/
+COPY ./container-sdx-lc/swagger_server /app/
 
 ENTRYPOINT ["./gunicorn.sh"]

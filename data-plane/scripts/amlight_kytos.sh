@@ -1,5 +1,4 @@
 #!/bin/sh
-
 sleep 60
 
 while ! nc -z 192.168.0.6 27027; do
