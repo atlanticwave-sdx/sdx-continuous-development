@@ -1,5 +1,9 @@
 FROM italovalcy/mininet:2.3.0d6
 
+RUN apt-get update && apt-get install -y tmux \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
+
 USER root
 WORKDIR /root
 
