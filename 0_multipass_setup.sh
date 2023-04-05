@@ -3,6 +3,10 @@ multipass launch 22.04 --name sdx -d 20G -m 8192M -c 2
 multipass set client.primary-name=sdx
 multipass list
 multipass info sdx
+
+echo "### mongo client ###"
+multipass exec sdx -- bash -c "sudo wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb"
+multipass exec sdx -- bash -c "sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb"
 echo "### Ubuntu update ###"
 multipass exec sdx -- bash -c 'echo "\$nrconf{restart} = \"l\"" | sudo tee -a /etc/needrestart/needrestart.conf'
 multipass exec sdx -- bash -c "sudo apt-get update --assume-yes"
@@ -12,8 +16,8 @@ multipass exec sdx -- bash -c "sudo apt-get install --assume-yes --no-install-re
                 apt-transport-https build-essential ca-certificates curl dirmngr dpkg-dev docker gcc \
 	        git gnupg2 gunicorn iputils-ping libbz2-dev libc6-dev libexpat1-dev libffi-dev \
 		liblzma-dev libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev \
-		libsqlite3-dev libssl-dev lsb-release lsof make mininet net-tools netbase netcat \
-		openvswitch-switch-dpdk podman software-properties-common uuid-dev wget \
+		libsqlite3-dev libssl-dev lsb-release lsof make mininet mongodb-org-shell net-tools \
+	       	netbase netcat openvswitch-switch-dpdk software-properties-common uuid-dev wget \
 		xz-utils zlib1g-dev jq"
 echo "### install python 3.9 ###"
 multipass exec sdx -- bash -c "sudo add-apt-repository -y ppa:deadsnakes/ppa"

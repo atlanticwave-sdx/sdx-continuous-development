@@ -1,6 +1,6 @@
 db.auth('admin_user', 'admin_pwd')
 
-db = db.getSiblingDB('sdx')
+db = db.getSiblingDB('sdx_lc')
 
 db.createUser(
   {
@@ -9,7 +9,7 @@ db.createUser(
     roles: [
         {
           role: "readWrite",
-          db: "sdxlc"
+          db: "sdx_lc"
         }
     ]
   }

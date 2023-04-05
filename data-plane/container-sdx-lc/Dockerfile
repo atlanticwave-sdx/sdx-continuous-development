@@ -1,11 +1,14 @@
-# pull os base image
-FROM flask_base
+#FROM python:3.6-alpine
+FROM python:3.9.6-buster
 
-# set work directory
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-# add app
-COPY ./container-sdx-lc/swagger_server /app/
+COPY ./container-sdx-lc/ /usr/src/app/
 
-ENTRYPOINT ["./gunicorn.sh"]
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install "connexion[swagger-ui]"
+
+ENTRYPOINT ["python3"]
+
+CMD ["-m", "swagger_server"]

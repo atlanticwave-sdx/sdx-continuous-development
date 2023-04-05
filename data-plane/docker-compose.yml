@@ -116,6 +116,7 @@ services:
       - mongo1t
       - mongo2t
       - mongo3t
+      - mongolc
 
   mongo1t:
     container_name: mongo1t
@@ -186,7 +187,7 @@ services:
 
   rabbitmq3:
     container_name: "rabbitmq"
-    image: rabbitmq:3.8-management-alpine
+    image: sdx_rabbit
     networks:
       kytos_network:
         ipv4_address: 192.168.0.12
@@ -210,10 +211,10 @@ services:
       - 8080:8080
     environment:
       - MONGODB_CONNSTRING=mongodb://sdx_user:sdx_pwd@192.168.0.9:27030/
-      - SDX_MQ_IP=152.54.3.143
+      - SDX_MQ_IP=192.168.0.12
       - SDXLC_DOMAIN=amlight
       # change to local controller host name
-      - SDXLC_HOST=aw-sdx-lc-1.renci.org
+      - SDXLC_HOST=192.168.0.14
       - SDXLC_PORT=8080
       - SDXLC_VERSION=1.0.0
       - PUB_TOPIC=topo
@@ -223,11 +224,14 @@ services:
       # change to local controller config (lcX_q1)
       - SUB_TOPIC=lc1_q1
       - MQ_NAME=hello
-      - MQ_HOST=aw-sdx-monitor.renci.org
+      - MQ_HOST=192.168.0.12
       - MQ_PORT=5672
       - DB_NAME=sdx_lc
-      - DB_CONFIG_TABLE_NAME=sdx-config-test-1
-      - KYTOS_URL=http://192.168.201.205:8088/SDX-LC/1.0.0/provision
+      - DB_CONFIG_TABLE_NAME=sdx_topology
+      - KYTOS_URL=http://192.168.0.2:8181/SDX-LC/1.0.0/provision
+    depends_on:
+      - mongolc
+      - rabbitmq3
 
 networks:
   kytos_network:
