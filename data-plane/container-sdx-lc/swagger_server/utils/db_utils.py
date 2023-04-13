@@ -15,6 +15,8 @@ class DbUtils(object):
         self.mongo_client = pymongo.MongoClient(MONGODB_CONNSTRING)
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
+        self.logger.debug("Trying to load {} from DB {}".format(
+            self.db_name, self.mongo_client, MONGODB_CONNSTRING))
 
     def initialize_db(self):
         """Init database"""
