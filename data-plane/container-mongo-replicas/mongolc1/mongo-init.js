@@ -1,7 +1,7 @@
 
-lc_db = db.getSiblingDB('sdx_lc');
+db = db.getSiblingDB('sdx_lc');
 
-lc_db.createUser(
+db.createUser(
   {
     user: "sdx_user",
     pwd: "sdx_pwd",

@@ -1,12 +1,17 @@
-""" Environment-specific configuration variables """
+""" os env config """
 import os
 from dataclasses import dataclass
+from dotenv import load_dotenv
+load_dotenv()
 
 
 @dataclass
-class BaseConfig:
+class BaseConfig():
     """My base class."""
-    testing: bool = False
+    MONGODB_CONNSTRING = os.getenv(
+            'MONGODB_CONNSTRING',
+            'mongodb://127.0.0.1:27017/?authSource=admin')
+    DEBUG = True
 
 
 @dataclass

@@ -13,7 +13,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
       MONGO_INITDB_DATABASE: ${ROOT_MONGO_DB}
     volumes:
-      - ./container-mongo-replicas/mongolc1/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      - ./container-mongo-replicas/mongolc1/mongo-init.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - ./container-mongo-replicas/mongolc1/data:/data/db
       - ./container-mongo-replicas/mongolc1/log:/var/log/mongodb/
     networks:
@@ -21,7 +21,7 @@ services:
         ipv4_address: 192.168.0.9
     ports:
       - 27030:27030
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--port", "27030" ]
+    command: [ "/usr/bin/mongod", "--bind_ip_all", "--port", "27030", "--auth" ]
 
   rabbitmq3:
     container_name: "rabbitmq"
@@ -52,7 +52,6 @@ services:
     env_file:
       - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       SDX_MQ_IP: ${SDX_MQ_IP}
       SDXLC_DOMAIN: ${SDXLC_DOMAIN}
       SDXLC_HOST: ${SDXLC_HOST}
@@ -66,8 +65,12 @@ services:
       MQ_NAME: ${MQ_NAME}
       MQ_HOST: ${MQ_HOST}
       MQ_PORT: ${MQ_PORT}
-      DB_NAME: ${DB_NAME}
-      DB_CONFIG_TABLE_NAME: ${DB_CONFIG_TABLE_NAME}
+      AMLIGHT_DB: ${AMLIGHT_DB}
+      USER_COLLECTION: ${USER_COLLECTION}
+      TOPOLOGY_COLLECTION: ${TOPOLOGY_COLLECTION}
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      ROOT_MONGO_USER: ${ROOT_MONGO_USER}
+      ROOT_MONGO_PASS: ${ROOT_MONGO_PASS}
       KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongolc

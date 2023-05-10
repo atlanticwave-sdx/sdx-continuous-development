@@ -26,7 +26,6 @@ RUN set -e
 RUN apt-get update
 RUN apt install python3-pip --assume-yes
 
-RUN pip3 install flask==2.0.2
-RUN pip3 install flask-restx==0.5.1
-RUN pip3 install gunicorn==20.1.0
-RUN pip3 install pymongo==4.3.3
+WORKDIR /
+COPY ./os_base/flask_base/requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt

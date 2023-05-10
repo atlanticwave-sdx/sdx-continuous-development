@@ -1,55 +1,43 @@
-#!/usr/bin/env python3
-
-import argparse
-import json
-import logging
-import threading
-import time
-from optparse import OptionParser
-
+""" Flask main program """
+import os
+from flask import Flask
+from swagger_ui_bundle import swagger_ui_3_path
 import connexion
-
+from swagger_server.database import db
 from swagger_server import encoder
-from swagger_server.messaging.topic_queue_consumer import *
-from swagger_server.utils.db_utils import *
+# from apis.rest import api, init_routes
+# from config import settings
+# from extensions import db, docs, exc, jwt, session
+# from utils.log import configure_logging
+# from utils.db_utils import DbUtils
+
+options = {"swagger_path": swagger_ui_3_path}
 
 
-def is_json(myjson):
-    try:
-        json.loads(myjson)
-    except ValueError as e:
-        return False
-    return True
+def configure_app(flask_app):
+    """ configure appp """
+    flask_app.config.from_object(
+        f"swagger_server.config.{os.getenv('APPLICATION_ENV', 'Development')}")
 
 
-def start_consumer(thread_queue, db_instance):
-    logger = logging.getLogger(__name__)
-    logging.getLogger("pika").setLevel(logging.WARNING)
-
-    MESSAGE_ID = 0
-    HEARTBEAT_ID = 0
-
-    rpc = TopicQueueConsumer(thread_queue, "connection")
-    t1 = threading.Thread(target=rpc.start_consumer, args=())
-    t1.start()
+def init_app(flask_app: Flask):
+    """ database init """
+    db.init_app(flask_app)
 
 
-def main():
-    logging.basicConfig(level=logging.INFO)
-
-    # Run swagger service
-    app = connexion.App(__name__, specification_dir="./swagger/")
-    # app.app.json_encoder = encoder.JSONEncoder
-    app.add_api("swagger.yaml", arguments={"title": "SDX LC"}, pythonic_params=True)
-    # Run swagger in a thread
-    threading.Thread(target=lambda: app.run(port=8080)).start()
-
-    # Get DB connection and tables set up.
-    db_instance = DbUtils()
-    db_instance.initialize_db()
-    thread_queue = Queue()
-    start_consumer(thread_queue, db_instance)
+def create_app():
+    """ create appp """
+    _app = connexion.App(__name__, specification_dir="./swagger/")
+    _app.app.json_encoder = encoder.JSONEncoder
+    _app.add_api(
+        "swagger.yaml", arguments={"title": "TO-DO list"}, options=options,
+    )
+    configure_app(_app.app)
+    init_app(_app.app)
+    return _app
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app = create_app()
+    app.run(port=app.app.config["PORT"])
+

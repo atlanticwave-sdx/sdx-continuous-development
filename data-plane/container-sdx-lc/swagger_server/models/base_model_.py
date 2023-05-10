@@ -1,14 +1,16 @@
+""" base model """
 import pprint
-import typing
 
+import typing
 import six
 
-from swagger_server import util
+from swagger_server.utils import util
 
-T = typing.TypeVar("T")
+TVAR = typing.TypeVar("T")
 
 
 class Model(object):
+    """ model object """
     # swaggerTypes: The key is attribute name and the
     # value is attribute type.
     swagger_types = {}
@@ -18,7 +20,7 @@ class Model(object):
     attribute_map = {}
 
     @classmethod
-    def from_dict(cls: typing.Type[T], dikt) -> T:
+    def from_dict(cls: typing.Type[TVAR], dikt) -> TVAR:
         """Returns the dict as a model"""
         return util.deserialize_model(dikt, cls)
 
@@ -33,7 +35,9 @@ class Model(object):
             value = getattr(self, attr)
             if isinstance(value, list):
                 result[attr] = list(
-                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                    map(
+                        lambda x: x.to_dict() if hasattr(
+                            x, "to_dict") else x, value)
                 )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()

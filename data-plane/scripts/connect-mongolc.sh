@@ -1,3 +1,4 @@
+#!/bin/sh
 multipass exec sdx -- bash -c "mongo --host '192.168.0.9' --port '27030' -u 'admin_user' -p 'admin_pwd' --authenticationDatabase admin"
 
 
