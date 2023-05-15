@@ -1,12 +1,12 @@
 # coding: utf-8
 
 from __future__ import absolute_import
-
 from datetime import date, datetime  # noqa: F401
-from typing import Dict, List  # noqa: F401
 
-from swagger_server import util
+from typing import List, Dict  # noqa: F401
+
 from swagger_server.models.base_model_ import Model
+from swagger_server import util
 
 
 class Location(Model):
@@ -14,10 +14,7 @@ class Location(Model):
 
     Do not edit the class manually.
     """
-
-    def __init__(
-        self, address: str = None, latitude: float = None, longitude: float = None
-    ):  # noqa: E501
+    def __init__(self, address: str=None, latitude: float=None, longitude: float=None):  # noqa: E501
         """Location - a model defined in Swagger
 
         :param address: The address of this Location.  # noqa: E501
@@ -27,19 +24,23 @@ class Location(Model):
         :param longitude: The longitude of this Location.  # noqa: E501
         :type longitude: float
         """
-        self.swagger_types = {"address": str, "latitude": float, "longitude": float}
+        self.swagger_types = {
+            'address': str,
+            'latitude': float,
+            'longitude': float
+        }
 
         self.attribute_map = {
-            "address": "address",
-            "latitude": "latitude",
-            "longitude": "longitude",
+            'address': 'address',
+            'latitude': 'latitude',
+            'longitude': 'longitude'
         }
         self._address = address
         self._latitude = latitude
         self._longitude = longitude
 
     @classmethod
-    def from_dict(cls, dikt) -> "Location":
+    def from_dict(cls, dikt) -> 'Location':
         """Returns the dict as a model
 
         :param dikt: A dict.
@@ -67,6 +68,8 @@ class Location(Model):
         :param address: The address of this Location.
         :type address: str
         """
+        if address is None:
+            raise ValueError("Invalid value for `address`, must not be `None`")  # noqa: E501
 
         self._address = address
 
@@ -88,6 +91,8 @@ class Location(Model):
         :param latitude: The latitude of this Location.
         :type latitude: float
         """
+        if latitude is None:
+            raise ValueError("Invalid value for `latitude`, must not be `None`")  # noqa: E501
 
         self._latitude = latitude
 
@@ -109,5 +114,7 @@ class Location(Model):
         :param longitude: The longitude of this Location.
         :type longitude: float
         """
+        if longitude is None:
+            raise ValueError("Invalid value for `longitude`, must not be `None`")  # noqa: E501
 
         self._longitude = longitude

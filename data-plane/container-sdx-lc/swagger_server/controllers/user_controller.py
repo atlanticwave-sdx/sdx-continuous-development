@@ -1,119 +1,86 @@
+""" user controller """
+# import six
+import os
 import connexion
-import six
-
-from swagger_server import util
+from flask_injector import inject
+from swagger_server.models.new_user import NewUser  # noqa: E501
 from swagger_server.models.user import User  # noqa: E501
+# from swagger_server import util
+from swagger_server.database.mongo_provider import MongoProvider
+
+data_provider = MongoProvider()
 
 
-def create_user(body):  # noqa: E501
-    """Create user
+@inject
+def add_user(body):  # noqa: E501
+    """Create a new user to SDX-LC
 
-    This can only be done by the logged in user. # noqa: E501
+    Create a user # noqa: E501
 
-    :param body: Created user object
+    :param body: placed for adding a new user
     :type body: dict | bytes
-
-    :rtype: None
-    """
-    if connexion.request.is_json:
-        body = User.from_dict(connexion.request.get_json())  # noqa: E501
-    return "do some magic!"
-
-
-def create_users_with_array_input(body):  # noqa: E501
-    """Creates list of users with given input array
-
-     # noqa: E501
-
-    :param body: List of user object
-    :type body: list | bytes
-
-    :rtype: None
-    """
-    if connexion.request.is_json:
-        body = [User.from_dict(d) for d in connexion.request.get_json()]  # noqa: E501
-    return "do some magic!"
-
-
-def create_users_with_list_input(body):  # noqa: E501
-    """Creates list of users with given input array
-
-     # noqa: E501
-
-    :param body: List of user object
-    :type body: list | bytes
-
-    :rtype: None
-    """
-    if connexion.request.is_json:
-        body = [User.from_dict(d) for d in connexion.request.get_json()]  # noqa: E501
-    return "do some magic!"
-
-
-def delete_user(username):  # noqa: E501
-    """Delete user
-
-    This can only be done by the logged in user. # noqa: E501
-
-    :param username: The name that needs to be deleted
-    :type username: str
-
-    :rtype: None
-    """
-    return "do some magic!"
-
-
-def get_user_by_name(username):  # noqa: E501
-    """Get user by user name
-
-     # noqa: E501
-
-    :param username: The name that needs to be fetched. Use user1 for testing.
-    :type username: str
 
     :rtype: User
     """
-    return "do some magic!"
+    if connexion.request.is_json:
+        body = NewUser.from_dict(connexion.request.get_json())  # noqa: E501
+    return data_provider.create_user(body)
 
 
-def login_user(username, password):  # noqa: E501
-    """Logs user into the system
-
-     # noqa: E501
-
-    :param username: The user name for login
-    :type username: str
-    :param password: The password for login in clear text
-    :type password: str
-
-    :rtype: str
-    """
-    return "do some magic!"
-
-
-def logout_user():  # noqa: E501
-    """Logs out current logged in user session
+@inject
+def delete_user(user_id):  # noqa: E501
+    """delete_user
 
      # noqa: E501
 
+    :param user_id: Numeric ID of the user to delete.
+    :type user_id: str
 
     :rtype: None
     """
-    return "do some magic!"
+    return data_provider.delete_user(user_id)
 
 
-def update_user(body, username):  # noqa: E501
-    """Updated user
+def find_user(tags=None, limit=None):  # noqa: E501
+    """find_user
 
-    This can only be done by the logged in user. # noqa: E501
+    Returns users from the system that the user has access to  # noqa: E501
 
-    :param body: Updated user object
+    :param tags: tags to filter by
+    :type tags: List[str]
+    :param limit: maximum number of results to return
+    :type limit: int
+
+    :rtype: List[User]
+    """
+    return 'do some magic!'
+
+
+@inject
+def read_user(user_id):  # noqa: E501
+    """read_user
+
+    Fetch a user from the database # noqa: E501
+
+    :param user_id: Numeric ID of the user to get.
+    :type user_id: str
+
+    :rtype: User
+    """
+    return data_provider.read_user(user_id)
+
+
+@inject
+def update_user(body):  # noqa: E501
+    """Update a user in SDX-LC
+
+    Update a user # noqa: E501
+
+    :param body: placed for adding a new user
     :type body: dict | bytes
-    :param username: name that need to be updated
-    :type username: str
 
-    :rtype: None
+    :rtype: User
     """
     if connexion.request.is_json:
         body = User.from_dict(connexion.request.get_json())  # noqa: E501
-    return "do some magic!"
+    return data_provider.update_user(body)

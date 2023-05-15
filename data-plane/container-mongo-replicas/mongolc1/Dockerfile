@@ -16,5 +16,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # set work directory
 WORKDIR /
 RUN mkdir -p /data/db
-COPY ./container-mongo-replicas/mongolc1/mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js
-ENTRYPOINT [ "/usr/bin/mongod", "--bind_ip_all", "--port", "27030" ]
+# COPY ./container-mongo-replicas/mongolc1/mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js
+# ENTRYPOINT [ "/usr/bin/mongod", "--bind_ip_all", "--port", "27030" ]

@@ -4,41 +4,15 @@ services:
 
   mongolc:
     container_name: mongolc
-    image: sdx_mongo
+    image: mongo_lc
     restart: always
-    env_file:
-      - .env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
-      MONGO_INITDB_DATABASE: ${ROOT_MONGO_DB}
-    volumes:
-      - ./container-mongo-replicas/mongolc1/mongo-init.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-      - ./container-mongo-replicas/mongolc1/data:/data/db
-      - ./container-mongo-replicas/mongolc1/log:/var/log/mongodb/
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
     networks:
       kytos_network:
         ipv4_address: 192.168.0.9
-    ports:
-      - 27030:27030
-    command: [ "/usr/bin/mongod", "--bind_ip_all", "--port", "27030", "--auth" ]
-
-  rabbitmq3:
-    container_name: "rabbitmq"
-    image: sdx_rabbit
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.12
-    ports:
-      # AMQP protocol port
-      - '5672:5672'
-      # HTTP management UI
-      - '15672:15672'
-    env_file:
-      - .env
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
 
   sdx-lc:
     container_name: sdx-lc
@@ -47,34 +21,22 @@ services:
     networks:
       kytos_network:
         ipv4_address: 192.168.0.14
-    ports:
-      - 8080:8080
-    env_file:
-      - .env
-    environment:
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      SDXLC_DOMAIN: ${SDXLC_DOMAIN}
-      SDXLC_HOST: ${SDXLC_HOST}
-      SDXLC_PORT: ${SDXLC_PORT}
-      SDXLC_VERSION: ${SDXLC_VERSION}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      AMLIGHT_DB: ${AMLIGHT_DB}
-      USER_COLLECTION: ${USER_COLLECTION}
-      TOPOLOGY_COLLECTION: ${TOPOLOGY_COLLECTION}
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
-      ROOT_MONGO_USER: ${ROOT_MONGO_USER}
-      ROOT_MONGO_PASS: ${ROOT_MONGO_PASS}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongolc
-      - rabbitmq3
+
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MODE=dev
+      - MONGO_URL=mongo
+      - MONGO_PORT=27017
+      - SERVER_URL=0.0.0.0
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=pass
+      - PORT=8080
+
+    ports:
+      - "8080:8080"
+
 
 networks:
   kytos_network:

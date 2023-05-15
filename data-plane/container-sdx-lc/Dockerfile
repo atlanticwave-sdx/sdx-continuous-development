@@ -1,14 +1,10 @@
-#FROM python:3.6-alpine
-FROM python:3.9.6-buster
+FROM flask_base
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY ./container-sdx-lc/ /usr/src/app/
 
-RUN pip3 install --no-cache-dir -r requirements.txt
-RUN pip3 install "connexion[swagger-ui]"
+EXPOSE 8080
 
-ENTRYPOINT ["python3"]
-
-CMD ["-m", "swagger_server"]
+CMD ["python3", "/usr/src/app/swagger_server/__main__.py"]

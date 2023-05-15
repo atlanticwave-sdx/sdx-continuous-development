@@ -1,12 +1,13 @@
 # coding: utf-8
 
 from __future__ import absolute_import
-
 from datetime import date, datetime  # noqa: F401
-from typing import Dict, List  # noqa: F401
 
-from swagger_server import util
+from typing import List, Dict  # noqa: F401
+
 from swagger_server.models.base_model_ import Model
+import re  # noqa: F401,E501
+from swagger_server import util
 
 
 class Port(Model):
@@ -14,69 +15,63 @@ class Port(Model):
 
     Do not edit the class manually.
     """
-
-    def __init__(
-        self,
-        id: str = None,
-        name: str = None,
-        short_name: str = None,
-        node: str = None,
-        label_range: List[str] = None,
-        status: str = None,
-        state: str = None,
-        private_attributes: List[str] = None,
-    ):  # noqa: E501
+    def __init__(self, id: str=None, name: str=None, node: str=None, type: str=None, status: str=None, state: str=None, services: str=None, nni: str=None, mtu: int=None):  # noqa: E501
         """Port - a model defined in Swagger
 
         :param id: The id of this Port.  # noqa: E501
         :type id: str
         :param name: The name of this Port.  # noqa: E501
         :type name: str
-        :param short_name: The short_name of this Port.  # noqa: E501
-        :type short_name: str
         :param node: The node of this Port.  # noqa: E501
         :type node: str
-        :param label_range: The label_range of this Port.  # noqa: E501
-        :type label_range: List[str]
+        :param type: The type of this Port.  # noqa: E501
+        :type type: str
         :param status: The status of this Port.  # noqa: E501
         :type status: str
         :param state: The state of this Port.  # noqa: E501
         :type state: str
-        :param private_attributes: The private_attributes of this Port.  # noqa: E501
-        :type private_attributes: List[str]
+        :param services: The services of this Port.  # noqa: E501
+        :type services: str
+        :param nni: The nni of this Port.  # noqa: E501
+        :type nni: str
+        :param mtu: The mtu of this Port.  # noqa: E501
+        :type mtu: int
         """
         self.swagger_types = {
-            "id": str,
-            "name": str,
-            "short_name": str,
-            "node": str,
-            "label_range": List[str],
-            "status": str,
-            "state": str,
-            "private_attributes": List[str],
+            'id': str,
+            'name': str,
+            'node': str,
+            'type': str,
+            'status': str,
+            'state': str,
+            'services': str,
+            'nni': str,
+            'mtu': int
         }
 
         self.attribute_map = {
-            "id": "id",
-            "name": "name",
-            "short_name": "short_name",
-            "node": "node",
-            "label_range": "label_range",
-            "status": "status",
-            "state": "state",
-            "private_attributes": "private_attributes",
+            'id': 'id',
+            'name': 'name',
+            'node': 'node',
+            'type': 'type',
+            'status': 'status',
+            'state': 'state',
+            'services': 'services',
+            'nni': 'nni',
+            'mtu': 'mtu'
         }
         self._id = id
         self._name = name
-        self._short_name = short_name
         self._node = node
-        self._label_range = label_range
+        self._type = type
         self._status = status
         self._state = state
-        self._private_attributes = private_attributes
+        self._services = services
+        self._nni = nni
+        self._mtu = mtu
 
     @classmethod
-    def from_dict(cls, dikt) -> "Port":
+    def from_dict(cls, dikt) -> 'Port':
         """Returns the dict as a model
 
         :param dikt: A dict.
@@ -128,32 +123,9 @@ class Port(Model):
         :type name: str
         """
         if name is None:
-            raise ValueError(
-                "Invalid value for `name`, must not be `None`"
-            )  # noqa: E501
+            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
         self._name = name
-
-    @property
-    def short_name(self) -> str:
-        """Gets the short_name of this Port.
-
-
-        :return: The short_name of this Port.
-        :rtype: str
-        """
-        return self._short_name
-
-    @short_name.setter
-    def short_name(self, short_name: str):
-        """Sets the short_name of this Port.
-
-
-        :param short_name: The short_name of this Port.
-        :type short_name: str
-        """
-
-        self._short_name = short_name
 
     @property
     def node(self) -> str:
@@ -174,32 +146,36 @@ class Port(Model):
         :type node: str
         """
         if node is None:
-            raise ValueError(
-                "Invalid value for `node`, must not be `None`"
-            )  # noqa: E501
+            raise ValueError("Invalid value for `node`, must not be `None`")  # noqa: E501
 
         self._node = node
 
     @property
-    def label_range(self) -> List[str]:
-        """Gets the label_range of this Port.
+    def type(self) -> str:
+        """Gets the type of this Port.
 
 
-        :return: The label_range of this Port.
-        :rtype: List[str]
+        :return: The type of this Port.
+        :rtype: str
         """
-        return self._label_range
+        return self._type
 
-    @label_range.setter
-    def label_range(self, label_range: List[str]):
-        """Sets the label_range of this Port.
+    @type.setter
+    def type(self, type: str):
+        """Sets the type of this Port.
 
 
-        :param label_range: The label_range of this Port.
-        :type label_range: List[str]
+        :param type: The type of this Port.
+        :type type: str
         """
+        allowed_values = ["1GE", "10GE", "25GE", "40GE", "50GE", "100GE", "400GE", "Other"]  # noqa: E501
+        if type not in allowed_values:
+            raise ValueError(
+                "Invalid value for `type` ({0}), must be one of {1}"
+                .format(type, allowed_values)
+            )
 
-        self._label_range = label_range
+        self._type = type
 
     @property
     def status(self) -> str:
@@ -219,10 +195,12 @@ class Port(Model):
         :param status: The status of this Port.
         :type status: str
         """
-        if status is None:
+        allowed_values = ["up", "down", "error"]  # noqa: E501
+        if status not in allowed_values:
             raise ValueError(
-                "Invalid value for `status`, must not be `None`"
-            )  # noqa: E501
+                "Invalid value for `status` ({0}), must be one of {1}"
+                .format(status, allowed_values)
+            )
 
         self._status = status
 
@@ -244,26 +222,74 @@ class Port(Model):
         :param state: The state of this Port.
         :type state: str
         """
+        allowed_values = ["enabled", "disabled"]  # noqa: E501
+        if state not in allowed_values:
+            raise ValueError(
+                "Invalid value for `state` ({0}), must be one of {1}"
+                .format(state, allowed_values)
+            )
 
         self._state = state
 
     @property
-    def private_attributes(self) -> List[str]:
-        """Gets the private_attributes of this Port.
+    def services(self) -> str:
+        """Gets the services of this Port.
 
 
-        :return: The private_attributes of this Port.
-        :rtype: List[str]
+        :return: The services of this Port.
+        :rtype: str
         """
-        return self._private_attributes
+        return self._services
 
-    @private_attributes.setter
-    def private_attributes(self, private_attributes: List[str]):
-        """Sets the private_attributes of this Port.
+    @services.setter
+    def services(self, services: str):
+        """Sets the services of this Port.
 
 
-        :param private_attributes: The private_attributes of this Port.
-        :type private_attributes: List[str]
+        :param services: The services of this Port.
+        :type services: str
         """
 
-        self._private_attributes = private_attributes
+        self._services = services
+
+    @property
+    def nni(self) -> str:
+        """Gets the nni of this Port.
+
+
+        :return: The nni of this Port.
+        :rtype: str
+        """
+        return self._nni
+
+    @nni.setter
+    def nni(self, nni: str):
+        """Sets the nni of this Port.
+
+
+        :param nni: The nni of this Port.
+        :type nni: str
+        """
+
+        self._nni = nni
+
+    @property
+    def mtu(self) -> int:
+        """Gets the mtu of this Port.
+
+
+        :return: The mtu of this Port.
+        :rtype: int
+        """
+        return self._mtu
+
+    @mtu.setter
+    def mtu(self, mtu: int):
+        """Sets the mtu of this Port.
+
+
+        :param mtu: The mtu of this Port.
+        :type mtu: int
+        """
+
+        self._mtu = mtu
