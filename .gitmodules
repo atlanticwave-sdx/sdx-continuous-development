@@ -1,0 +1,4 @@
+[submodule "data-plane/sdx-lc"]
+	path = data-plane/sdx-lc
+	url = https://github.com/atlanticwave-sdx/sdx-lc
+	branch = main
