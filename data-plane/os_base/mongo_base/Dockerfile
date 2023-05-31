@@ -15,6 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN mkdir -p /data/db
 RUN mkdir -p /mongo_base/
-COPY ./os_base/mongo_base/ /mongo_base/
+COPY os_base/mongo_base/ /mongo_base/
 RUN chmod 600 /mongo_base/m103-keyfile
 RUN chmod 755 /mongo_base/*.conf

@@ -7,5 +7,5 @@ ENV MONGO_INITDB_ROOT_PASSWORD admin_pwd
 ENV MONGO_INITDB_DATABASE admin
 # set work directory
 WORKDIR /
-COPY ./os_base/mongo_base/node1.conf /etc/mongo.conf
+COPY os_base/mongo_base/node1.conf /etc/mongo.conf
 ENTRYPOINT [ "/usr/bin/mongod", "--config", "/etc/mongo.conf"]

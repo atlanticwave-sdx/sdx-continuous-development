@@ -2,41 +2,248 @@ version: '3.9'
 
 services:
 
-  mongolc:
-    container_name: mongolc
-    image: mongo_lc
+  amlight:
+    container_name: amlight
+    image: amlight
+    privileged: true
+    tty: true
     restart: always
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
     networks:
       kytos_network:
-        ipv4_address: 192.168.0.9
+        ipv4_address: 192.168.0.2
+    ports:
+      - 6653:6653
+      - 8081:8080
+      - 8181:8181
+    volumes:
+      - ./tests:/tests
+      - ./scripts:/scripts
+      - ./etc/kytos:/etc/kytos
+    env_file:
+      - .env
+    environment:
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_USERNAME: ${AMLIGHT_MONGO_USER}
+      MONGO_PASSWORD: ${AMLIGHT_MONGO_PASS}
+      MONGO_DBNAME: ${AMLIGHT_MONGO_DB}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      SDXLC_DOMAIN: ${SDXLC_DOMAIN}
+      SDXLC_HOST: ${SDXLC_HOST}
+      SDXLC_PORT: ${SDXLC_PORT}
+      SDXLC_VERSION: ${SDXLC_VERSION}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      KYTOS_URL: ${KYTOS_URL}
+    depends_on:
+      - mongo-ready
+      - rabbitmq3
+    entrypoint: ["/scripts/amlight_kytos.sh"]
 
-  sdx-lc:
-    container_name: sdx-lc
-    image: sdx-lc
+  sax:
+    container_name: sax
+    image: sax
+    privileged: true
+    tty: true
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.3
+    ports:
+      - 6654:6653
+      - 8082:8080
+      - 8282:8181
+    volumes:
+      - ./tests:/tests
+      - ./scripts:/scripts
+      - ./etc/kytos:/etc/kytos
+    env_file:
+      - .env
+    environment:
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_USERNAME: ${SAX_MONGO_USER}
+      MONGO_PASSWORD: ${SAX_MONGO_PASS}
+      MONGO_DBNAME: ${SAX_MONGO_DB}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      SDXLC_DOMAIN: ${SDXLC_DOMAIN}
+      SDXLC_HOST: ${SDXLC_HOST}
+      SDXLC_PORT: ${SDXLC_PORT}
+      SDXLC_VERSION: ${SDXLC_VERSION}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      KYTOS_URL: ${KYTOS_URL}
+    depends_on:
+      - mongo-ready
+      - rabbitmq3
+    entrypoint: ["/scripts/sax_kytos.sh"]
+
+  tenet:
+    container_name: tenet
+    image: tenet
+    privileged: true
+    restart: always
     tty: true
     networks:
       kytos_network:
-        ipv4_address: 192.168.0.14
-    depends_on:
-      - mongolc
-
-    environment:
-      - PYTHONUNBUFFERED=1
-      - MODE=dev
-      - MONGO_URL=mongo
-      - MONGO_PORT=27017
-      - SERVER_URL=0.0.0.0
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=pass
-      - PORT=8080
-
+        ipv4_address: 192.168.0.4
     ports:
-      - "8080:8080"
+      - 6655:6653
+      - 8083:8080
+      - 8383:8181
+    volumes:
+      - ./tests:/tests
+      - ./scripts:/scripts
+      - ./etc/kytos:/etc/kytos
+    env_file:
+      - .env
+    environment:
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_USERNAME: ${TENET_MONGO_USER}
+      MONGO_PASSWORD: ${TENET_MONGO_PASS}
+      MONGO_DBNAME: ${TENET_MONGO_DB}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      SDXLC_DOMAIN: ${SDXLC_DOMAIN}
+      SDXLC_HOST: ${SDXLC_HOST}
+      SDXLC_PORT: ${SDXLC_PORT}
+      SDXLC_VERSION: ${SDXLC_VERSION}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      KYTOS_URL: ${KYTOS_URL}
+    depends_on:
+      - mongo-ready
+      - rabbitmq3
+    entrypoint: ["/scripts/tenet_kytos.sh"]
 
+  mongo-setup:
+    container_name: mongo-rs-init
+    image: sdx_mongo
+    restart: on-failure
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.5
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/rs-init.sh"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin_user
+      MONGO_INITDB_ROOT_PASSWORD: admin_pw
+      MONGO_USERNAME: admin_user
+      MONGO_PASSWORD: admin_pw
+      MONGO_DBNAME: admin
+    depends_on:
+      - mongo1t
+      - mongo2t
+      - mongo3t
+
+  mongo1t:
+    container_name: mongo1t
+    image: sdx_mongo
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.6
+    ports:
+      - 27027:27027
+    volumes:
+      - ./os_base/mongo_base:/mongo_base
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27027" ]
+
+  mongo2t:
+    container_name: mongo2t
+    image: sdx_mongo
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.7
+    ports:
+      - 27028:27028
+    volumes:
+      - ./os_base/mongo_base:/mongo_base
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27028" ]
+
+  mongo3t:
+    container_name: mongo3t
+    image: sdx_mongo
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.8
+    ports:
+      - 27029:27029
+    volumes:
+      - ./os_base/mongo_base:/mongo_base
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27029" ]
+
+  mongo-ready:
+    container_name: mongo-test-ready
+    image: sdx_mongo
+    restart: on-failure
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.10
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/rs-add.sh"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin_user
+      MONGO_INITDB_ROOT_PASSWORD: admin_pw
+      MONGO_USERNAME: admin_user
+      MONGO_PASSWORD: admin_pw
+      MONGO_DBNAME: admin
+    depends_on:
+      - mongo-setup
+
+  mininet:
+    container_name: mininet
+    image: mininet
+    privileged: true
+    tty: true
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.11
+    volumes:
+      - /lib/modules:/lib/modules
+    depends_on:
+      - amlight
+      - sax
+      - tenet
+
+  rabbitmq3:
+    container_name: "rabbitmq"
+    image: sdx_rabbit
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.12
+    ports:
+      # AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
+    env_file:
+      - .env
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
 
 networks:
   kytos_network:

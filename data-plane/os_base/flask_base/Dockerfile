@@ -27,5 +27,5 @@ RUN apt-get update
 RUN apt install python3-pip --assume-yes
 
 WORKDIR /
-COPY ./os_base/flask_base/requirements.txt requirements.txt
+COPY os_base/flask_base/requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt

@@ -1,0 +1,6 @@
+[submodule "data-plane/container-kytos-sdx-lc"]
+	path = data-plane/container-kytos-sdx-lc
+	url = https://github.com/atlanticwave-sdx/sdx-lc
+	branch = main
+[submodule "container-kytos-sdx-lc"]
+	branch = validation

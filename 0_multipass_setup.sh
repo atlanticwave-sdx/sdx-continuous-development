@@ -1,8 +1,8 @@
 #!/bin/sh
-multipass launch 22.04 --name sdx -d 20G -m 8192M -c 2
-multipass set client.primary-name=sdx
-multipass list
-multipass info sdx
+# multipass launch 22.04 --name sdx -d 20G -m 8192M -c 2
+# multipass set client.primary-name=sdx
+# multipass list
+# multipass info sdx
 
 echo "### mongo client ###"
 multipass exec sdx -- bash -c "sudo wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb"
@@ -42,11 +42,4 @@ multipass exec sdx -- bash -c "chmod +x ~/.docker/cli-plugins/docker-compose"
 multipass exec sdx -- bash -c "sudo pip install docker-compose"
 multipass exec sdx -- bash -c "sudo apt-get update"
 multipass exec sdx -- bash -c "sudo apt-get install -y docker-compose"
-echo "### set mininet ###"
-multipass exec sdx -- bash -c "sudo mn --version"
-multipass exec sdx -- bash -c "sudo mn --switch ovsbr --test pingall"
-multipass exec sdx -- bash -c "sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'"
-multipass mount . sdx:/sdx
 multipass exec sdx -- bash -c "sudo apt-get install python3-pip --assume-yes"
-multipass exec sdx -- bash -c "sudo openssl rand --base64 741 > /sdx/data-plane/os_base/mongo_base/m103-keyfile"
-multipass exec sdx -- bash -c "sudo chmod 400 /sdx/data-plane/os_base/mongo_base/m103-keyfile"

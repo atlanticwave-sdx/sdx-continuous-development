@@ -14,7 +14,12 @@ while ! nc -z 192.168.0.8 27029; do
   sleep 1 # wait 1 second before check for mongo3t again
 done
 
-tmux new-sess -d -s k1 kytosd -f --database mongodb
-
 touch /var/log/kytos.log
-tail -f /var/log/kytos.log
+
+tmux new-sess -d -s split-session ;\
+	tmux send-keys -t split-session.0 \
+	"kytosd -f --database mongodb" ENTER \
+	tmux send-keys -t split-session.1 \
+	"python3 ./sdx_lc/__main__.py" ENTER
+
+# tail -f /var/log/kytos.log
