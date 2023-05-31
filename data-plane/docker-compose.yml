@@ -44,7 +44,7 @@ services:
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: ["/scripts/amlight_kytos.sh"]
+    entrypoint: ["/scripts/sdx_lc_kytos.sh"]
 
   sax:
     container_name: sax
@@ -88,7 +88,7 @@ services:
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: ["/scripts/sax_kytos.sh"]
+    entrypoint: ["/scripts/sdx_lc_kytos.sh"]
 
   tenet:
     container_name: tenet
@@ -132,7 +132,7 @@ services:
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: ["/scripts/tenet_kytos.sh"]
+    entrypoint: ["/scripts/sdx_lc_kytos.sh"]
 
   mongo-setup:
     container_name: mongo-rs-init
