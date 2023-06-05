@@ -44,7 +44,7 @@ services:
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: ["/scripts/sdx_lc_kytos.sh"]
+    entrypoint: ["/scripts/amlight_sdx_lc_kytos.sh"]
 
   sax:
     container_name: sax
@@ -88,7 +88,7 @@ services:
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: ["/scripts/sdx_lc_kytos.sh"]
+    entrypoint: ["/scripts/sax_sdx_lc_kytos.sh"]
 
   tenet:
     container_name: tenet
@@ -132,7 +132,7 @@ services:
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: ["/scripts/sdx_lc_kytos.sh"]
+    entrypoint: ["/scripts/tenet_sdx_lc_kytos.sh"]
 
   mongo-setup:
     container_name: mongo-rs-init
@@ -144,12 +144,16 @@ services:
     volumes:
       - ./scripts:/scripts
     entrypoint: ["/scripts/rs-init.sh"]
+    env_file:
+      - .env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin_user
-      MONGO_INITDB_ROOT_PASSWORD: admin_pw
-      MONGO_USERNAME: admin_user
-      MONGO_PASSWORD: admin_pw
-      MONGO_DBNAME: admin
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_DBNAME: ${ROOT_MONGO_DB}
     depends_on:
       - mongo1t
       - mongo2t
@@ -167,6 +171,16 @@ services:
     volumes:
       - ./os_base/mongo_base:/mongo_base
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27027" ]
+    env_file:
+      - .env
+    environment:
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_DBNAME: ${ROOT_MONGO_DB}
 
   mongo2t:
     container_name: mongo2t
@@ -180,6 +194,16 @@ services:
     volumes:
       - ./os_base/mongo_base:/mongo_base
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27028" ]
+    env_file:
+      - .env
+    environment:
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_DBNAME: ${ROOT_MONGO_DB}
 
   mongo3t:
     container_name: mongo3t
@@ -193,6 +217,16 @@ services:
     volumes:
       - ./os_base/mongo_base:/mongo_base
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27029" ]
+    env_file:
+      - .env
+    environment:
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_DBNAME: ${ROOT_MONGO_DB}
 
   mongo-ready:
     container_name: mongo-test-ready
@@ -204,12 +238,16 @@ services:
     volumes:
       - ./scripts:/scripts
     entrypoint: ["/scripts/rs-add.sh"]
+    env_file:
+      - .env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin_user
-      MONGO_INITDB_ROOT_PASSWORD: admin_pw
-      MONGO_USERNAME: admin_user
-      MONGO_PASSWORD: admin_pw
-      MONGO_DBNAME: admin
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_DBNAME: ${ROOT_MONGO_DB}
     depends_on:
       - mongo-setup
 
