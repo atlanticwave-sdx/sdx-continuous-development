@@ -18,7 +18,7 @@ done
 tmux new-sess -d -s k1 kytosd -f --database mongodb
 touch /var/log/gunicorn/access_gunicorn.log
 touch /var/log/gunicorn/error_gunicorn.log
-gunicorn 'swagger_server.__main__:main' -w 4 -b 0.0.0.0:8080 --log-level=debug \
+gunicorn 'swagger_server.__main__:main' -w 1 -b 0.0.0.0:8080 \
 	--daemon \
 	--access-logfile var/log/gunicorn/access_gunicorn.log \
 	--error-logfile var/log/gunicorn/error_gunicorn.log \
