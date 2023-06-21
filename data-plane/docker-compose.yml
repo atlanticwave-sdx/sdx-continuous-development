@@ -286,6 +286,20 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
 
+  worker:
+    container_name: "worker"
+    image: worker
+    volumes:
+      - ./container-sdx-controller/worker:/app
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.13
+    depends_on:
+      - rabbitmq3
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/worker.sh"]
+
 networks:
   kytos_network:
     ipam:

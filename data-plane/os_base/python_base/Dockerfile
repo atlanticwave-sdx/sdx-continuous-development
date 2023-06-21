@@ -17,4 +17,4 @@ ENV LANG=C.UTF-8
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
+RUN pip3 install pika==1.2.0
