@@ -1,8 +1,8 @@
-[submodule "data-plane/container-kytos-sdx-lc"]
-	path = data-plane/container-kytos-sdx-lc
+[submodule "data-plane/container-sdx-lc"]
+	path = data-plane/container-sdx-lc
 	url = https://github.com/atlanticwave-sdx/sdx-lc
 	branch = main
-[submodule "container-kytos-sdx-lc"]
+[submodule "container-sdx-lc"]
 	branch = validation
 [submodule "data-plane/container-sdx-controller"]
 	path = data-plane/container-sdx-controller
@@ -10,3 +10,7 @@
 	branch = main
 [submodule "container-sdx-controller"]
 	branch = validation
+[submodule "data-plane/container-kytos-sdx-topology"]
+	path = data-plane/container-kytos-sdx-topology
+	url = https://github.com/atlanticwave-sdx/kytos-sdx-topology
+	branch = main
