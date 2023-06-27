@@ -68,3 +68,7 @@ rm -rf /var/lib/apt/lists/*
 
 COPY ./os_base/kytos_base/requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY ./os_base/kytos_base/Pipfile Pipfile
+RUN pip3 install pipenv
+RUN pipenv install
