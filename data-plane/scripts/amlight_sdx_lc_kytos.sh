@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-sleep 60
+sleep 30
 
 while ! nc -z 192.168.0.6 27027; do   
   sleep 1 # wait 1 second before check for mongo1t again
