@@ -66,8 +66,8 @@ RUN apt install python3-pip --assume-yes
 RUN apt-get purge --assume-yes --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
 rm -rf /var/lib/apt/lists/*
 
-COPY ./os_base/kytos_base/requirements.txt requirements.txt
-RUN pip3 install --no-cache-dir -r requirements.txt
+# COPY ./os_base/kytos_base/requirements.txt requirements.txt
+# RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY ./os_base/kytos_base/Pipfile Pipfile
 RUN pip3 install pipenv
