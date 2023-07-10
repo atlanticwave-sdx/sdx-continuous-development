@@ -38,3 +38,12 @@ sudo pip install docker-compose
 sudo apt-get update
 sudo apt-get install -y docker-compose
 sudo apt-get install python3-pip --assume-yes
+pip3 install pytest==7.2.1 
+pip3 install pytest-cov==4.0.0
+pip3 install black==23.3.0
+pip3 install isort==5.12.0
+pip3 install pylint==2.15.0
+pip3 install pycodestyle==2.10.0 
+pip3 install yala==3.2.0
+pip3 install tox==3.28.0 
+pip3 install typing-extensions==4.7.1

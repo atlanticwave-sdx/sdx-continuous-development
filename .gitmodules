@@ -14,3 +14,7 @@
 	path = data-plane/container-kytos-sdx-topology
 	url = https://github.com/atlanticwave-sdx/kytos-sdx-topology
 	branch = main
+[submodule "data-plane/container-sdx-meican"]
+	path = data-plane/container-sdx-meican
+	url = https://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@github.com/atlanticwave-sdx/sdx-meican
+	branch = main
