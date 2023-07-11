@@ -71,4 +71,4 @@ rm -rf /var/lib/apt/lists/*
 
 COPY ./os_base/kytos_base/Pipfile Pipfile
 RUN pip3 install pipenv
-RUN pipenv install
+# RUN pipenv install
