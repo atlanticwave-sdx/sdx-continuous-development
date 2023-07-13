@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "### Starting services via docker compose ###"
-docker compose up -d
+# docker compose up -d
 
 maxWait=180
 echo "### Waiting until services are ready (max wait $maxWait seconds)..."
