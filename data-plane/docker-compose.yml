@@ -161,28 +161,59 @@ services:
       - rabbitmq3
     entrypoint: ["/scripts/tenet_sdx_lc_kytos.sh"]
 
-  mongo-setup:
-    container_name: mongo-rs-init
-    image: sdx_mongo
-    restart: on-failure
+  sdx-test:
+    container_name: sdx-test
+    image: sdx_test
+    privileged: true
+    tty: true
+    restart: always
     networks:
       kytos_network:
         ipv4_address: 192.168.0.5
+    ports:
+      - 6656:6653
+      - 8084:8080
+      - 8484:8181
     volumes:
+      - ./tests:/tests
       - ./scripts:/scripts
-    entrypoint: ["/scripts/rs-init.sh"]
-    env_file:
+      - ./etc/kytos:/etc/kytos
+    env_file: 
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
-      MONGO_DBNAME: ${ROOT_MONGO_DB}
+      MONGO_INITDB_ROOT_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_USERNAME: 'sdx_test_user'
+      MONGO_PASSWORD: 'sdx_test_pwd'
+      MONGO_DBNAME: 'sdx_test'
+      SDXLC_MONGO_USERNAME: ${LC_MONGO_USER}
+      SDXLC_MONGO_PASSWORD: ${LC_MONGO_PASS}
+      SDXLC_MONGO_DB: ${LC_MONGO_DB}
+      SDXLC_MONGO_COLLECTION: 'sdx_test'
+      SDXLC_MONGO_USER_COLLECTION: ${LC_MONGO_USER_COLLECTION}
+      SDX_OXPO: 'kytos'
+      SDX_NAME: 'Test-OXP'
+      SDX_VERSION: ${SDX_VERSION}
+      SDX_URL: 'test.net'
+      SDXLC_HOST: ${SDXLC_HOST}
+      SDXLC_PORT: ${SDXLC_PORT}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      KYTOS_URL: ${KYTOS_URL}
     depends_on:
-      - mongo1t
-      - mongo2t
-      - mongo3t
+      - mongo-ready
+      - rabbitmq3
+    entrypoint: ["/scripts/test_sdx_lc_kytos.sh"]
+
 
   mongo1t:
     container_name: mongo1t
@@ -246,6 +277,29 @@ services:
       MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
       MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
       MONGO_DBNAME: ${ROOT_MONGO_DB}
+
+  mongo-setup:
+    container_name: mongo-rs-init
+    image: sdx_mongo
+    restart: on-failure
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.9
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/rs-init.sh"]
+    env_file:
+      - .env
+    environment:
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_DBNAME: ${ROOT_MONGO_DB}
+    depends_on:
+      - mongo1t
+      - mongo2t
+      - mongo3t
 
   mongo-ready:
     container_name: mongo-test-ready

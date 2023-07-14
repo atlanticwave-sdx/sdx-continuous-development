@@ -63,6 +63,21 @@ tenet.createUser(
   }
 )
 
+sdx_test = db.getSiblingDB('sdx_test')
+use sdx_test
+sdx_test.createUser(
+  {
+    user: "sdx_test_user",
+    pwd: "sdx_test_pwd",
+    roles: [
+        {
+          role: "readWrite",
+          db: "sdx_test"
+        }
+    ]
+  }
+)
+
 sdx_lc = db.getSiblingDB('sdx_lc')
 use sdx_lc
 sdx_lc.createUser(
