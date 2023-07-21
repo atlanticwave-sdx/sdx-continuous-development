@@ -1,8 +1,8 @@
 #!/bin/bash
 
-AMLIGHT=http://127.0.0.1:8181
-SAX=http://127.0.0.1:8282
-TENET=http://127.0.0.1:8383
+AMLIGHT=http://0.0.0.0:8181
+SAX=http://0.0.0.0:8282
+TENET=http://0.0.0.0:8383
 
 # Enable all switches
 for sw in $(curl -s $AMLIGHT/api/kytos/topology/v3/switches | jq -r '.switches[].id'); do curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/switches/$sw/enable; curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/interfaces/switch/$sw/enable; done
