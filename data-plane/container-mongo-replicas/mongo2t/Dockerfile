@@ -1,4 +1,4 @@
-FROM sdx_mongo
+FROM sdx-mongo
 
 # custom label for the docker image
 LABEL version="0.1" maintainer="lmarinve@fiu.edu"
