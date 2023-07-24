@@ -29,27 +29,10 @@ services:
       MONGO_USERNAME: 'amlight_user'
       MONGO_PASSWORD: 'amlight_pwd'
       MONGO_DBNAME: 'amlight'
-      SDXLC_MONGO_USERNAME: ${LC_MONGO_USER}
-      SDXLC_MONGO_PASSWORD: ${LC_MONGO_PASS}
-      SDXLC_MONGO_DB: ${LC_MONGO_DB}
-      SDXLC_MONGO_COLLECTION: 'amlight'
-      SDXLC_MONGO_USER_COLLECTION: ${LC_MONGO_USER_COLLECTION}
       SDX_OXPO: 'kytos'
       SDX_NAME: 'Amlight-OXP'
       SDX_VERSION: ${SDX_VERSION}
       SDX_URL: 'amlight.net'
-      SDXLC_HOST: ${SDXLC_HOST}
-      SDXLC_PORT: ${SDXLC_PORT}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -82,27 +65,10 @@ services:
       MONGO_USERNAME: 'sax_user'
       MONGO_PASSWORD: 'sax_pwd'
       MONGO_DBNAME: 'sax'
-      SDXLC_MONGO_USERNAME: ${LC_MONGO_USER}
-      SDXLC_MONGO_PASSWORD: ${LC_MONGO_PASS}
-      SDXLC_MONGO_DB: ${LC_MONGO_DB}
-      SDXLC_MONGO_COLLECTION: 'sax'
-      SDXLC_MONGO_USER_COLLECTION: ${LC_MONGO_USER_COLLECTION}
       SDX_OXPO: 'kytos'
       SDX_NAME: 'Ampath-OXP'
       SDX_VERSION: ${SDX_VERSION}
       SDX_URL: 'ampath.net'
-      SDXLC_HOST: ${SDXLC_HOST}
-      SDXLC_PORT: ${SDXLC_PORT}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -135,27 +101,10 @@ services:
       MONGO_USERNAME: 'tenet_user'
       MONGO_PASSWORD: 'tenet_pwd'
       MONGO_DBNAME: 'tenet'
-      SDXLC_MONGO_USERNAME: ${LC_MONGO_USER}
-      SDXLC_MONGO_PASSWORD: ${LC_MONGO_PASS}
-      SDXLC_MONGO_DB: ${LC_MONGO_DB}
-      SDXLC_MONGO_COLLECTION: 'tenet'
-      SDXLC_MONGO_USER_COLLECTION: ${LC_MONGO_USER_COLLECTION}
       SDX_OXPO: 'kytos'
       SDX_NAME: 'tenet-oxp'
       SDX_VERSION: ${SDX_VERSION}
       SDX_URL: 'tenet.ac.za'
-      SDXLC_HOST: ${SDXLC_HOST}
-      SDXLC_PORT: ${SDXLC_PORT}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -163,7 +112,7 @@ services:
 
   sdx-test:
     container_name: sdx-test
-    image: sdx_test
+    image: sdx-test
     privileged: true
     tty: true
     restart: always
@@ -188,27 +137,10 @@ services:
       MONGO_USERNAME: 'sdx_test_user'
       MONGO_PASSWORD: 'sdx_test_pwd'
       MONGO_DBNAME: 'sdx_test'
-      SDXLC_MONGO_USERNAME: ${LC_MONGO_USER}
-      SDXLC_MONGO_PASSWORD: ${LC_MONGO_PASS}
-      SDXLC_MONGO_DB: ${LC_MONGO_DB}
-      SDXLC_MONGO_COLLECTION: 'sdx_test'
-      SDXLC_MONGO_USER_COLLECTION: ${LC_MONGO_USER_COLLECTION}
       SDX_OXPO: 'kytos'
       SDX_NAME: 'Test-OXP'
       SDX_VERSION: ${SDX_VERSION}
       SDX_URL: 'test.net'
-      SDXLC_HOST: ${SDXLC_HOST}
-      SDXLC_PORT: ${SDXLC_PORT}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
