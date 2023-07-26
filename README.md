@@ -44,7 +44,7 @@ SDX-LC: Acts as a bridge between the SDX Controller and the OXPOs.
 ## To clone the repository and its submodules, use the following bash commands:
 
 ```
-git clone --branch luisdev --recurse-submodules https://github.com/atlanticwave-sdx/sdx-continuous-development
+git clone --branch main --recurse-submodules https://github.com/atlanticwave-sdx/sdx-continuous-development
 
 cd sdx-continuous-development/
 ```
@@ -57,6 +57,10 @@ git submodule add -b main https://github.com/atlanticwave-sdx/sdx-controller dat
 git submodule add -b main https://github.com/atlanticwave-sdx/sdx-lc data-plane/container-sdx-lc/sdx-lc/
 
 git submodule add -b main https://github.com/atlanticwave-sdx/sdx-meican data-plane/container-sdx-meican/sdx-meican/
+
+git submodule add -b main https://github.com/atlanticwave-sdx/kytos-sdx-topology 
+
+git submodule set-branch -b validation sdx-lc
 
 git submodule update --init --recursive --remote
 
@@ -136,7 +140,7 @@ LC_MONGO_USER='sdx_lc_user'
 LC_MONGO_PASS='sdx_lc_pwd'
 LC_MONGO_DB='sdx_lc'
 LC_MONGO_USER_COLLECTION='user'
-SDX_VERSION='2.0.0'
+MODEL_VERSION='2.0.0'
 SDXLC_HOST='0.0.0.0'
 SDXLC_PORT='8080'
 SDX_MQ_IP='192.168.0.12'
