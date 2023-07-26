@@ -49,24 +49,6 @@ git clone --branch main --recurse-submodules https://github.com/atlanticwave-sdx
 cd sdx-continuous-development/
 ```
 
-### Creating Submodules
-
-```
-git submodule add -b main https://github.com/atlanticwave-sdx/sdx-controller data-plane/container-sdx-controller/sdx-controller/
-
-git submodule add -b main https://github.com/atlanticwave-sdx/sdx-lc data-plane/container-sdx-lc/sdx-lc/
-
-git submodule add -b main https://github.com/atlanticwave-sdx/sdx-meican data-plane/container-sdx-meican/sdx-meican/
-
-git submodule add -b main https://github.com/atlanticwave-sdx/kytos-sdx-topology 
-
-git submodule set-branch -b validation sdx-lc
-
-git submodule update --init --recursive --remote
-
-git config --file=.gitmodules -l
-```
-
 ### Environment Setup
 
 ## The sdx-continuous-development repository provides a setup script for configuring an Ubuntu environment to run the integration:
