@@ -24,7 +24,8 @@ ENV PYTHONUNBUFFERED 1
 # Install build dependencies
 RUN set -e
 RUN apt-get update
-RUN apt install python3-pip --assume-yes
+# RUN apt install python3-pip --assume-yes
+RUN apt-get install --no-install-recommends --assume-yes python3-pip netcat tmux
 
 WORKDIR /
 COPY os_base/flask_base/requirements.txt requirements.txt

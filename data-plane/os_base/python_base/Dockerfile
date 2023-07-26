@@ -17,5 +17,6 @@ ENV LANG=C.UTF-8
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
 COPY ./os_base/python_base/requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
