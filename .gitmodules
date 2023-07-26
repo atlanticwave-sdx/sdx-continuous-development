@@ -10,3 +10,5 @@
 	path = data-plane/container-kytos-sdx-topology
 	url = https://github.com/atlanticwave-sdx/kytos-sdx-topology
 	branch = main
+[submodule "sdx-lc"]
+	branch = integration
