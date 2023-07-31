@@ -14,10 +14,12 @@ services:
     ports:
       - 6653:6653
       - 8181:8181
+      - 8081:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs:/var/log/gunicorn
     env_file: 
       - .env
     environment:
@@ -72,10 +74,12 @@ services:
     ports:
       - 6654:6653
       - 8282:8181
+      - 8082:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs:/var/log/gunicorn
     env_file: 
       - .env
     environment:
@@ -130,10 +134,12 @@ services:
     ports:
       - 6655:6653
       - 8383:8181
+      - 8083:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs:/var/log/gunicorn
     env_file: 
       - .env
     environment:
@@ -187,12 +193,13 @@ services:
         ipv4_address: 192.168.0.5
     ports:
       - 6656:6653
-      - 8084:8080
       - 8484:8181
+      - 8084:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs:/var/log/gunicorn
     env_file: 
       - .env
     environment:
