@@ -19,7 +19,7 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-      - ./container-sdx-lc/logs:/var/log/gunicorn
+      - ./container-sdx-lc/logs/amlight:/var/log/amlight
     env_file: 
       - .env
     environment:
@@ -35,15 +35,16 @@ services:
       OXPO_NAME: 'Ampath-OXP'
       OXPO_URL: 'ampath.net'
       # SDX_LC Variables
-      #
-      DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: ${SDX_LC_DB_COLLECTION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'amlight-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
       SDXLC_DOMAIN: 'amlight'
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
       PUB_TOPIC: ${PUB_TOPIC}
       PUB_QUEUE: ${PUB_QUEUE}
       SUB_QUEUE: ${SUB_QUEUE}
@@ -79,7 +80,7 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-      - ./container-sdx-lc/logs:/var/log/gunicorn
+      - ./container-sdx-lc/logs/sax:/var/log/sax
     env_file: 
       - .env
     environment:
@@ -95,15 +96,16 @@ services:
       OXPO_NAME: 'Ampath-OXP'
       OXPO_URL: 'ampath.net'
       # SDX_LC Variables
-      #
-      DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: ${SDX_LC_DB_COLLECTION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      SDXLC_DOMAIN: 'amlight'
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      SDXLC_DOMAIN: 'sax'
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
       PUB_TOPIC: ${PUB_TOPIC}
       PUB_QUEUE: ${PUB_QUEUE}
       SUB_QUEUE: ${SUB_QUEUE}
@@ -139,7 +141,7 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-      - ./container-sdx-lc/logs:/var/log/gunicorn
+      - ./container-sdx-lc/logs/tenet:/var/log/tenet
     env_file: 
       - .env
     environment:
@@ -155,15 +157,16 @@ services:
       OXPO_NAME: 'tenet-oxp'
       OXPO_URL: 'tenet.ac.za'
       # SDX_LC Variables
-      #
-      DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: ${SDX_LC_DB_COLLECTION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      SDXLC_DOMAIN: 'amlight'
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'tenet-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      SDXLC_DOMAIN: 'tenet'
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
       PUB_TOPIC: ${PUB_TOPIC}
       PUB_QUEUE: ${PUB_QUEUE}
       SUB_QUEUE: ${SUB_QUEUE}
@@ -199,7 +202,7 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-      - ./container-sdx-lc/logs:/var/log/gunicorn
+      - ./container-sdx-lc/logs/test:/var/log/test
     env_file: 
       - .env
     environment:
@@ -215,15 +218,16 @@ services:
       OXPO_NAME: 'Test-OXP'
       OXPO_URL: 'test.net'
       # SDX_LC Variables
-      #
-      DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: ${SDX_LC_DB_COLLECTION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      SDXLC_DOMAIN: 'amlight'
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'test-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      SDXLC_DOMAIN: 'test'
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
       PUB_TOPIC: ${PUB_TOPIC}
       PUB_QUEUE: ${PUB_QUEUE}
       SUB_QUEUE: ${SUB_QUEUE}
