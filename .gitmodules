@@ -6,10 +6,9 @@
 	path = data-plane/container-sdx-lc/sdx-lc
 	url = https://github.com/atlanticwave-sdx/sdx-lc
 	branch = integration
-	update = merge
+	merge = refs/heads/integration
 [submodule "data-plane/container-kytos-sdx-topology"]
 	path = data-plane/container-kytos-sdx-topology
 	url = https://github.com/atlanticwave-sdx/kytos-sdx-topology
-	branch = main
-[submodule "sdx-lc"]
-	branch = integration
+	branch = luisdev
+	merge = refs/heads/luisdev

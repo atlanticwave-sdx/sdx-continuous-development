@@ -14,17 +14,19 @@ services:
     ports:
       - 6653:6653
       - 8181:8181
+      - 8081:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs/amlight:/var/log/amlight
     env_file: 
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INITDB_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
       MONGO_USERNAME: 'amlight_user'
       MONGO_PASSWORD: 'amlight_pwd'
       MONGO_DBNAME: 'amlight'
@@ -32,6 +34,30 @@ services:
       OXPO: 'kytos'
       OXPO_NAME: 'Ampath-OXP'
       OXPO_URL: 'ampath.net'
+      # SDX_LC Variables
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'amlight-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      SDXLC_DOMAIN: 'amlight'
+      # change to local controller host name
+      SDXLC_HOST: ${SDX_LC_HOST}
+      SDXLC_PORT: ${SDX_LC_PORT}
+      SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      # change to local controller config (lcX_q1)
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
+      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
+      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
+      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -49,17 +75,19 @@ services:
     ports:
       - 6654:6653
       - 8282:8181
+      - 8082:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs/sax:/var/log/sax
     env_file: 
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INITDB_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
       MONGO_USERNAME: 'sax_user'
       MONGO_PASSWORD: 'sax_pwd'
       MONGO_DBNAME: 'sax'
@@ -67,6 +95,30 @@ services:
       OXPO: 'kytos'
       OXPO_NAME: 'Ampath-OXP'
       OXPO_URL: 'ampath.net'
+      # SDX_LC Variables
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      SDXLC_DOMAIN: 'sax'
+      # change to local controller host name
+      SDXLC_HOST: ${SDX_LC_HOST}
+      SDXLC_PORT: ${SDX_LC_PORT}
+      SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      # change to local controller config (lcX_q1)
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
+      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
+      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
+      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -84,17 +136,19 @@ services:
     ports:
       - 6655:6653
       - 8383:8181
+      - 8083:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs/tenet:/var/log/tenet
     env_file: 
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INITDB_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
       MONGO_USERNAME: 'tenet_user'
       MONGO_PASSWORD: 'tenet_pwd'
       MONGO_DBNAME: 'tenet'
@@ -102,6 +156,30 @@ services:
       OXPO: 'kytos'
       OXPO_NAME: 'tenet-oxp'
       OXPO_URL: 'tenet.ac.za'
+      # SDX_LC Variables
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'tenet-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      SDXLC_DOMAIN: 'tenet'
+      # change to local controller host name
+      SDXLC_HOST: ${SDX_LC_HOST}
+      SDXLC_PORT: ${SDX_LC_PORT}
+      SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      # change to local controller config (lcX_q1)
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
+      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
+      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
+      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -118,19 +196,20 @@ services:
         ipv4_address: 192.168.0.5
     ports:
       - 6656:6653
-      - 8084:8080
       - 8484:8181
+      - 8084:8080
     volumes:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
+      - ./container-sdx-lc/logs/test:/var/log/test
     env_file: 
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INITDB_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
+      MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
       MONGO_USERNAME: 'sdx_test_user'
       MONGO_PASSWORD: 'sdx_test_pwd'
       MONGO_DBNAME: 'sdx_test'
@@ -138,6 +217,30 @@ services:
       OXPO: 'kytos'
       OXPO_NAME: 'Test-OXP'
       OXPO_URL: 'test.net'
+      # SDX_LC Variables
+      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
+      SDXLC_MONGO_COLLECTION: 'test-sdx-lc'
+      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
+      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      SDXLC_DOMAIN: 'test'
+      # change to local controller host name
+      SDXLC_HOST: ${SDX_LC_HOST}
+      SDXLC_PORT: ${SDX_LC_PORT}
+      SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDX_MQ_IP: ${SDX_MQ_IP}
+      PUB_TOPIC: ${PUB_TOPIC}
+      PUB_QUEUE: ${PUB_QUEUE}
+      SUB_QUEUE: ${SUB_QUEUE}
+      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      # change to local controller config (lcX_q1)
+      SUB_TOPIC: ${SUB_TOPIC}
+      MQ_NAME: ${MQ_NAME}
+      MQ_HOST: ${MQ_HOST}
+      MQ_PORT: ${MQ_PORT}
+      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
+      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
+      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
+      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -161,9 +264,9 @@ services:
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
-      MONGO_DBNAME: ${ROOT_MONGO_DB}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
+      MONGO_DBNAME: ${ROOT_DB}
 
   mongo2t:
     container_name: mongo2t
@@ -182,9 +285,9 @@ services:
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
-      MONGO_DBNAME: ${ROOT_MONGO_DB}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
+      MONGO_DBNAME: ${ROOT_DB}
 
   mongo3t:
     container_name: mongo3t
@@ -203,9 +306,9 @@ services:
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
-      MONGO_DBNAME: ${ROOT_MONGO_DB}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
+      MONGO_DBNAME: ${ROOT_DB}
 
   mongo-setup:
     container_name: mongo-rs-init
@@ -222,9 +325,9 @@ services:
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
-      MONGO_DBNAME: ${ROOT_MONGO_DB}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
+      MONGO_DBNAME: ${ROOT_DB}
     depends_on:
       - mongo1t
       - mongo2t
@@ -245,9 +348,9 @@ services:
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INIT_ROOT_USERNAME: ${ROOT_MONGO_USER}
-      MONGO_INIT_ROOT_PASSWORD: ${ROOT_MONGO_PASS}
-      MONGO_DBNAME: ${ROOT_MONGO_DB}
+      MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
+      MONGO_DBNAME: ${ROOT_DB}
     depends_on:
       - mongo-setup
 
@@ -283,61 +386,6 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
 
-
-  my-mongodb:
-    image: mongo:3.7
-    container_name: mongodb-lc
-    ports:
-      - 27017:27017
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.13
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: sdx
-      MONGO_INITDB_ROOT_PASSWORD: passw
-      MONGODB_DATA_DIR: /data/db
-    volumes:
-      # named volumes
-      - ~/mongodb:/data/db
-
-  sdx-lc:
-    image: sdx-lc
-    container_name: sdx-lc
-    tty: true
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.14
-    ports:
-      - 8080:8080
-    env_file: 
-      - .env
-    environment:
-      MONGODB_CONNSTRING: ${LC_MONGODB_CONNSTRING}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      SDXLC_DOMAIN: 'amlight'
-      # change to local controller host name
-      SDXLC_HOST: ${SDXLC_HOST}
-      SDXLC_PORT: ${SDXLC_PORT}
-      SDXLC_VERSION: ${SDXLC_VERSION}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      DB_NAME: ${SDXLC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: ${SDXLC_DB_CONFIG_TABLE_NAME}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
-    volumes:
-      - ./scripts:/scripts
-    entrypoint: ["/scripts/sdx_lc.sh"]
-
   worker:
     container_name: "worker"
     image: worker
@@ -346,7 +394,7 @@ services:
       - ./scripts:/scripts
     networks:
       kytos_network:
-        ipv4_address: 192.168.0.15
+        ipv4_address: 192.168.0.13
     depends_on:
       - rabbitmq3
 
