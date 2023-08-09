@@ -47,7 +47,44 @@ SDX-LC: Acts as a bridge between the SDX Controller and the OXPOs.
 git clone --branch main --recurse-submodules https://github.com/atlanticwave-sdx/sdx-continuous-development
 
 cd sdx-continuous-development/
+
+git push --set-upstream origin main
+
 ```
+
+### Creating Submodules
+
+## Execute only If submodules are not created inside the data-plane directory, (skip the creating submodules steps if cloning the repository)
+
+
+```
+cd sdx-continuous-development/data-plane
+
+git submodule add -b main https://github.com/atlanticwave-sdx/sdx-controller container-sdx-controller/sdx-controller/
+
+git submodule add -b integration https://github.com/atlanticwave-sdx/sdx-lc container-sdx-lc/sdx-lc/
+
+git submodule add -b main https://github.com/atlanticwave-sdx/kytos-sdx-topology container-kytos-sdx-topology/
+
+git submodule add -b main https://github.com/atlanticwave-sdx/sdx-meican container-sdx-meican/sdx-meican/
+
+git submodule update --init --recursive --remote
+
+git config --file=.gitmodules -l
+
+git submodule set-branch -b integration data-plane/container-sdx-lc/sdx-lc
+
+git submodule set-branch -b luisdev data-plane/container-kytos-sdx-topology
+
+git submodule sync
+
+git submodule update --init --recursive --remote
+
+git config --file=.gitmodules -l
+
+```
+
+
 
 ### Environment Setup
 
