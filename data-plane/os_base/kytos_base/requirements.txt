@@ -42,7 +42,7 @@ packaging==23.1
 pathable==0.4.3
 pika==1.2.0
 pycurl==7.43.0.6
-pydantic==1.9.0
+pydantic==1.10.8
 Pygments==2.13.0
 PyJWT==2.4.0
 pymongo==4.1.0
