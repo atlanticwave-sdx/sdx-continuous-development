@@ -47,13 +47,50 @@ SDX-LC: Acts as a bridge between the SDX Controller and the OXPOs.
 git clone --branch main --recurse-submodules https://github.com/atlanticwave-sdx/sdx-continuous-development
 
 cd sdx-continuous-development/
+
+git push --set-upstream origin main
+
+```
+
+### Creating Submodules
+
+## Execute only If submodules are not created inside the data-plane directory, (skip the creating submodules steps if cloning the repository)
+
+
+```
+cd sdx-continuous-development/data-plane
+
+git submodule add -b main https://github.com/atlanticwave-sdx/sdx-controller container-sdx-controller/sdx-controller/
+
+git submodule add -b integration https://github.com/atlanticwave-sdx/sdx-lc container-sdx-lc/sdx-lc/
+
+git submodule add -b main https://github.com/atlanticwave-sdx/kytos-sdx-topology container-kytos-sdx-topology/
+
+git submodule add -b main https://github.com/atlanticwave-sdx/sdx-meican container-sdx-meican/sdx-meican/
+
+git submodule update --init --recursive --remote
+
+git config --file=.gitmodules -l
+
+git submodule set-branch -b integration data-plane/container-sdx-lc/sdx-lc
+
+git submodule set-branch -b luisdev data-plane/container-kytos-sdx-topology
+
+git submodule sync
+
+git submodule update --init --recursive --remote
+
+git config --file=.gitmodules -l
+
 ```
 
 ### Environment Setup
 
-## The sdx-continuous-development repository provides a setup script for configuring an Ubuntu environment to run the integration:
+## The sdx-continuous-development repository provides a setup script for configuring a Debian or  Ubuntu environment to run the integration:
 
 ```
+https://github.com/atlanticwave-sdx/sdx-continuous-development/blob/main/debian_local_setup.sh
+
 https://github.com/atlanticwave-sdx/sdx-continuous-development/blob/main/ubuntu_local_setup.sh
 
 The script configures the host machine with Python, Docker, and Docker Compose.
@@ -63,6 +100,7 @@ The script configures the host machine with Python, Docker, and Docker Compose.
 
 ## After the environment setup, navigate to the cloned repository directory. Run the following commands to build the required components:
 
+```
 ./1_build_kytos.sh
 
 ./2_build_oxpos.sh
@@ -70,11 +108,10 @@ The script configures the host machine with Python, Docker, and Docker Compose.
 ./3_build_mongo.sh
 
 ```
-These commands update the submodules and build the Kytos-ng components, the OXPOs, and the MongoDB container.
-Applying Patches
-The repository may require patches for specific configurations or bug fixes.
-Apply the necessary patches as described in the repository documentation.
-```
+* These commands update the submodules and build the Kytos-ng components, the OXPOs, and the MongoDB container.
+* Applying Patches
+* The repository may require patches for specific configurations or bug fixes.
+* Apply the necessary patches as described in the repository documentation.
 
 ### Running the Integration
 
