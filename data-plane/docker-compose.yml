@@ -399,6 +399,19 @@ services:
     depends_on:
       - rabbitmq3
 
+  validator:
+    container_name: validator
+    image: validator
+    privileged: true
+    tty: true
+    restart: always
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.14
+    ports:
+      - 8000:8000
+    entrypoint: ["/container-validator/entrypoint_validator.sh"]
+
 networks:
   kytos_network:
     ipam:
