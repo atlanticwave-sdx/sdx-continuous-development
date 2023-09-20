@@ -460,7 +460,7 @@ services:
       KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
-      - rabbitmq30
+      - rabbitmq3
     entrypoint: [ "gunicorn", "swagger_server.__main__:app", "-b", "0.0.0.0:8080" ]
 
   sax-sdx-lc:
@@ -517,7 +517,7 @@ services:
       KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
-      - rabbitmq30
+      - rabbitmq3
     entrypoint: [ "gunicorn", "swagger_server.__main__:app", "-b", "0.0.0.0:8080" ]
 
   tenet-sdx-lc:
