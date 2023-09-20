@@ -16,16 +16,6 @@ while ! nc -z 192.168.0.8 27029; do
 done
 
 tmux new-sess -d -s k1 kytosd -f --database mongodb
-touch /var/log/sax/access_sdx_lc.log
-touch /var/log/sax/error_sdx_lc.log
 touch /var/log/sax/kytos.log
 tail -f /var/log/sax/kytos.log
-pipenv install --dev
-pipenv run gunicorn 'swagger_server.__main__:app' -w 4 -b 0.0.0.0:8080 \
-        --daemon \
-        --access-logfile var/log/sax/access_sdx_lc.log \
-        --error-logfile var/log/sax/error_sdx_lc.log \
-        --capture-output \
-        --log-level='debug'
-
 exec "$@"
