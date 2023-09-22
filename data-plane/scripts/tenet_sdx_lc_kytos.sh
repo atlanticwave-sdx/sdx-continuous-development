@@ -16,6 +16,6 @@ while ! nc -z 192.168.0.8 27029; do
 done
 
 tmux new-sess -d -s k1 kytosd -f --database mongodb
-touch /var/log/kytos.log
+sudo touch /var/log/kytos.log
 tail -f /var/log/kytos.log
 exec "$@"
