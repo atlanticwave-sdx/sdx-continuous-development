@@ -34,8 +34,6 @@ def validate():
     validator = RequestValidator(spec)
     openapi_request = FlaskOpenAPIRequest(request)
     result = validator.validate(openapi_request)
-    print('############ result ####################')
-    print(result)
     if result.errors:
         errors = result.errors[0]
         if hasattr(errors, "schema_errors"):

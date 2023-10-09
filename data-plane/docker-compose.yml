@@ -38,8 +38,9 @@ services:
       SDXLC_MONGO_COLLECTION: 'amlight-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'amlight'
       # change to local controller host name
+      # SDXLC_DOMAIN: 'amlight'
+      SDXLC_DOMAIN: 'urn:sdx:topology:ampath.net'
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
@@ -97,8 +98,8 @@ services:
       SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'sax'
       # change to local controller host name
+      SDXLC_DOMAIN: 'sax'
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
@@ -156,8 +157,8 @@ services:
       SDXLC_MONGO_COLLECTION: 'tenet-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'tenet'
       # change to local controller host name
+      SDXLC_DOMAIN: 'tenet'
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
@@ -439,7 +440,7 @@ services:
       SDXLC_MONGO_COLLECTION: 'amlight-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'amlight'
+      SDXLC_DOMAIN: 'urn:sdx:topology:ampath.net'
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
