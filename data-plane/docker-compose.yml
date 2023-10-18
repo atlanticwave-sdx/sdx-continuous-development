@@ -91,8 +91,8 @@ services:
       MONGO_DBNAME: 'sax'
       MODEL_VERSION: ${MODEL_VERSION}
       OXPO: 'kytos'
-      OXPO_NAME: 'Ampath-OXP'
-      OXPO_URL: 'ampath.net'
+      OXPO_NAME: 'sax-oxp'
+      OXPO_URL: 'sax.net'
       # SDX_LC Variables
       SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
       SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
