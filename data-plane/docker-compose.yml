@@ -30,6 +30,7 @@ services:
       MONGO_PASSWORD: 'amlight_pwd'
       MONGO_DBNAME: 'amlight'
       MODEL_VERSION: ${MODEL_VERSION}
+      OXPO_ID: 0
       OXPO: 'kytos'
       OXPO_NAME: 'Ampath-OXP'
       OXPO_URL: 'ampath.net'
@@ -90,8 +91,9 @@ services:
       MONGO_PASSWORD: 'sax_pwd'
       MONGO_DBNAME: 'sax'
       MODEL_VERSION: ${MODEL_VERSION}
+      OXPO_ID: 1
       OXPO: 'kytos'
-      OXPO_NAME: 'sax-oxp'
+      OXPO_NAME: 'SAX-OXP'
       OXPO_URL: 'sax.net'
       # SDX_LC Variables
       SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
@@ -149,8 +151,9 @@ services:
       MONGO_PASSWORD: 'tenet_pwd'
       MONGO_DBNAME: 'tenet'
       MODEL_VERSION: ${MODEL_VERSION}
+      OXPO_ID: 2
       OXPO: 'kytos'
-      OXPO_NAME: 'tenet-oxp'
+      OXPO_NAME: 'Tenet-OXP'
       OXPO_URL: 'tenet.ac.za'
       # SDX_LC Variables
       SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
@@ -490,14 +493,14 @@ services:
       MONGO_DBNAME: 'sax'
       MODEL_VERSION: ${MODEL_VERSION}
       OXPO: 'kytos'
-      OXPO_NAME: 'Ampath-OXP'
-      OXPO_URL: 'ampath.net'
+      OXPO_NAME: 'SAX-OXP'
+      OXPO_URL: 'sax.net'
       # SDX_LC Variables
       SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
       SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'sax'
+      SDXLC_DOMAIN: 'urn:sdx:topology:sax.net'
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
@@ -547,14 +550,14 @@ services:
       MONGO_DBNAME: 'tenet'
       MODEL_VERSION: ${MODEL_VERSION}
       OXPO: 'kytos'
-      OXPO_NAME: 'tenet-oxp'
+      OXPO_NAME: 'Tenet-OXP'
       OXPO_URL: 'tenet.ac.za'
       # SDX_LC Variables
       SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
       SDXLC_MONGO_COLLECTION: 'tenet-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'tenet'
+      SDXLC_DOMAIN: 'urn:sdx:topology:tenet.ac.za'
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
