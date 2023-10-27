@@ -30,7 +30,7 @@ services:
       MONGO_PASSWORD: 'amlight_pwd'
       MONGO_DBNAME: 'amlight'
       MODEL_VERSION: ${MODEL_VERSION}
-      OXPO_ID: 0
+      OXPO_ID: 1
       OXPO: 'kytos'
       OXPO_NAME: 'Ampath-OXP'
       OXPO_URL: 'ampath.net'
@@ -39,8 +39,10 @@ services:
       SDXLC_MONGO_COLLECTION: 'amlight-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      # 
+      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
+      SDXLC_URLS: ${SDX_LC_URLS}
       # change to local controller host name
-      # SDXLC_DOMAIN: 'amlight'
       SDXLC_DOMAIN: 'urn:sdx:topology:ampath.net'
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
@@ -59,6 +61,9 @@ services:
       DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
       DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
       KYTOS_URL: ${KYTOS_URL}
+      KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
+      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
+      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -91,7 +96,7 @@ services:
       MONGO_PASSWORD: 'sax_pwd'
       MONGO_DBNAME: 'sax'
       MODEL_VERSION: ${MODEL_VERSION}
-      OXPO_ID: 1
+      OXPO_ID: 2
       OXPO: 'kytos'
       OXPO_NAME: 'SAX-OXP'
       OXPO_URL: 'sax.net'
@@ -100,6 +105,9 @@ services:
       SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      # 
+      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
+      SDXLC_URLS: ${SDX_LC_URLS}
       # change to local controller host name
       SDXLC_DOMAIN: 'sax'
       SDXLC_HOST: ${SDX_LC_HOST}
@@ -119,6 +127,9 @@ services:
       DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
       DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
       KYTOS_URL: ${KYTOS_URL}
+      KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
+      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
+      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -151,7 +162,7 @@ services:
       MONGO_PASSWORD: 'tenet_pwd'
       MONGO_DBNAME: 'tenet'
       MODEL_VERSION: ${MODEL_VERSION}
-      OXPO_ID: 2
+      OXPO_ID: 3
       OXPO: 'kytos'
       OXPO_NAME: 'Tenet-OXP'
       OXPO_URL: 'tenet.ac.za'
@@ -160,6 +171,9 @@ services:
       SDXLC_MONGO_COLLECTION: 'tenet-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      # 
+      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
+      SDXLC_URLS: ${SDX_LC_URLS}
       # change to local controller host name
       SDXLC_DOMAIN: 'tenet'
       SDXLC_HOST: ${SDX_LC_HOST}
@@ -179,6 +193,9 @@ services:
       DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
       DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
       KYTOS_URL: ${KYTOS_URL}
+      KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
+      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
+      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -211,6 +228,7 @@ services:
       MONGO_PASSWORD: 'sdx_test_pwd'
       MONGO_DBNAME: 'sdx_test'
       MODEL_VERSION: ${MODEL_VERSION}
+      OXPO_ID: 0
       OXPO: 'kytos'
       OXPO_NAME: 'Test-OXP'
       OXPO_URL: 'test.net'
@@ -219,8 +237,11 @@ services:
       SDXLC_MONGO_COLLECTION: 'test-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'test'
+      # 
+      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
+      SDXLC_URLS: ${SDX_LC_URLS}
       # change to local controller host name
+      SDXLC_DOMAIN: 'test'
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
@@ -238,6 +259,9 @@ services:
       DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
       DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
       KYTOS_URL: ${KYTOS_URL}
+      KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
+      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
+      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
       - rabbitmq3
