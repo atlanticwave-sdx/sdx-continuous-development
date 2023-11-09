@@ -31,36 +31,13 @@ services:
       MONGO_DBNAME: 'amlight'
       MODEL_VERSION: ${MODEL_VERSION}
       OXPO_ID: 1
-      OXPO: 'kytos'
-      OXPO_NAME: 'Ampath-OXP'
-      OXPO_URL: 'ampath.net'
-      # SDX_LC Variables
-      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
-      SDXLC_MONGO_COLLECTION: 'amlight-sdx-lc'
-      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
-      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      OXPOS: ${SDX_OXPOS}
+      OXPO_NAMES: ${SDX_OXPO_NAMES}
+      OXPO_URLS: ${SDX_OXPO_URLS}
       # 
       SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
       SDXLC_URLS: ${SDX_LC_URLS}
-      # change to local controller host name
-      SDXLC_DOMAIN: 'urn:sdx:topology:ampath.net'
-      SDXLC_HOST: ${SDX_LC_HOST}
-      SDXLC_PORT: ${SDX_LC_PORT}
-      SDXLC_VERSION: ${SDX_LC_VERSION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
+      KYTOS_PROVISION: ${KYTOS_PROVISION}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
       KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
@@ -97,36 +74,13 @@ services:
       MONGO_DBNAME: 'sax'
       MODEL_VERSION: ${MODEL_VERSION}
       OXPO_ID: 2
-      OXPO: 'kytos'
-      OXPO_NAME: 'SAX-OXP'
-      OXPO_URL: 'sax.net'
-      # SDX_LC Variables
-      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
-      SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
-      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
-      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      OXPOS: ${SDX_OXPOS}
+      OXPO_NAMES: ${SDX_OXPO_NAMES}
+      OXPO_URLS: ${SDX_OXPO_URLS}
       # 
       SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
       SDXLC_URLS: ${SDX_LC_URLS}
-      # change to local controller host name
-      SDXLC_DOMAIN: 'sax'
-      SDXLC_HOST: ${SDX_LC_HOST}
-      SDXLC_PORT: ${SDX_LC_PORT}
-      SDXLC_VERSION: ${SDX_LC_VERSION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
+      KYTOS_PROVISION: ${KYTOS_PROVISION}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
       KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
@@ -163,36 +117,13 @@ services:
       MONGO_DBNAME: 'tenet'
       MODEL_VERSION: ${MODEL_VERSION}
       OXPO_ID: 3
-      OXPO: 'kytos'
-      OXPO_NAME: 'Tenet-OXP'
-      OXPO_URL: 'tenet.ac.za'
-      # SDX_LC Variables
-      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
-      SDXLC_MONGO_COLLECTION: 'tenet-sdx-lc'
-      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
-      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      OXPOS: ${SDX_OXPOS}
+      OXPO_NAMES: ${SDX_OXPO_NAMES}
+      OXPO_URLS: ${SDX_OXPO_URLS}
       # 
       SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
       SDXLC_URLS: ${SDX_LC_URLS}
-      # change to local controller host name
-      SDXLC_DOMAIN: 'tenet'
-      SDXLC_HOST: ${SDX_LC_HOST}
-      SDXLC_PORT: ${SDX_LC_PORT}
-      SDXLC_VERSION: ${SDX_LC_VERSION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
+      KYTOS_PROVISION: ${KYTOS_PROVISION}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
       KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
@@ -229,36 +160,13 @@ services:
       MONGO_DBNAME: 'sdx_test'
       MODEL_VERSION: ${MODEL_VERSION}
       OXPO_ID: 0
-      OXPO: 'kytos'
-      OXPO_NAME: 'Test-OXP'
-      OXPO_URL: 'test.net'
-      # SDX_LC Variables
-      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
-      SDXLC_MONGO_COLLECTION: 'test-sdx-lc'
-      SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
-      SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
+      OXPOS: ${SDX_OXPOS}
+      OXPO_NAMES: ${SDX_OXPO_NAMES}
+      OXPO_URLS: ${SDX_OXPO_URLS}
       # 
       SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
       SDXLC_URLS: ${SDX_LC_URLS}
-      # change to local controller host name
-      SDXLC_DOMAIN: 'test'
-      SDXLC_HOST: ${SDX_LC_HOST}
-      SDXLC_PORT: ${SDX_LC_PORT}
-      SDXLC_VERSION: ${SDX_LC_VERSION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
+      KYTOS_PROVISION: ${KYTOS_PROVISION}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
       KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
@@ -455,21 +363,20 @@ services:
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_USERNAME: 'amlight_user'
-      MONGO_PASSWORD: 'amlight_pwd'
-      MONGO_DBNAME: 'amlight'
-      MODEL_VERSION: ${MODEL_VERSION}
-      OXPO: 'kytos'
-      OXPO_NAME: 'Ampath-OXP'
-      OXPO_URL: 'ampath.net'
+      # Oxpo variables
+      OXPO_ID: 1
+      OXPOS: ${SDX_OXPOS}
+      OXPO_NAMES: ${SDX_OXPO_NAMES}
+      OXPO_URLS: ${SDX_OXPO_URLS}
+      KYTOS_PROVISION: ${KYTOS_PROVISION}
       # SDX_LC Variables
-      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
-      SDXLC_MONGO_COLLECTION: 'amlight-sdx-lc'
+      DB_NAME: ${SDX_LC_DB_NAME}
+      DB_CONFIG_TABLE_NAME: 'amlight-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'urn:sdx:topology:ampath.net'
+      SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
       # change to local controller host name
-      SDXLC_HOST: ${SDX_LC_HOST}
+      SDXLC_HOST: 'aw-sdx-lc-1.renci.org'
       SDXLC_PORT: ${SDX_LC_PORT}
       SDXLC_VERSION: ${SDX_LC_VERSION}
       SDX_MQ_IP: ${SDX_MQ_IP}
@@ -477,19 +384,21 @@ services:
       PUB_QUEUE: ${PUB_QUEUE}
       SUB_QUEUE: ${SUB_QUEUE}
       SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
+      # change to local controller config (lc1_q1)
+      SUB_TOPIC: 'lc1_q1'
       MQ_NAME: ${MQ_NAME}
       MQ_HOST: ${MQ_HOST}
       MQ_PORT: ${MQ_PORT}
+      MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
+      MQ_USER: ${RABBITMQ_DEFAULT_USER}
+      MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
       DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
       DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
       DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: [ "gunicorn", "swagger_server.__main__:app", "-b", "0.0.0.0:8080" ]
+    entrypoint: ["python3", "-m", "swagger_server"]
 
   sax-sdx-lc:
     container_name: sax-sdx-lc
@@ -512,19 +421,18 @@ services:
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_USERNAME: 'sax_user'
-      MONGO_PASSWORD: 'sax_pwd'
-      MONGO_DBNAME: 'sax'
-      MODEL_VERSION: ${MODEL_VERSION}
-      OXPO: 'kytos'
-      OXPO_NAME: 'SAX-OXP'
-      OXPO_URL: 'sax.net'
+      # Oxpo variables
+      OXPO_ID: 2
+      OXPOS: ${SDX_OXPOS}
+      OXPO_NAMES: ${SDX_OXPO_NAMES}
+      OXPO_URLS: ${SDX_OXPO_URLS}
+      KYTOS_PROVISION: ${KYTOS_PROVISION}
       # SDX_LC Variables
-      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
-      SDXLC_MONGO_COLLECTION: 'sax-sdx-lc'
+      DB_NAME: ${SDX_LC_DB_NAME}
+      DB_CONFIG_TABLE_NAME: 'sax-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'urn:sdx:topology:sax.net'
+      SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
@@ -539,14 +447,16 @@ services:
       MQ_NAME: ${MQ_NAME}
       MQ_HOST: ${MQ_HOST}
       MQ_PORT: ${MQ_PORT}
+      MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
+      MQ_USER: ${RABBITMQ_DEFAULT_USER}
+      MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
       DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
       DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
       DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: [ "gunicorn", "swagger_server.__main__:app", "-b", "0.0.0.0:8080" ]
+    entrypoint: ["python3", "-m", "swagger_server"]
 
   tenet-sdx-lc:
     container_name: tenet-sdx-lc
@@ -569,19 +479,18 @@ services:
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_USERNAME: 'tenet_user'
-      MONGO_PASSWORD: 'tenet_pwd'
-      MONGO_DBNAME: 'tenet'
-      MODEL_VERSION: ${MODEL_VERSION}
-      OXPO: 'kytos'
-      OXPO_NAME: 'Tenet-OXP'
-      OXPO_URL: 'tenet.ac.za'
+      # Oxpo variables
+      OXPO_ID: 3
+      OXPOS: ${SDX_OXPOS}
+      OXPO_NAMES: ${SDX_OXPO_NAMES}
+      OXPO_URLS: ${SDX_OXPO_URLS}
+      KYTOS_PROVISION: ${KYTOS_PROVISION}
       # SDX_LC Variables
-      SDXLC_MONGO_DB: ${SDX_LC_DB_NAME}
-      SDXLC_MONGO_COLLECTION: 'tenet-sdx-lc'
+      DB_NAME: ${SDX_LC_DB_NAME}
+      DB_CONFIG_TABLE_NAME: 'tenet-sdx-lc'
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAIN: 'urn:sdx:topology:tenet.ac.za'
+      SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
       # change to local controller host name
       SDXLC_HOST: ${SDX_LC_HOST}
       SDXLC_PORT: ${SDX_LC_PORT}
@@ -596,14 +505,16 @@ services:
       MQ_NAME: ${MQ_NAME}
       MQ_HOST: ${MQ_HOST}
       MQ_PORT: ${MQ_PORT}
+      MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
+      MQ_USER: ${RABBITMQ_DEFAULT_USER}
+      MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
       DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
       DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
       DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
-      KYTOS_URL: ${KYTOS_URL}
     depends_on:
       - mongo-ready
       - rabbitmq3
-    entrypoint: [ "gunicorn", "swagger_server.__main__:app", "-b", "0.0.0.0:8080" ]
+    entrypoint: ["python3", "-m", "swagger_server"]
 
 networks:
   kytos_network:

@@ -20,3 +20,5 @@ ENV PYTHONUNBUFFERED 1
 
 COPY ./os_base/python_base/requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
+
+RUN mkdir -p /usr/src/app
