@@ -4,8 +4,8 @@
 # of the MIT license.  See the LICENSE file for details.
 
 # Base Image
-FROM debian:bullseye-slim
-
+# FROM debian:bullseye-slim
+FROM python:3.9-slim-bullseye
 # LABEL about the custom image
 LABEL maintainer="lmarinve@fiu.edu"
 LABEL version="0.1"
@@ -25,7 +25,10 @@ ENV PYTHONUNBUFFERED 1
 RUN set -e
 RUN apt-get update
 # RUN apt install python3-pip --assume-yes
-RUN apt-get install --no-install-recommends --assume-yes python3-pip netcat tmux
+RUN apt-get install --no-install-recommends --assume-yes python3-pip netcat tmux \
+gcc python3-dev git
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /
 COPY os_base/flask_base/requirements.txt requirements.txt

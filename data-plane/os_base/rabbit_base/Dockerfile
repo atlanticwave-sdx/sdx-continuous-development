@@ -4,7 +4,7 @@
 # of the MIT license.  See the LICENSE file for details.
 
 # Base Image
-FROM rabbitmq:3.8-management-alpine
+FROM rabbitmq:3.12.9-management-alpine
 
 # LABEL about the custom image
 LABEL maintainer="lmarinve@fiu.edu"

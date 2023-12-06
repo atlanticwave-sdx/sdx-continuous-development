@@ -43,7 +43,6 @@ services:
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
-      - rabbitmq3
     entrypoint: ["/scripts/amlight_sdx_lc_kytos.sh"]
 
   sax:
@@ -86,7 +85,6 @@ services:
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
-      - rabbitmq3
     entrypoint: ["/scripts/sax_sdx_lc_kytos.sh"]
 
   tenet:
@@ -129,7 +127,6 @@ services:
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
-      - rabbitmq3
     entrypoint: ["/scripts/tenet_sdx_lc_kytos.sh"]
 
   sdx-test:
@@ -172,7 +169,6 @@ services:
       KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
-      - rabbitmq3
     entrypoint: ["/scripts/test_sdx_lc_kytos.sh"]
 
 
@@ -301,6 +297,7 @@ services:
   rabbitmq3:
     container_name: "rabbitmq"
     image: sdx-rabbit
+    hostname: "rabbitmq-host"
     networks:
       kytos_network:
         ipv4_address: 192.168.0.12
@@ -314,18 +311,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-
-  worker:
-    container_name: "worker"
-    image: worker
-    volumes:
-      - ./container-sdx-controller/worker:/app
-      - ./scripts:/scripts
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.13
-    depends_on:
-      - rabbitmq3
 
   validator:
     container_name: validator
@@ -375,20 +360,19 @@ services:
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
       SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
-      # change to local controller host name
-      SDXLC_HOST: 'aw-sdx-lc-1.renci.org'
-      SDXLC_PORT: ${SDX_LC_PORT}
+      SDXLC_HOST: '192.168.0.15'
+      SDXLC_PORT: 8080
       SDXLC_VERSION: ${SDX_LC_VERSION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
+      # change to local controller host name
+      PUB_TOPIC: ${SDX_LC_PUB_TOPIC}
+      PUB_QUEUE: ${SDX_LC_PUB_QUEUE}
+      SUB_QUEUE: ${SDX_LC_SUB_QUEUE}
+      SUB_EXCHANGE: ${SDX_LC_SUB_EXCHANGE}
       # change to local controller config (lc1_q1)
-      SUB_TOPIC: 'lc1_q1'
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
+      SUB_TOPIC: ${SDX_LC_SUB_TOPIC}
+      MQ_NAME: ${SDX_LC_MQ_NAME}
+      MQ_HOST: ${SDX_LC_MQ_HOST}
+      MQ_PORT: ${SDX_LC_MQ_PORT}
       MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
@@ -433,20 +417,19 @@ services:
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
       SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
-      # change to local controller host name
-      SDXLC_HOST: ${SDX_LC_HOST}
-      SDXLC_PORT: ${SDX_LC_PORT}
+      SDXLC_HOST: '192.168.0.16'
+      SDXLC_PORT: 8080
       SDXLC_VERSION: ${SDX_LC_VERSION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
+      # change to local controller host name
+      PUB_TOPIC: ${SDX_LC_PUB_TOPIC}
+      PUB_QUEUE: ${SDX_LC_PUB_QUEUE}
+      SUB_QUEUE: ${SDX_LC_SUB_QUEUE}
+      SUB_EXCHANGE: ${SDX_LC_SUB_EXCHANGE}
+      # change to local controller config (lc1_q1)
+      SUB_TOPIC: ${SDX_LC_SUB_TOPIC}
+      MQ_NAME: ${SDX_LC_MQ_NAME}
+      MQ_HOST: ${SDX_LC_MQ_HOST}
+      MQ_PORT: ${SDX_LC_MQ_PORT}
       MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
@@ -491,20 +474,19 @@ services:
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
       SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
-      # change to local controller host name
-      SDXLC_HOST: ${SDX_LC_HOST}
-      SDXLC_PORT: ${SDX_LC_PORT}
+      SDXLC_HOST: '192.168.0.17'
+      SDXLC_PORT: 8080
       SDXLC_VERSION: ${SDX_LC_VERSION}
-      SDX_MQ_IP: ${SDX_MQ_IP}
-      PUB_TOPIC: ${PUB_TOPIC}
-      PUB_QUEUE: ${PUB_QUEUE}
-      SUB_QUEUE: ${SUB_QUEUE}
-      SUB_EXCHANGE: ${SUB_EXCHANGE}
-      # change to local controller config (lcX_q1)
-      SUB_TOPIC: ${SUB_TOPIC}
-      MQ_NAME: ${MQ_NAME}
-      MQ_HOST: ${MQ_HOST}
-      MQ_PORT: ${MQ_PORT}
+      # change to local controller host name
+      PUB_TOPIC: ${SDX_LC_PUB_TOPIC}
+      PUB_QUEUE: ${SDX_LC_PUB_QUEUE}
+      SUB_QUEUE: ${SDX_LC_SUB_QUEUE}
+      SUB_EXCHANGE: ${SDX_LC_SUB_EXCHANGE}
+      # change to local controller config (lc1_q1)
+      SUB_TOPIC: ${SDX_LC_SUB_TOPIC}
+      MQ_NAME: ${SDX_LC_MQ_NAME}
+      MQ_HOST: ${SDX_LC_MQ_HOST}
+      MQ_PORT: ${SDX_LC_MQ_PORT}
       MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
@@ -514,6 +496,40 @@ services:
     depends_on:
       - mongo-ready
       - rabbitmq3
+    entrypoint: ["python3", "-m", "swagger_server"]
+
+  sdx-controller:
+    container_name: sdx-controller
+    image: sdx-controller
+    privileged: true
+    restart: always
+    depends_on:
+      - mongo-ready
+      - rabbitmq3
+    tty: true
+    networks:
+      kytos_network:
+        ipv4_address: 192.168.0.20
+    ports:
+      - 8080:8080
+    env_file:
+      - .env
+    environment:
+      # Use mongodb-service specified above.  Note that we do not use
+      # the same MONGODB_CONNSTRING variable from .env here, because
+      # that is helpful for running unit/integration tests.
+      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
+      SDX_VERSION: ${SDX_VERSION}
+      MQ_HOST: ${SDX_CONTROLLER_MQ_HOST}
+      MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
+      MQ_USER: ${RABBITMQ_DEFAULT_USER}
+      MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
+      SUB_TOPIC: ${SDX_CONTROLLER_SUB_TOPIC}
+      SUB_QUEUE: ${SDX_CONTROLLER_SUB_QUEUE}
+      DB_NAME: ${SDX_LC_DB_NAME}
+      DB_CONFIG_TABLE_NAME: 'sdx-controller'
     entrypoint: ["python3", "-m", "swagger_server"]
 
 networks:
