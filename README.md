@@ -44,7 +44,7 @@ SDX-LC: Acts as a bridge between the SDX Controller and the OXPOs.
 ## To clone the repository and its submodules, use the following bash commands:
 
 ```
-git clone --branch main --recurse-submodules https://github.com/atlanticwave-sdx/sdx-continuous-development
+git clone --branch luisdev --recurse-submodules https://github.com/atlanticwave-sdx/sdx-continuous-development
 
 cd sdx-continuous-development/
 
@@ -60,21 +60,20 @@ git push --set-upstream origin main
 ```
 cd sdx-continuous-development/data-plane
 
-git submodule add -b main https://github.com/atlanticwave-sdx/sdx-controller container-sdx-controller/sdx-controller/
+git submodule add -b validation https://github.com/atlanticwave-sdx/sdx-controller container-sdx-controller/
 
-git submodule add -b integration https://github.com/atlanticwave-sdx/sdx-lc container-sdx-lc/sdx-lc/
+git submodule add -b validation https://github.com/atlanticwave-sdx/sdx-lc container-sdx-lc/
 
 git submodule add -b main https://github.com/atlanticwave-sdx/kytos-sdx-topology container-kytos-sdx-topology/
 
-git submodule add -b main https://github.com/atlanticwave-sdx/sdx-meican container-sdx-meican/sdx-meican/
+git submodule add -b main https://github.com/atlanticwave-sdx/sdx-meican container-sdx-meican/
 
 git submodule update --init --recursive --remote
 
 git config --file=.gitmodules -l
 
-git submodule set-branch -b integration data-plane/container-sdx-lc/sdx-lc
-
-git submodule set-branch -b luisdev data-plane/container-kytos-sdx-topology
+git submodule set-branch -b validation data-plane/container-sdx-lc
+git submodule set-branch -b validation data-plane/container-sdx-controller
 
 git submodule sync
 
@@ -152,10 +151,18 @@ MONGODB_CONNSTRING='mongodb://mongo1t:27027,mongo2t:27028,mongo3t:27029/?authSou
 MONGO_HOST_SEEDS='mongo1t:27027,mongo2t:27028,mongo3t:27029'
 ROOT_DB_USER='admin_user'
 ROOT_DB_PASS='admin_pwd'
+MONGO_INITDB_ROOT_USERNAME='admin_user'
+MONGO_INITDB_ROOT_PASSWORD='admin_pwd'
 ROOT_DB='admin'
 SDX_CONTROLLER_DB_USER='sdx_controller_user'
 SDX_CONTROLLER_DB_PASS='sdx_controller_pwd'
 SDX_CONTROLLER_DB='sdx_controller'
+SDX_VERSION='1.0.0'
+SDX_CONTROLLER_MQ_HOST='192.168.0.12'
+SDX_CONTROLLER_SUB_QUEUE='topo'
+SDX_CONTROLLER_SUB_TOPIC='sdx_q1'
+SDX_CONTROLLER_SUB_EXCHANGE=''
+DB_NAME='sdx_lc'
 SDX_OXPOS='kytos,kytos,kytos,kytos'
 SDX_OXPO_NAMES='Test-OXP,Ampath-OXP,SAX-OXP,Tenet-OXPO'
 SDX_OXPO_URLS='test.net,ampath.net,sax.net,tenet.ac.za'
@@ -169,15 +176,15 @@ SDX_LC_DB_USER='sdx_lc_user'
 SDX_LC_DB_PASS='sdx_lc_pwd'
 SDX_LC_USER_COLLECTION='user'
 SDX_TOPOLOGY_VALIDATOR='http://192.168.0.14:8000/validator/v1/validate'
-SDX_MQ_IP='192.168.0.12'
-PUB_TOPIC='topo'
-PUB_QUEUE='sdx_q1'
-SUB_QUEUE='connection'
-SUB_EXCHANGE='connection'
-SUB_TOPIC='lc1_q1'
-MQ_NAME='hello'
-MQ_HOST='192.168.0.12'
-MQ_PORT='5672'
+SDX_LC_MQ_IP='192.168.0.12'
+SDX_LC_MQ_NAME='hello'
+SDX_LC_MQ_HOST='192.168.0.12'
+SDX_LC_MQ_PORT='5672'
+SDX_LC_PUB_TOPIC='topo'
+SDX_LC_PUB_QUEUE='sdx_q1'
+SDX_LC_SUB_QUEUE='connection'
+SDX_LC_SUB_EXCHANGE='connection'
+SDX_LC_SUB_TOPIC='lc1_q1'
 RABBITMQ_DEFAULT_HOST='rabbitmq3'
 RABBITMQ_DEFAULT_USER='mq_user'
 RABBITMQ_DEFAULT_PASS='mq_pwd'
