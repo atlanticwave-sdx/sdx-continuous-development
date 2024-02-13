@@ -1,9 +1,7 @@
-FROM flask-base
+FROM controller-base
 
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-
 COPY ./container-sdx-controller /usr/src/app
 
-ENTRYPOINT ["python3"]
-CMD ["-m", "swagger_server"]
+# ENTRYPOINT ["python3"]
+# CMD ["-m", "uvicorn", "sdx_controller.app:asgi_app", "--host", "0.0.0.0", "--port", "8080"]
