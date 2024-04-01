@@ -18,7 +18,6 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-      - ./container-sdx-lc/logs/amlight:/var/log/amlight
     env_file: 
       - .env
     environment:
