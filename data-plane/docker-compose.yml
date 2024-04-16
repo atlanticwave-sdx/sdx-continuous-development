@@ -530,7 +530,7 @@ services:
       SLEEP_TIME: ${SLEEP_TIME}
       DB_NAME: ${SDX_LC_DB_NAME}
       DB_CONFIG_TABLE_NAME: 'sdx-controller'
-    entrypoint: ["python3", "-m", "swagger_server"]
+    entrypoint: ["python3", "-m", "uvicorn", "sdx_controller.app:asgi_app", "--host", "0.0.0.0", "--port", "8080"]
 
 networks:
   kytos_network:
