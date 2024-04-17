@@ -142,63 +142,14 @@ Gateway
 
 ```
 
-### Docker Compose use the following global constants from the .env file:
+### Environment variables for Docker Compose
+
+Docker compose use the global constants from the `.env` file. We provide a very simple `template.env` file as an example. You just have to run:
 
 ```
-JWT_SECRET_KEY='t1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
-MODEL_VERSION='1.0.0'
-MONGODB_CONNSTRING='mongodb://mongo1t:27027,mongo2t:27028,mongo3t:27029/?authSource=admin'
-MONGO_HOST_SEEDS='mongo1t:27027,mongo2t:27028,mongo3t:27029'
-ROOT_DB_USER='admin_user'
-ROOT_DB_PASS='admin_pwd'
-MONGO_INITDB_ROOT_USERNAME='admin_user'
-MONGO_INITDB_ROOT_PASSWORD='admin_pwd'
-ROOT_DB='admin'
-SDX_CONTROLLER_DB_USER='sdx_controller_user'
-SDX_CONTROLLER_DB_PASS='sdx_controller_pwd'
-SDX_CONTROLLER_DB='sdx_controller'
-SDX_VERSION='1.0.0'
-SDX_CONTROLLER_MQ_HOST='192.168.0.12'
-SDX_CONTROLLER_MQ_PORT='5672'
-SDX_CONTROLLER_SUB_QUEUE='topo'
-SDX_CONTROLLER_SUB_TOPIC='sdx_q1'
-SDX_CONTROLLER_SUB_EXCHANGE=''
-DB_NAME='sdx_lc'
-SDX_OXPOS='kytos,kytos,kytos,kytos'
-SDX_OXPO_NAMES='Test-OXP,Ampath-OXP,SAX-OXP,Tenet-OXPO'
-SDX_OXPO_URLS='test.net,ampath.net,sax.net,tenet.ac.za'
-SDX_LC_DOMAINS='urn:sdx:topology:test.net,urn:sdx:topology:ampath.net,urn:sdx:topology:sax.net,urn:sdx:topology:tenet.ac.za'
-SDX_LC_URLS='http://0.0.0.0:8080/SDX-LC/1.0.0/topology,http://192.168.0.15:8080/SDX-LC/1.0.0/topology,http://192.168.0.16:8080/SDX-LC/1.0.0/topology,http://192.168.0.17:8080/SDX-LC/1.0.0/topology'
-SDX_LC_HOST='0.0.0.0'
-SDX_LC_PORT='8080'
-SDX_LC_VERSION='1.0.0'
-SDX_LC_DB_NAME='sdx_lc'
-SDX_LC_DB_USER='sdx_lc_user'
-SDX_LC_DB_PASS='sdx_lc_pwd'
-SDX_LC_USER_COLLECTION='user'
-SDX_TOPOLOGY_VALIDATOR='http://192.168.0.14:8000/validator/v1/validate'
-SDX_LC_MQ_IP='192.168.0.12'
-SDX_LC_MQ_NAME='hello'
-SDX_LC_MQ_HOST='192.168.0.12'
-SDX_LC_MQ_PORT='5672'
-SDX_LC_PUB_TOPIC='topo'
-SDX_LC_PUB_QUEUE='sdx_q1'
-SDX_LC_SUB_QUEUE='connection'
-SDX_LC_SUB_EXCHANGE='connection'
-SDX_LC_SUB_TOPIC='lc1_q1'
-SLEEP_TIME='5'
-RABBITMQ_DEFAULT_HOST='rabbitmq3'
-RABBITMQ_DEFAULT_USER='mq_user'
-RABBITMQ_DEFAULT_PASS='mq_pwd'
-DOMAIN_CONTROLLER_URL='http://0.0.0.0:8080/sdx-lc/v2'
-DOMAIN_CONTROLLER_PULL_URL='http://0.0.0.0:8181/api/kytos/sdx_topology/v1/topology'
-DOMAIN_CONTROLLER_PULL_INTERVAL='180'
-KYTOS_PROVISION='http://0.0.0.0:8181/SDX-LC/1.0.0/provision'
-KYTOS_TOPOLOGY='http://0.0.0.0:8181/api/kytos/topology/v3/'
-KYTOS_SDX_TOPOLOGY='http://0.0.0.0:8181/api/kytos/sdx_topology/v1/topology'
-KYTOS_SDX_VERSION_CONTROL='http://0.0.0.0:8181/api/kytos/sdx_topology/v1/version/control'
-FLASK_APP='swagger_server/__main__:main'
+cp data-plane/template.env data-plane/.env
 ```
+
 
 
 ### Containers
