@@ -18,28 +18,24 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-    env_file: 
+    env_file:
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_USERNAME: 'amlight_user'
-      MONGO_PASSWORD: 'amlight_pwd'
-      MONGO_DBNAME: 'amlight'
+      MONGO_USERNAME: ${AMPATH_MONGO_USERNAME}
+      MONGO_PASSWORD: ${AMPATH_MONGO_PASSWORD}
+      MONGO_DBNAME: ${AMPATH_MONGO_DBNAME}
       MODEL_VERSION: ${MODEL_VERSION}
-      OXPO_ID: 1
-      OXPOS: ${SDX_OXPOS}
-      OXPO_NAMES: ${SDX_OXPO_NAMES}
-      OXPO_URLS: ${SDX_OXPO_URLS}
-      # 
+      OXPO_NAME: ${AMPATH_OXP_NAME}
+      OXPO_URL: ${AMPATH_OXP_URL}
+      #
       SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
-      SDXLC_URLS: ${SDX_LC_URLS}
-      KYTOS_PROVISION: ${KYTOS_PROVISION}
+      SDXLC_URL: ${AMPATH_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
       KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
-      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
     entrypoint: ["/scripts/amlight_sdx_lc_kytos.sh"]
@@ -60,28 +56,24 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-    env_file: 
+    env_file:
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_USERNAME: 'sax_user'
-      MONGO_PASSWORD: 'sax_pwd'
-      MONGO_DBNAME: 'sax'
+      MONGO_USERNAME: ${SAX_MONGO_USERNAME}
+      MONGO_PASSWORD: ${SAX_MONGO_PASSWORD}
+      MONGO_DBNAME: ${SAX_MONGO_DBNAME}
       MODEL_VERSION: ${MODEL_VERSION}
-      OXPO_ID: 2
-      OXPOS: ${SDX_OXPOS}
-      OXPO_NAMES: ${SDX_OXPO_NAMES}
-      OXPO_URLS: ${SDX_OXPO_URLS}
-      # 
+      OXPO_NAME: ${SAX_OXP_NAME}
+      OXPO_URL: ${SAX_OXP_URL}
+      #
       SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
-      SDXLC_URLS: ${SDX_LC_URLS}
-      KYTOS_PROVISION: ${KYTOS_PROVISION}
+      SDXLC_URL: ${SAX_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
       KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
-      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
     entrypoint: ["/scripts/sax_sdx_lc_kytos.sh"]
@@ -102,73 +94,27 @@ services:
       - ./tests:/tests
       - ./scripts:/scripts
       - ./etc/kytos:/etc/kytos
-    env_file: 
+    env_file:
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_USERNAME: 'tenet_user'
-      MONGO_PASSWORD: 'tenet_pwd'
-      MONGO_DBNAME: 'tenet'
+      MONGO_USERNAME: ${TENET_MONGO_USERNAME}
+      MONGO_PASSWORD: ${TENET_MONGO_PASSWORD}
+      MONGO_DBNAME: ${TENET_MONGO_DBNAME}
       MODEL_VERSION: ${MODEL_VERSION}
-      OXPO_ID: 3
-      OXPOS: ${SDX_OXPOS}
-      OXPO_NAMES: ${SDX_OXPO_NAMES}
-      OXPO_URLS: ${SDX_OXPO_URLS}
-      # 
+      OXPO_NAME: ${TENET_OXP_NAME}
+      OXPO_URL: ${TENET_OXP_URL}
+      #
       SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
-      SDXLC_URLS: ${SDX_LC_URLS}
-      KYTOS_PROVISION: ${KYTOS_PROVISION}
+      SDXLC_URL: ${TENET_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
       KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
-      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
     depends_on:
       - mongo-ready
     entrypoint: ["/scripts/tenet_sdx_lc_kytos.sh"]
-
-  sdx-test:
-    container_name: sdx-test
-    image: sdx-test
-    privileged: true
-    tty: true
-    restart: always
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.5
-    ports:
-      - 6656:6653
-      - 8484:8181
-    volumes:
-      - ./tests:/tests
-      - ./scripts:/scripts
-      - ./etc/kytos:/etc/kytos
-    env_file: 
-      - .env
-    environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
-      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_USERNAME: 'sdx_test_user'
-      MONGO_PASSWORD: 'sdx_test_pwd'
-      MONGO_DBNAME: 'sdx_test'
-      MODEL_VERSION: ${MODEL_VERSION}
-      OXPO_ID: 0
-      OXPOS: ${SDX_OXPOS}
-      OXPO_NAMES: ${SDX_OXPO_NAMES}
-      OXPO_URLS: ${SDX_OXPO_URLS}
-      # 
-      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
-      SDXLC_URLS: ${SDX_LC_URLS}
-      KYTOS_PROVISION: ${KYTOS_PROVISION}
-      KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
-      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
-      KYTOSSDX_VERSION_CONTROL: ${KYTOS_SDX_VERSION_CONTROL}
-    depends_on:
-      - mongo-ready
-    entrypoint: ["/scripts/test_sdx_lc_kytos.sh"]
 
 
   mongo1t:
@@ -340,44 +286,31 @@ services:
     volumes:
       - ./container-sdx-lc/logs/amlight:/var/log
       - ./scripts:/scripts
-    env_file: 
+    env_file:
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      # Oxpo variables
-      OXPO_ID: 1
-      OXPOS: ${SDX_OXPOS}
-      OXPO_NAMES: ${SDX_OXPO_NAMES}
-      OXPO_URLS: ${SDX_OXPO_URLS}
-      KYTOS_PROVISION: ${KYTOS_PROVISION}
-      # SDX_LC Variables
+      OXP_CONNECTION_URL: ${AMPATH_OXP_CONNECTION_URL}
+      OXP_PULL_URL: ${AMPATH_OXP_PULL_URL}
+      OXP_PULL_INTERVAL: ${OXP_PULL_INTERVAL}
       DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: 'amlight-sdx-lc'
+      DB_CONFIG_TABLE_NAME: ${AMPATH_LC_DB_NAME}
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
-      SDXLC_HOST: '192.168.0.15'
-      SDXLC_PORT: 8080
-      SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDXLC_DOMAIN: ${AMPATH_OXP_URL}
       # change to local controller host name
       PUB_TOPIC: ${SDX_LC_PUB_TOPIC}
       PUB_QUEUE: ${SDX_LC_PUB_QUEUE}
       SUB_QUEUE: ${SDX_LC_SUB_QUEUE}
       SUB_EXCHANGE: ${SDX_LC_SUB_EXCHANGE}
-      # change to local controller config (lc1_q1)
-      SUB_TOPIC: ${SDX_LC_SUB_TOPIC}
-      MQ_NAME: ${SDX_LC_MQ_NAME}
-      MQ_HOST: ${SDX_LC_MQ_HOST}
-      MQ_PORT: ${SDX_LC_MQ_PORT}
-      MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
+      SUB_TOPIC: ${AMPATH_OXP_URL}
+      MQ_HOST: ${RABBITMQ_HOST}
+      MQ_PORT: ${RABBITMQ_PORT}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -397,7 +330,7 @@ services:
     volumes:
       - ./container-sdx-lc/logs/sax:/var/log
       - ./scripts:/scripts
-    env_file: 
+    env_file:
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
@@ -405,36 +338,25 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
       # Oxpo variables
-      OXPO_ID: 2
-      OXPOS: ${SDX_OXPOS}
-      OXPO_NAMES: ${SDX_OXPO_NAMES}
-      OXPO_URLS: ${SDX_OXPO_URLS}
-      KYTOS_PROVISION: ${KYTOS_PROVISION}
+      OXP_CONNECTION_URL: ${SAX_OXP_CONNECTION_URL}
+      OXP_PULL_URL: ${SAX_OXP_PULL_URL}
+      OXP_PULL_INTERVAL: ${OXP_PULL_INTERVAL}
       # SDX_LC Variables
       DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: 'sax-sdx-lc'
+      DB_CONFIG_TABLE_NAME: ${SAX_LC_DB_NAME}
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
-      SDXLC_HOST: '192.168.0.16'
-      SDXLC_PORT: 8080
-      SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDXLC_DOMAIN: ${SAX_OXP_URL}
       # change to local controller host name
       PUB_TOPIC: ${SDX_LC_PUB_TOPIC}
       PUB_QUEUE: ${SDX_LC_PUB_QUEUE}
       SUB_QUEUE: ${SDX_LC_SUB_QUEUE}
       SUB_EXCHANGE: ${SDX_LC_SUB_EXCHANGE}
-      # change to local controller config (lc1_q1)
-      SUB_TOPIC: ${SDX_LC_SUB_TOPIC}
-      MQ_NAME: ${SDX_LC_MQ_NAME}
-      MQ_HOST: ${SDX_LC_MQ_HOST}
-      MQ_PORT: ${SDX_LC_MQ_PORT}
-      MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
+      SUB_TOPIC: ${SAX_OXP_URL}
+      MQ_HOST: ${RABBITMQ_HOST}
+      MQ_PORT: ${RABBITMQ_PORT}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -454,7 +376,7 @@ services:
     volumes:
       - ./container-sdx-lc/logs/tenet:/var/log
       - ./scripts:/scripts
-    env_file: 
+    env_file:
       - .env
     environment:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
@@ -462,36 +384,25 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
       # Oxpo variables
-      OXPO_ID: 3
-      OXPOS: ${SDX_OXPOS}
-      OXPO_NAMES: ${SDX_OXPO_NAMES}
-      OXPO_URLS: ${SDX_OXPO_URLS}
-      KYTOS_PROVISION: ${KYTOS_PROVISION}
+      OXP_CONNECTION_URL: ${TENET_OXP_CONNECTION_URL}
+      OXP_PULL_URL: ${TENET_OXP_PULL_URL}
+      OXP_PULL_INTERVAL: ${OXP_PULL_INTERVAL}
       # SDX_LC Variables
       DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: 'tenet-sdx-lc'
+      DB_CONFIG_TABLE_NAME: ${TENET_LC_DB_NAME}
       SDXLC_MONGO_USERNAME: ${SDX_LC_DB_USER}
       SDXLC_MONGO_PASSWOD: ${SDX_LC_DB_PASS}
-      SDXLC_DOMAINS: ${SDX_LC_DOMAINS}
-      SDXLC_HOST: '192.168.0.17'
-      SDXLC_PORT: 8080
-      SDXLC_VERSION: ${SDX_LC_VERSION}
+      SDXLC_DOMAIN: ${TENET_OXP_URL}
       # change to local controller host name
       PUB_TOPIC: ${SDX_LC_PUB_TOPIC}
       PUB_QUEUE: ${SDX_LC_PUB_QUEUE}
       SUB_QUEUE: ${SDX_LC_SUB_QUEUE}
       SUB_EXCHANGE: ${SDX_LC_SUB_EXCHANGE}
-      # change to local controller config (lc1_q1)
-      SUB_TOPIC: ${SDX_LC_SUB_TOPIC}
-      MQ_NAME: ${SDX_LC_MQ_NAME}
-      MQ_HOST: ${SDX_LC_MQ_HOST}
-      MQ_PORT: ${SDX_LC_MQ_PORT}
-      MQ_SRVC: ${RABBITMQ_DEFAULT_HOST}
+      SUB_TOPIC: ${TENET_OXP_URL}
+      MQ_HOST: ${RABBITMQ_HOST}
+      MQ_PORT: ${RABBITMQ_PORT}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
-      DOMAIN_CONTROLLER_URL: ${DOMAIN_CONTROLLER_URL}
-      DOMAIN_CONTROLLER_PULL_URL: ${DOMAIN_CONTROLLER_PULL_URL}
-      DOMAIN_CONTROLLER_PULL_INTERVAL: ${DOMAIN_CONTROLLER_PULL_INTERVAL}
     depends_on:
       - mongo-ready
       - rabbitmq3
@@ -520,16 +431,14 @@ services:
       MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      SDX_VERSION: ${SDX_VERSION}
-      MQ_HOST: ${SDX_CONTROLLER_MQ_HOST}
-      MQ_PORT: ${SDX_CONTROLLER_MQ_PORT}
+      MQ_HOST: ${RABBITMQ_HOST}
+      MQ_PORT: ${RABBITMQ_PORT}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
       SUB_TOPIC: ${SDX_CONTROLLER_SUB_TOPIC}
       SUB_QUEUE: ${SDX_CONTROLLER_SUB_QUEUE}
-      SLEEP_TIME: ${SLEEP_TIME}
-      DB_NAME: ${SDX_LC_DB_NAME}
-      DB_CONFIG_TABLE_NAME: 'sdx-controller'
+      DB_NAME: ${SDX_CONTROLLER_DB_NAME}
+      DB_CONFIG_TABLE_NAME: ${SDX_CONTROLLER_TABLE_NAME}
     entrypoint: ["python3", "-m", "uvicorn", "sdx_controller.app:asgi_app", "--host", "0.0.0.0", "--port", "8080"]
 
 networks:
