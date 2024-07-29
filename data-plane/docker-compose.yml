@@ -2,7 +2,7 @@ services:
 
   amlight:
     container_name: amlight
-    image: sdx-kytos
+    image: kytos-sdx
     privileged: true
     tty: true
     restart: always
@@ -29,7 +29,7 @@ services:
 
   sax:
     container_name: sax
-    image: sdx-kytos
+    image: kytos-sdx
     privileged: true
     tty: true
     restart: always
@@ -56,7 +56,7 @@ services:
 
   tenet:
     container_name: tenet
-    image: sdx-kytos
+    image: kytos-sdx
     privileged: true
     restart: always
     tty: true
