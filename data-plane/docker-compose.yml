@@ -82,6 +82,7 @@ services:
     command: tail -f /var/log/syslog
 
   mongo1t:
+    container_name: mongo1t
     image: mongo:7.0
     restart: always
     networks:
@@ -99,6 +100,7 @@ services:
       MONGO_DBNAME: ${ROOT_DB}
 
   mongo2t:
+    container_name: mongo2t
     image: mongo:7.0
     restart: always
     networks:
@@ -116,6 +118,7 @@ services:
       MONGO_DBNAME: ${ROOT_DB}
 
   mongo3t:
+    container_name: mongo3t
     image: mongo:7.0
     restart: always
     networks:
@@ -133,6 +136,7 @@ services:
       MONGO_DBNAME: ${ROOT_DB}
 
   mongo-setup:
+    container_name: mongo-setup
     image: mongo:7.0
     restart: on-failure
     networks:
@@ -152,6 +156,7 @@ services:
       - mongo3t
 
   mongo-ready:
+    container_name: mongo-ready
     image: mongo:7.0
     restart: on-failure
     networks:
@@ -179,6 +184,7 @@ services:
       - tenet
 
   rabbitmq:
+    container_name: rabbitmq
     image: rabbitmq:latest
     hostname: "rabbitmq-host"
     networks:
