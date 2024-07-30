@@ -24,7 +24,8 @@ services:
       SDXLC_URL: ${AMPATH_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
     depends_on:
-      - mongo-ready
+      mongo-ready:
+        condition: service_healthy
     command: tail -f /var/log/syslog
 
   sax:
@@ -51,7 +52,8 @@ services:
       SDXLC_URL: ${SAX_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
     depends_on:
-      - mongo-ready
+      mongo-ready:
+        condition: service_healthy
     command: tail -f /var/log/syslog
 
   tenet:
@@ -78,7 +80,8 @@ services:
       SDXLC_URL: ${TENET_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
     depends_on:
-      - mongo-ready
+      mongo-ready:
+        condition: service_healthy
     command: tail -f /var/log/syslog
 
   mongo1t:
@@ -162,6 +165,11 @@ services:
     networks:
       kytos_network:
         ipv4_address: 192.168.0.10
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet "mongodb://${SDX_CONTROLLER_DB_USER}:${SDX_CONTROLLER_DB_PASS}@${MONGO_HOST_SEEDS}/?authSource=${SDX_CONTROLLER_DB}"
+      interval: 5s
+      timeout: 5s
+      retries: 60
     volumes:
       - ./scripts:/scripts
     entrypoint: ["/scripts/rs-add.sh"]
@@ -187,6 +195,11 @@ services:
     container_name: rabbitmq
     image: rabbitmq:latest
     hostname: "rabbitmq-host"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 5s
+      retries: 60
     networks:
       kytos_network:
         ipv4_address: 192.168.0.12
@@ -232,8 +245,10 @@ services:
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
-      - mongo-ready
-      - rabbitmq
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   sax-sdx-lc:
     container_name: sax-sdx-lc
@@ -270,8 +285,10 @@ services:
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
-      - mongo-ready
-      - rabbitmq
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   tenet-sdx-lc:
     container_name: tenet-sdx-lc
@@ -308,8 +325,10 @@ services:
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
-      - mongo-ready
-      - rabbitmq
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   sdx-controller:
     container_name: sdx-controller
@@ -317,12 +336,16 @@ services:
     privileged: true
     restart: always
     depends_on:
-      - mongo-ready
-      - rabbitmq
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     tty: true
     networks:
       kytos_network:
         ipv4_address: 192.168.0.20
+    volumes:
+      - ./datamodel/src/sdx_datamodel:/opt/venv/lib/python3.9/site-packages/sdx_datamodel
     ports:
       - 8080:8080
     environment:
