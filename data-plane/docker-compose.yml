@@ -344,8 +344,6 @@ services:
     networks:
       kytos_network:
         ipv4_address: 192.168.0.20
-    volumes:
-      - ./datamodel/src/sdx_datamodel:/opt/venv/lib/python3.9/site-packages/sdx_datamodel
     ports:
       - 8080:8080
     environment:
