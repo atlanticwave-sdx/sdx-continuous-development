@@ -1,10 +1,8 @@
-version: '3.9'
-
 services:
 
   amlight:
     container_name: amlight
-    image: amlight
+    image: kytos-sdx
     privileged: true
     tty: true
     restart: always
@@ -14,12 +12,6 @@ services:
     ports:
       - 6653:6653
       - 8181:8181
-    volumes:
-      - ./tests:/tests
-      - ./scripts:/scripts
-      - ./etc/kytos:/etc/kytos
-    env_file:
-      - .env
     environment:
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_USERNAME: ${AMPATH_MONGO_USERNAME}
@@ -29,17 +21,16 @@ services:
       OXPO_NAME: ${AMPATH_OXP_NAME}
       OXPO_URL: ${AMPATH_OXP_URL}
       #
-      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
       SDXLC_URL: ${AMPATH_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
-      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
     depends_on:
-      - mongo-ready
-    entrypoint: ["/scripts/amlight_sdx_lc_kytos.sh"]
+      mongo-ready:
+        condition: service_healthy
+    command: tail -f /var/log/syslog
 
   sax:
     container_name: sax
-    image: sax
+    image: kytos-sdx
     privileged: true
     tty: true
     restart: always
@@ -49,12 +40,6 @@ services:
     ports:
       - 6654:6653
       - 8282:8181
-    volumes:
-      - ./tests:/tests
-      - ./scripts:/scripts
-      - ./etc/kytos:/etc/kytos
-    env_file:
-      - .env
     environment:
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_USERNAME: ${SAX_MONGO_USERNAME}
@@ -64,17 +49,16 @@ services:
       OXPO_NAME: ${SAX_OXP_NAME}
       OXPO_URL: ${SAX_OXP_URL}
       #
-      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
       SDXLC_URL: ${SAX_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
-      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
     depends_on:
-      - mongo-ready
-    entrypoint: ["/scripts/sax_sdx_lc_kytos.sh"]
+      mongo-ready:
+        condition: service_healthy
+    command: tail -f /var/log/syslog
 
   tenet:
     container_name: tenet
-    image: tenet
+    image: kytos-sdx
     privileged: true
     restart: always
     tty: true
@@ -84,12 +68,6 @@ services:
     ports:
       - 6655:6653
       - 8383:8181
-    volumes:
-      - ./tests:/tests
-      - ./scripts:/scripts
-      - ./etc/kytos:/etc/kytos
-    env_file:
-      - .env
     environment:
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_USERNAME: ${TENET_MONGO_USERNAME}
@@ -99,18 +77,16 @@ services:
       OXPO_NAME: ${TENET_OXP_NAME}
       OXPO_URL: ${TENET_OXP_URL}
       #
-      SDXTOPOLOGY_VALIDATOR: ${SDX_TOPOLOGY_VALIDATOR}
       SDXLC_URL: ${TENET_SDXLC_URL}
       KYTOS_TOPOLOGY: ${KYTOS_TOPOLOGY}
-      KYTOSSDX_TOPOLOGY: ${KYTOS_SDX_TOPOLOGY}
     depends_on:
-      - mongo-ready
-    entrypoint: ["/scripts/tenet_sdx_lc_kytos.sh"]
-
+      mongo-ready:
+        condition: service_healthy
+    command: tail -f /var/log/syslog
 
   mongo1t:
     container_name: mongo1t
-    image: sdx-mongo
+    image: mongo:7.0
     restart: always
     networks:
       kytos_network:
@@ -120,10 +96,7 @@ services:
     volumes:
       - ./os_base/mongo_base:/mongo_base
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27027" ]
-    env_file:
-      - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
@@ -131,7 +104,7 @@ services:
 
   mongo2t:
     container_name: mongo2t
-    image: sdx-mongo
+    image: mongo:7.0
     restart: always
     networks:
       kytos_network:
@@ -141,10 +114,7 @@ services:
     volumes:
       - ./os_base/mongo_base:/mongo_base
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27028" ]
-    env_file:
-      - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
@@ -152,7 +122,7 @@ services:
 
   mongo3t:
     container_name: mongo3t
-    image: sdx-mongo
+    image: mongo:7.0
     restart: always
     networks:
       kytos_network:
@@ -162,18 +132,15 @@ services:
     volumes:
       - ./os_base/mongo_base:/mongo_base
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--port", "27029" ]
-    env_file:
-      - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
       MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
       MONGO_DBNAME: ${ROOT_DB}
 
   mongo-setup:
-    container_name: mongo-rs-init
-    image: sdx-mongo
+    container_name: mongo-setup
+    image: mongo:7.0
     restart: on-failure
     networks:
       kytos_network:
@@ -181,8 +148,6 @@ services:
     volumes:
       - ./scripts:/scripts
     entrypoint: ["/scripts/rs-init.sh"]
-    env_file:
-      - .env
     environment:
       MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
       MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
@@ -194,28 +159,28 @@ services:
       - mongo3t
 
   mongo-ready:
-    container_name: mongo-test-ready
-    image: sdx-mongo
+    container_name: mongo-ready
+    image: mongo:7.0
+    pull_policy: always
     restart: on-failure
     networks:
       kytos_network:
         ipv4_address: 192.168.0.10
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet "mongodb://${SDX_CONTROLLER_DB_USER}:${SDX_CONTROLLER_DB_PASS}@${MONGO_HOST_SEEDS}/?authSource=${SDX_CONTROLLER_DB}"
+      interval: 5s
+      timeout: 5s
+      retries: 60
     volumes:
       - ./scripts:/scripts
     entrypoint: ["/scripts/rs-add.sh"]
-    env_file:
-      - .env
-    environment:
-      MONGO_HOST_SEEDS: ${MONGO_HOST_SEEDS}
-      MONGO_INIT_ROOT_USERNAME: ${ROOT_DB_USER}
-      MONGO_INIT_ROOT_PASSWORD: ${ROOT_DB_PASS}
-      MONGO_DBNAME: ${ROOT_DB}
     depends_on:
       - mongo-setup
 
   mininet:
     container_name: mininet
-    image: mininet
+    image: italovalcy/mininet:latest
+    pull_policy: always
     privileged: true
     tty: true
     networks:
@@ -223,15 +188,19 @@ services:
         ipv4_address: 192.168.0.11
     volumes:
       - /lib/modules:/lib/modules
-    depends_on:
-      - amlight
-      - sax
-      - tenet
+      - ./container-mininet/start_mininet.sh:/start_mininet.sh
+      - ./container-mininet/link-hosts.py:/link-hosts.py
+    entrypoint: ["/start_mininet.sh"]
 
-  rabbitmq3:
-    container_name: "rabbitmq"
-    image: sdx-rabbit
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:latest
     hostname: "rabbitmq-host"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 5s
+      retries: 60
     networks:
       kytos_network:
         ipv4_address: 192.168.0.12
@@ -240,26 +209,9 @@ services:
       - '5672:5672'
       # HTTP management UI
       - '15672:15672'
-    env_file:
-      - .env
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-
-  validator:
-    container_name: validator
-    image: validator
-    privileged: true
-    tty: true
-    restart: always
-    networks:
-      kytos_network:
-        ipv4_address: 192.168.0.14
-    ports:
-      - 8000:8000
-    volumes:
-      - ./scripts:/scripts
-    entrypoint: [ "gunicorn", "validator.app:app", "-b", "0.0.0.0:8000" ]
 
   amlight-sdx-lc:
     container_name: amlight-sdx-lc
@@ -272,10 +224,8 @@ services:
         ipv4_address: 192.168.0.15
     ports:
       - 8081:8080
-    env_file:
-      - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGODB_CONNSTRING: "mongodb://${SDX_LC_DB_USER}:${SDX_LC_DB_PASS}@${MONGO_HOST_SEEDS}/?authSource=${SDX_LC_DB_NAME}"
       OXP_CONNECTION_URL: ${AMPATH_OXP_CONNECTION_URL}
       OXP_PULL_URL: ${AMPATH_OXP_PULL_URL}
       OXP_PULL_INTERVAL: ${OXP_PULL_INTERVAL}
@@ -296,8 +246,10 @@ services:
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
-      - mongo-ready
-      - rabbitmq3
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   sax-sdx-lc:
     container_name: sax-sdx-lc
@@ -310,10 +262,8 @@ services:
         ipv4_address: 192.168.0.16
     ports:
       - 8082:8080
-    env_file:
-      - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGODB_CONNSTRING: "mongodb://${SDX_LC_DB_USER}:${SDX_LC_DB_PASS}@${MONGO_HOST_SEEDS}/?authSource=${SDX_LC_DB_NAME}"
       # Oxpo variables
       OXP_CONNECTION_URL: ${SAX_OXP_CONNECTION_URL}
       OXP_PULL_URL: ${SAX_OXP_PULL_URL}
@@ -336,8 +286,10 @@ services:
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
-      - mongo-ready
-      - rabbitmq3
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   tenet-sdx-lc:
     container_name: tenet-sdx-lc
@@ -350,10 +302,8 @@ services:
         ipv4_address: 192.168.0.17
     ports:
       - 8083:8080
-    env_file:
-      - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGODB_CONNSTRING: "mongodb://${SDX_LC_DB_USER}:${SDX_LC_DB_PASS}@${MONGO_HOST_SEEDS}/?authSource=${SDX_LC_DB_NAME}"
       # Oxpo variables
       OXP_CONNECTION_URL: ${TENET_OXP_CONNECTION_URL}
       OXP_PULL_URL: ${TENET_OXP_PULL_URL}
@@ -376,8 +326,10 @@ services:
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
       MQ_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
-      - mongo-ready
-      - rabbitmq3
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   sdx-controller:
     container_name: sdx-controller
@@ -385,18 +337,18 @@ services:
     privileged: true
     restart: always
     depends_on:
-      - mongo-ready
-      - rabbitmq3
+      mongo-ready:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     tty: true
     networks:
       kytos_network:
         ipv4_address: 192.168.0.20
     ports:
       - 8080:8080
-    env_file:
-      - .env
     environment:
-      MONGODB_CONNSTRING: ${MONGODB_CONNSTRING}
+      MONGODB_CONNSTRING: "mongodb://${SDX_CONTROLLER_DB_USER}:${SDX_CONTROLLER_DB_PASS}@${MONGO_HOST_SEEDS}/?authSource=${SDX_CONTROLLER_DB}"
       MQ_HOST: ${RABBITMQ_HOST}
       MQ_PORT: ${RABBITMQ_PORT}
       MQ_USER: ${RABBITMQ_DEFAULT_USER}
