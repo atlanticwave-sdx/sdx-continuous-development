@@ -161,6 +161,7 @@ services:
   mongo-ready:
     container_name: mongo-ready
     image: mongo:7.0
+    pull_policy: always
     restart: on-failure
     networks:
       kytos_network:
@@ -178,7 +179,8 @@ services:
 
   mininet:
     container_name: mininet
-    image: mininet
+    image: italovalcy/mininet:latest
+    pull_policy: always
     privileged: true
     tty: true
     networks:
@@ -186,10 +188,9 @@ services:
         ipv4_address: 192.168.0.11
     volumes:
       - /lib/modules:/lib/modules
-    depends_on:
-      - amlight
-      - sax
-      - tenet
+      - ./container-mininet/start_mininet.sh:/start_mininet.sh
+      - ./container-mininet/link-hosts.py:/link-hosts.py
+    entrypoint: ["/start_mininet.sh"]
 
   rabbitmq:
     container_name: rabbitmq
