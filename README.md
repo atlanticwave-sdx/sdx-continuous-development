@@ -74,5 +74,5 @@ Please refer to the following documentation for more information:
 - https://github.com/atlanticwave-sdx/sdx-controller/blob/main/README.md
 - https://github.com/atlanticwave-sdx/sdx-lc/blob/main/README.md
 - https://github.com/atlanticwave-sdx/kytos-sdx/blob/main/README.rst
-- https://sdx-docs.readthedocs.io/en/latest/sdx\_deploy\_single\_server.html
-- https://sdx-docs.readthedocs.io/en/latest/sdx\_deploy\_multi\_server.html
+- https://sdx-docs.readthedocs.io/en/latest/sdx_deploy_single_server.html
+- https://sdx-docs.readthedocs.io/en/latest/sdx_deploy_multi_server.html
