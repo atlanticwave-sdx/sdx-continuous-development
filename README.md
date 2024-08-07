@@ -1,6 +1,4 @@
-  <div align="center">
-    <h1><code>SDX-Continuous-Development</code></h1>
-  </div>
+# SDX Continuous Development
 
 Overview
 ========
