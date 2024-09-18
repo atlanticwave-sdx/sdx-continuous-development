@@ -194,7 +194,7 @@ services:
 
   rabbitmq:
     container_name: rabbitmq
-    image: rabbitmq:latest
+    image: rabbitmq:3.13
     hostname: "rabbitmq-host"
     healthcheck:
       test: rabbitmq-diagnostics -q ping

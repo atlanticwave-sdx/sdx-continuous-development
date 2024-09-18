@@ -100,3 +100,8 @@ ENV/
 # Auxilary files to test the controller
 aux_*.py
 aux_*.sh
+
+# Locally cloned sources for building container images.
+/data-plane/kytos-sdx/
+/data-plane/sdx-controller/
+/data-plane/sdx-lc/
