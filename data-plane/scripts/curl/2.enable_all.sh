@@ -23,6 +23,9 @@ curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/
 curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/switches/aa:00:00:00:00:00:00:03/metadata -d '{"lat": "30.27", "lng": "-81.68", "address": "Jacksonville", "iso3166_2_lvl4": "US-FL"}'
 curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/interfaces/aa:00:00:00:00:00:00:01:40/metadata -d '{"sdx_nni": "sax.net:Sax01:40"}'
 curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/interfaces/aa:00:00:00:00:00:00:02:40/metadata -d '{"sdx_nni": "sax.net:Sax02:40"}'
+curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/interfaces/aa:00:00:00:00:00:00:01:50/metadata -d '{"entities": ["h1", "Host H1"]}'
+curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/interfaces/aa:00:00:00:00:00:00:02:50/metadata -d '{"entities": ["h2", "Host H2"]}'
+curl -H 'Content-type: application/json' -X POST $AMLIGHT/api/kytos/topology/v3/interfaces/aa:00:00:00:00:00:00:03:50/metadata -d '{"entities": ["h3", "Host H3"]}'
 
 # SAX network operator role
 curl -H 'Content-type: application/json' -X POST $SAX/api/kytos/topology/v3/switches/dd:00:00:00:00:00:00:04/metadata -d '{"lat": "-3", "lng": "-40", "address": "Fortaleza", "iso3166_2_lvl4": "BR-CE"}'
@@ -31,6 +34,8 @@ curl -H 'Content-type: application/json' -X POST $SAX/api/kytos/topology/v3/inte
 curl -H 'Content-type: application/json' -X POST $SAX/api/kytos/topology/v3/interfaces/dd:00:00:00:00:00:00:04:41/metadata -d '{"sdx_nni": "tenet.ac.za:Tenet01:41"}'
 curl -H 'Content-type: application/json' -X POST $SAX/api/kytos/topology/v3/interfaces/dd:00:00:00:00:00:00:05:40/metadata -d '{"sdx_nni": "ampath.net:Ampath2:40"}'
 curl -H 'Content-type: application/json' -X POST $SAX/api/kytos/topology/v3/interfaces/dd:00:00:00:00:00:00:05:41/metadata -d '{"sdx_nni": "tenet.ac.za:Tenet02:41"}'
+curl -H 'Content-type: application/json' -X POST $SAX/api/kytos/topology/v3/interfaces/dd:00:00:00:00:00:00:04:50/metadata -d '{"entities": ["h4", "Host H4"]}'
+curl -H 'Content-type: application/json' -X POST $SAX/api/kytos/topology/v3/interfaces/dd:00:00:00:00:00:00:05:50/metadata -d '{"entities": ["h5", "Host H5"]}'
 
 # TENET operator
 curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/switches/cc:00:00:00:00:00:00:06/metadata -d '{"lat": "-33", "lng": "18", "address": "CapeTown", "iso3166_2_lvl4": "ZA-WC"}'
@@ -38,3 +43,6 @@ curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/sw
 curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/switches/cc:00:00:00:00:00:00:08/metadata -d '{"lat": "-33", "lng": "27", "address": "EastLondon", "iso3166_2_lvl4": "ZA-EC"}'
 curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/interfaces/cc:00:00:00:00:00:00:06:41/metadata -d '{"sdx_nni": "sax.net:Sax01:41"}'
 curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/interfaces/cc:00:00:00:00:00:00:07:41/metadata -d '{"sdx_nni": "sax.net:Sax02:41"}'
+curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/interfaces/cc:00:00:00:00:00:00:06:50/metadata -d '{"entities": ["h6", "Host H6"]}'
+curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/interfaces/cc:00:00:00:00:00:00:07:50/metadata -d '{"entities": ["h7", "Host H7"]}'
+curl -H 'Content-type: application/json' -X POST $TENET/api/kytos/topology/v3/interfaces/cc:00:00:00:00:00:00:08:50/metadata -d '{"entities": ["h8", "Host H8"]}'
