@@ -50,13 +50,13 @@ for oxp in 8181 8282 8383; do echo $oxp; curl -s -X POST http://127.0.0.1:$oxp/a
 
 7. To test if everything is working fine, you can start by checking if the topology is correctly identified by SDX-Controller:
 ```
-curl -s http://0.0.0.0:8080/SDX-Controller/1.0.0/topology | jq -r '.nodes[] | (.ports[] | .id)'
-curl -s http://0.0.0.0:8080/SDX-Controller/1.0.0/topology | jq -r '.links[] | .id + " " + .ports[0].id + " " + .ports[1].id'
+curl -s http://0.0.0.0:8080/SDX-Controller/topology | jq -r '.nodes[] | (.ports[] | .id)'
+curl -s http://0.0.0.0:8080/SDX-Controller/topology | jq -r '.links[] | .id + " " + .ports[0] + " " + .ports[1]'
 ```
 
 8. Try to create a connection creation request to SDX-Controller which should span requests to all other OXPs
 ```
-curl -s -X POST -H 'Content-type: application/json' http://0.0.0.0:8080/SDX-Controller/1.0.0/connection -d '{"name": "VLAN between AMPATH/300 and TENET/300", "endpoints": [{"port_id": "urn:sdx:port:ampath.net:Ampath3:50", "vlan": "300"}, {"port_id": "urn:sdx:port:tenet.ac.za:Tenet03:50", "vlan": "300"}]}'
+curl -s -X POST -H 'Content-type: application/json' http://0.0.0.0:8080/SDX-Controller/l2vpn/1.0 -d '{"name": "VLAN between AMPATH/300 and TENET/300", "endpoints": [{"port_id": "urn:sdx:port:ampath.net:Ampath3:50", "vlan": "300"}, {"port_id": "urn:sdx:port:tenet.ac.za:Tenet03:50", "vlan": "300"}]}'
 ```
 
 9. Check if the connection was created on each OXP:
